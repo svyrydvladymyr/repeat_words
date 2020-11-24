@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const renderPage = require('./modules/renderPage');
+const {pageNotFound} = require('./modules/service');
+const {renderPage} = require('./modules/renderPage');
 
 
 
@@ -62,8 +63,8 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
 //user pages
-// app.use('/:pageid$', (req, res) => {renderPage(req, res)});
-app.get('/$', (req, res, next) => {res.redirect('main')});
-app.get('*', (req, res) => {res.status(404).send(`<p style="text-align: center; color: red; margin: 200px auto; font: bold 30px Arial;">PAGE NOT FOUND!!!</p>`);});
+app.use('/:pageid$', (req, res) => {renderPage(req, res)});
+// app.get('/$', (req, res, next) => {res.redirect('index')});
+app.get('*', (req, res) => {res.status(404).send(pageNotFound);});
 
 app.listen(process.env.PORT || 4000, () => {console.log('Server is running...')});
