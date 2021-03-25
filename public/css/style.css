@@ -1,3 +1,47 @@
-.rw_header{
-    border-bottom: 3px solid red;
+.settings_box, 
+button {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
+
+.settings_box, 
+button {
+  cursor: pointer;
+}
+
+button {
+  outline: 0;
+  margin: 4px;
+  border: 1px solid #cfcfcf;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 17px;
+  color: #636363;
+}
+
+button[title] { border-radius: 7px }
+button[title='Send answer'] { width: 100px }
+
+button:hover {
+  box-shadow: 0px 0px 4px #c1c1c1;
+  color: #111111;
+}
+
+.settings_box {
+  border: 1px solid #d2d2d2;
+  border-radius: 13px;
+  background: #f6f6f6;
+  margin: 7px 5px;
+  padding: 5px;
+}
+.settings_box > p, h5 {
+  margin: 5px;
+  font-size: 14px;
+  color: #383838;
+  font-weight: bold;
+}
+
+

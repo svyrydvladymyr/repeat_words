@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <%- include("./parts/head.ejs") %>
+</head>
+<body>
+    <%- include("./parts/header.ejs") %>
+
+    
+    <div class="settings_box">
+        <h5>Lamg</h5>
+        <select id='voice-list'></select>
+    </div>
+    <div class="settings_box">
+        <h5>voice-spead</h5>
+        <input type="range" id="voice-spead" min="0.5" max="2" step="0.1">
+        <p><span id="voice-spead-label"></span> x</p>
+    </div>
+    <div class="settings_box">
+        <h5>voice-pitch</h5>
+        <input type="range" id="voice-pitch" min="0" max="2" step="0.1">
+        <p><span id="voice-pitch-label"></span></p>
+    </div>
+
+    <script src="./js/js.js"></script>
+    <script src='./js/icon.js'></script>
+
+    <script>
+        const synth = window.speechSynthesis;
+        let voices = [];
+
+        const voiceList = SE.$_('#voice-list')[0],
+              voiceSpead = SE.$_('#voice-spead')[0],
+              voicePitch = SE.$_('#voice-pitch')[0],
+              voiceSpeadLabel = SE.$_('#voice-spead-label')[0],
+              voicePitchLabel = SE.$_('#voice-pitch-label')[0],
+              voiceStorage = +localStorage.getItem("SpeakVoice"),
+              voiceSpeadStorage = +localStorage.getItem("SpeakSpeed"),
+              voicePitchStorage = +localStorage.getItem("SpeakPitch");
+
+        voiceSpead.value = voiceSpeadStorage === 0 ? 1 : voiceSpeadStorage;
+        voicePitch.value = voicePitchStorage === 0 ? 1 : voicePitchStorage;
+        voiceSpeadLabel.textContent = voiceSpead.value;
+        voicePitchLabel.textContent = voicePitch.value;
+
+        if(synth.onvoiceschanged !== undefined) { synth.onvoiceschanged = () => { 
+            voices = synth.getVoices()
+            var selectedIndex = voiceStorage === 0 ? 0 : voiceStorage;
+            voiceList.innerHTML = '';
+            voices.forEach((voice)=>{
+                var listItem = document.createElement('option');
+                listItem.textContent = voice.name;
+                listItem.setAttribute('data-lang', voice.lang);
+                listItem.setAttribute('data-name', voice.name);
+                voiceList.appendChild(listItem);
+            });
+            voiceList.selectedIndex = selectedIndex;            
+        }};
+
+        voiceSpead.addEventListener('change', () => { localStorage.setItem("SpeakSpeed", voiceSpead.value) });
+        voiceSpead.addEventListener('input', () => { voiceSpeadLabel.textContent = voiceSpead.value });
+
+        voicePitch.addEventListener('change', () => { localStorage.setItem("SpeakPitch", voicePitch.value) });
+        voicePitch.addEventListener('input', () => { voicePitchLabel.textContent = voicePitch.value });
+        
+        voiceList.addEventListener('change', () => { localStorage.setItem("SpeakVoice", voiceList.selectedIndex) });
+
+    </script>
+
+</body>
