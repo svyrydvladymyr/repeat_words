@@ -7,6 +7,11 @@
     <%- include("./parts/header.ejs") %>
 
     <input id='txtInput' value="helo" /> 
+    <br><br><br>
+
+    <textarea id="show-speach" cols="30" rows="3" ></textarea>
+    <br><br><br>
+    <p id="star-speach">start speach</p>
 
     <button id='btnSpeak'><i class='fas fa-volume-up'></i></button>
     <button id='btnSpeak'><i class='fas fa-info'></i></button>
@@ -43,8 +48,8 @@
 
     <script>
         const synth = window.speechSynthesis,
-              txtInput = SE.$_('#txtInput')[0],
-              btnSpeak = SE.$_('#btnSpeak')[0],
+              txtInput = $_('#txtInput')[0],
+              btnSpeak = $_('#btnSpeak')[0],
               voiceStorage = +localStorage.getItem("SpeakVoice"),
               voiceSpeadStorage = +localStorage.getItem("SpeakSpeed"),
               voicePitchStorage = +localStorage.getItem("SpeakPitch");

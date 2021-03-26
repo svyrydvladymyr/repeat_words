@@ -8,8 +8,17 @@
 
     
     <div class="settings_box">
+        <h5>Interface Lamg</h5>
+        <div>
+            <p class="ua">українська</p>
+            <p class="en">english</p>
+        </div>
+        <p></p>
+    </div>
+    <div class="settings_box">
         <h5>Lamg</h5>
         <select id='voice-list'></select>
+        <p></p>
     </div>
     <div class="settings_box">
         <h5>voice-spead</h5>
@@ -29,11 +38,11 @@
         const synth = window.speechSynthesis;
         let voices = [];
 
-        const voiceList = SE.$_('#voice-list')[0],
-              voiceSpead = SE.$_('#voice-spead')[0],
-              voicePitch = SE.$_('#voice-pitch')[0],
-              voiceSpeadLabel = SE.$_('#voice-spead-label')[0],
-              voicePitchLabel = SE.$_('#voice-pitch-label')[0],
+        const voiceList = $_('#voice-list')[0],
+              voiceSpead = $_('#voice-spead')[0],
+              voicePitch = $_('#voice-pitch')[0],
+              voiceSpeadLabel = $_('#voice-spead-label')[0],
+              voicePitchLabel = $_('#voice-pitch-label')[0],
               voiceStorage = +localStorage.getItem("SpeakVoice"),
               voiceSpeadStorage = +localStorage.getItem("SpeakSpeed"),
               voicePitchStorage = +localStorage.getItem("SpeakPitch");
@@ -42,6 +51,9 @@
         voicePitch.value = voicePitchStorage === 0 ? 1 : voicePitchStorage;
         voiceSpeadLabel.textContent = voiceSpead.value;
         voicePitchLabel.textContent = voicePitch.value;
+
+        localStorage.setItem("bbbbbbb", '5')
+        let x = localStorage.getItem("bbbbbbb")
 
         if(synth.onvoiceschanged !== undefined) { synth.onvoiceschanged = () => { 
             voices = synth.getVoices()

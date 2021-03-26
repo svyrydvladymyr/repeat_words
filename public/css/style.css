@@ -31,17 +31,37 @@ button:hover {
 }
 
 .settings_box {
-  border: 1px solid #d2d2d2;
-  border-radius: 13px;
-  background: #f6f6f6;
-  margin: 7px 5px;
-  padding: 5px;
+  min-width: 150px;
+  border: 10px solid #eaeaea;
+  border-radius: 8px;
+  background: #d8d8d8;
+  margin: -10px 5px;
+  padding: 10px;
+  color: #464646;
 }
+
 .settings_box > p, h5 {
   margin: 5px;
   font-size: 14px;
-  color: #383838;
   font-weight: bold;
 }
 
+.settings_box > h5 {
+  width: 110px;
+  text-align: center;
+}
+
+.settings_box > p {
+  width: 30px;
+}
+
+.settings_box > input, select {
+  width: 150px;
+}
+
+.settings_box > select {
+  border: 1px solid #98b1c5;
+  border-radius: 5px;
+  padding: 3px 4px;
+}
 
