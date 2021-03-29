@@ -6,14 +6,16 @@
 <body>
     <%- include("./parts/header.ejs") %>
 
-    <input id='txtInput' value="helo" /> 
+    <input id='txt-input' value="helo" /> 
     <br><br><br>
 
     <textarea id="show-speach" cols="30" rows="3" ></textarea>
     <br><br><br>
     <p id="star-speach">start speach</p>
 
-    <button id='btnSpeak'><i class='fas fa-volume-up'></i></button>
+    <p id="alert-message"></p>
+
+    <button id='btn-speak'><i class='fas fa-volume-up'></i></button>
     <button id='btnSpeak'><i class='fas fa-info'></i></button>
     <button id='btnSpeak'><i class='fas fa-question'></i></button>
     <button id='btnSpeak'><i class='fas fa-ellipsis-h'></i></button>
@@ -48,24 +50,25 @@
 
     <script>
         const synth = window.speechSynthesis,
-              txtInput = $_('#txtInput')[0],
-              btnSpeak = $_('#btnSpeak')[0],
+              txtInput = $_('#txt-input')[0],
+              btnSpeak = $_('#btn-speak')[0],
+              alertMessage = $_('#alert-message')[0],
               voiceStorage = +localStorage.getItem("SpeakVoice"),
               voiceSpeadStorage = +localStorage.getItem("SpeakSpeed"),
               voicePitchStorage = +localStorage.getItem("SpeakPitch");
         let voices = [];
-
-        if(synth.onvoiceschanged !== undefined) { synth.onvoiceschanged = () => { 
-            voices = synth.getVoices() 
-        }};
-
-        btnSpeak.addEventListener('click', ()=> {
-            var toSpeak = new SpeechSynthesisUtterance(txtInput.value);
-            toSpeak.voice = voices[voiceStorage === 0 ? 0 : voiceStorage];
-            toSpeak.rate = voiceSpeadStorage === 0 ? 1 : voiceSpeadStorage;
-            toSpeak.pitch = voicePitchStorage === 0 ? 1 : voicePitchStorage;
-            synth.speak(toSpeak);
-        });
+        if(synth.onvoiceschanged !== undefined) { 
+            synth.onvoiceschanged = () => { voices = synth.getVoices() };
+            btnSpeak.addEventListener('click', ()=> {                
+                var toSpeak = new SpeechSynthesisUtterance(txtInput.value);
+                toSpeak.voice = voices[voiceStorage === 0 ? 0 : voiceStorage];
+                toSpeak.rate = voiceSpeadStorage === 0 ? 1 : voiceSpeadStorage;
+                toSpeak.pitch = voicePitchStorage === 0 ? 1 : voicePitchStorage;
+                synth.speak(toSpeak);
+            });
+        } else {
+            alertMessage.textContent = 'Непрацює мовний модуль!'
+        };
     </script>
 
 </body>

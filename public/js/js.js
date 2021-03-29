@@ -13,6 +13,14 @@
     const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
     const SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent;
 
+
+    if (typeof SpeechRecognition !== "undefined") {
+
+    } else {
+        alertMessage.textContent = 'Непрацює мовний модуль!'
+    }
+
+
     const colors = {
         красный: 'red',
         оранжевый: 'orange',
