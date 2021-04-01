@@ -1,29 +1,56 @@
-.settings_box, 
-button {
+*{
+  box-sizing: border-box;
+}
+
+button,
+body,
+.settings_box,
+.time_scale_wrap {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
 
-.settings_box, 
-button {
+body {
+  flex-direction: column;
+}
+
+button,
+.settings_box {
   cursor: pointer;
+}
+
+.main_wrap {
+  border: 1px solid rgb(232 232 232);
+  border-radius: 15px;
+  max-width: 900px;
+  width: 100%;
+  padding: 15px;
 }
 
 button {
   outline: 0;
   margin: 4px;
   border: 1px solid #cfcfcf;
-  border-radius: 50%;
-  width: 36px;
+  border-radius: 12px;
+  min-width: 36px;
   height: 36px;
   font-size: 17px;
-  color: #636363;
+  background: #e4e4e4;
+  color: #4b7495;
+}
+
+button:disabled, button:disabled:hover {
+  border-color: #e6cccc;
+  background: #ffffff;
+  color: #a7a7a7;
+  cursor: no-drop;
 }
 
 button[title] { border-radius: 7px }
 button[title='Send answer'] { width: 100px }
+button[id='btn-listening'] > i { width: 22px; }
 
 button:hover {
   box-shadow: 0px 0px 4px #c1c1c1;
@@ -65,7 +92,6 @@ button:hover {
   padding: 3px 4px;
 }
 
-
 p[id="alert-message"] {
   display: block;
   width: 100%;
@@ -74,5 +100,12 @@ p[id="alert-message"] {
   text-align: center;
   font-size: 14px;
   font-weight: bold;
+}
+
+#time_scale {
+  height: 2px;
+  position: relative;
+  background: #a52d2d;
+  margin: 0px;
 }
 

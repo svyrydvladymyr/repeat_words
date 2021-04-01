@@ -31,13 +31,12 @@
         <p><span id="voice-pitch-label"></span></p>
     </div>
 
+    <p id="alert-message"></p>
+
     <script src="./js/js.js"></script>
     <script src='./js/icon.js'></script>
 
     <script>
-        const synth = window.speechSynthesis;
-        let voices = [];
-
         const voiceList = $_('#voice-list')[0],
               voiceSpead = $_('#voice-spead')[0],
               voicePitch = $_('#voice-pitch')[0],
@@ -47,13 +46,10 @@
               voiceSpeadStorage = +localStorage.getItem("SpeakSpeed"),
               voicePitchStorage = +localStorage.getItem("SpeakPitch");
 
-        voiceSpead.value = voiceSpeadStorage === 0 ? 1 : voiceSpeadStorage;
-        voicePitch.value = voicePitchStorage === 0 ? 1 : voicePitchStorage;
+        voiceSpead.value = voiceSpeadStorage === 0 || isNaN(voiceSpeadStorage) ? 1 : voiceSpeadStorage;
+        voicePitch.value = voicePitchStorage === 0 || isNaN(voicePitchStorage) ? 1 : voicePitchStorage;
         voiceSpeadLabel.textContent = voiceSpead.value;
         voicePitchLabel.textContent = voicePitch.value;
-
-        localStorage.setItem("bbbbbbb", '5')
-        let x = localStorage.getItem("bbbbbbb")
 
         if(synth.onvoiceschanged !== undefined) { synth.onvoiceschanged = () => { 
             voices = synth.getVoices()
@@ -77,6 +73,6 @@
         
         voiceList.addEventListener('change', () => { localStorage.setItem("SpeakVoice", voiceList.selectedIndex) });
 
-    </script>
 
+    </script>
 </body>
