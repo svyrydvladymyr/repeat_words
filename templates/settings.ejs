@@ -5,32 +5,39 @@
 </head>
 <body>
     <%- include("./parts/header.ejs") %>
-
+    <div class="main_wrap">
     
-    <div class="settings_box">
-        <h5>Interface Lamg</h5>
-        <div>
-            <p class="ua">українська</p>
-            <p class="en">english</p>
-        </div>
-        <p></p>
-    </div>
-    <div class="settings_box">
-        <h5>Lamg</h5>
-        <select id='voice-list'></select>
-        <p></p>
-    </div>
-    <div class="settings_box">
-        <h5>voice-spead</h5>
-        <input type="range" id="voice-spead" min="0.5" max="2" step="0.1">
-        <p><span id="voice-spead-label"></span> x</p>
-    </div>
-    <div class="settings_box">
-        <h5>voice-pitch</h5>
-        <input type="range" id="voice-pitch" min="0" max="2" step="0.1">
-        <p><span id="voice-pitch-label"></span></p>
-    </div>
+        <div class="settings_box">
+            <div class="lang_title_wrap">
+                <h5 id="settings-my-lang-title">My language</h5>
+                <img id="settings-my-lang">
+            </div>
 
+            <div id="settings-my-lang-box">
+
+
+            </div>
+            <p id="settings-my-lang-name"></p>
+        </div>
+
+
+        <div class="settings_box">
+            <h5>voice-list</h5>
+            <select id='voice-list'></select>
+            <p></p>
+        </div>
+        <div class="settings_box">
+            <h5>voice-spead</h5>
+            <input type="range" id="voice-spead" min="0.5" max="2" step="0.1">
+            <p><span id="voice-spead-label"></span> x</p>
+        </div>
+        <div class="settings_box">
+            <h5>voice-pitch</h5>
+            <input type="range" id="voice-pitch" min="0" max="2" step="0.1">
+            <p><span id="voice-pitch-label"></span></p>
+        </div>
+
+    </div>
     <p id="alert-message"></p>
 
     <script src="./js/js.js"></script>

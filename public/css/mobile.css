@@ -1,0 +1,3 @@
+.logo_wrap, .user_wrap { width: 100%; justify-content: center }
+.user_wrap { flex-direction: column }
+.user_wrap > p { text-align: center }
