@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const {pageNotFound} = require('./modules/service');
-const {renderMain, renderSettings} = require('./modules/renderPage');
+const {renderMain, renderSettings, renderFriends} = require('./modules/renderPage');
 
 
 
@@ -66,6 +66,7 @@ app.use(bodyParser.json());
 
 //pages
 app.use('/settings', (req, res) => {renderSettings(req, res)});
+app.use('/friends', (req, res) => {renderFriends(req, res)});
 app.use('/', (req, res) => {renderMain(req, res)});
 // app.use('/:pageid$', (req, res) => {renderPage(req, res)});
 

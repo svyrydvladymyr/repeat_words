@@ -10,7 +10,14 @@ const renderSettings = (req, res, err) => {
     });
 }
 
+const renderFriends = (req, res, err) => {
+    res.render(`friends`, {
+        userId : "userId"
+    });
+}
+
 module.exports = {
     renderMain,
-    renderSettings
+    renderSettings,
+    renderFriends
 };

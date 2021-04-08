@@ -1,3 +1,9 @@
 .logo_wrap, .user_wrap { width: 100%; justify-content: center }
 .user_wrap { flex-direction: column }
 .user_wrap > p { text-align: center }
+.settings_box { padding: 15px 0px }
+.settings_box > h5 { width: 100%; margin: 4px 0px 4px 0px }
+.settings_wrap { max-width: 100% }
+.settings_wrap > p { width: 24% }
+.settings_wrap > select { max-width: 100% }
+input[type=range] { max-width: 76%; width: 76% }

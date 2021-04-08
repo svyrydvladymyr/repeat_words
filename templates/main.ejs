@@ -5,76 +5,15 @@
 </head>
 <body>
     <%- include("./parts/header.ejs") %>
-
-
-    <div class="main_wrap">
-
-
-        <input id='txt-input' value="helo" /> 
-        <br><br><br>
-
-        <p id="show-speach"></p>
-        <br>
-
+    <div class="main_body">
+        <%- include("./parts/mainbody.ejs") %>
         <p id="alert-message"></p>
-
-        <button id='btn-speak'><i class='fas fa-volume-up'></i></button>
-        <button id='btn-listening'><i class='fas fa-microphone-alt'></i><p id="time_scale"></p></button>
-
-
-
-        <!-- <button id='btnSpeak'><i class='fas fa-info'></i></button>
-        <button id='btnSpeak'><i class='fas fa-question'></i></button>
-        <button id='btnSpeak'><i class='fas fa-ellipsis-h'></i></button>
-        <button id='btnSpeak'><i class='far fa-eye'></i></button>
-        <button id='btnSpeak'><i class='far fa-save'></i></button>
-        <button id='btnSpeak'><i class='far fa-frown'></i></button>
-        <button id='btnSpeak'><i class='far fa-grin'></i></button>
-        <button id='btnSpeak'><i class='fas fa-award'></i></button>
-        <button id='btnSpeak'><i class='far fa-file-alt'></i></button>
-        <button id='btnSpeak'><i class='fas fa-home'></i></button>
-        <button id='btnSpeak'><i class='far fa-calendar-alt'></i></button>
-        <button id='btnSpeak'><i class='far fa-address-card'></i></button>
-        <button id='btnSpeak'><i class='fas fa-reply'></i></button>
-        <button id='btnSpeak'><i class='fas fa-plus'></i></button>
-        <button id='btnSpeak'><i class='far fa-trash-alt'></i></button>
-        <button id='btnSpeak'><i class='far fa-thumbs-up'></i></button>
-        <button id='btnSpeak'><i class='far fa-thumbs-down'></i></button>
-        <button id='btnSpeak'><i class='fas fa-file-export'></i></button>
-        <button id='btnSpeak'><i class='fas fa-user-plus'></i></button>
-        <button id='btnSpeak' title="Send answer">Send &nbsp;<i class='far fa-paper-plane'></i></button>
-        <button id='btnSpeak'><i class='far fa-keyboard'></i></button>
-        <button id='btnSpeak'><i class='fas fa-user-times'></i></button>
-        <button id='btnSpeak'><i class='fa fa-th-list'></i></button>
-        <button id='btnSpeak'><i class='fa fa-list-alt'></i></button>
-        <button id='btnSpeak'><i class='fa fa-venus-mars'></i></button> -->
-
-            
     </div>
+    <%- include("./parts/footer.ejs") %>
 
     <script src="./js/js.js"></script>
     <script src="./js/speach_module.js"></script>
+    <script src="./js/listening_module.js"></script>
     <script src='./js/icon.js'></script>
-
-    <script>
-        const txtInput = $_('#txt-input')[0],
-              btnSpeak = $_('#btn-speak')[0],
-              voiceStorage = +localStorage.getItem("SpeakVoice"),
-              voiceSpeadStorage = +localStorage.getItem("SpeakSpeed"),
-              voicePitchStorage = +localStorage.getItem("SpeakPitch");
-
-        if(synth.onvoiceschanged !== undefined) { 
-            synth.onvoiceschanged = () => { voices = synth.getVoices() };
-            btnSpeak.addEventListener('click', ()=> {                
-                var toSpeak = new SpeechSynthesisUtterance(txtInput.value);
-                toSpeak.voice = voices[voiceStorage === 0 ? 0 : voiceStorage];
-                toSpeak.rate = voiceSpeadStorage === 0 || isNaN(voiceSpeadStorage) ? 1 : voiceSpeadStorage;
-                toSpeak.pitch = voicePitchStorage === 0 || isNaN(voicePitchStorage) ? 1 : voicePitchStorage;
-                synth.speak(toSpeak);
-            });
-        } else {
-            alertMessage.textContent = 'Непрацює мовний модуль!'
-        };
-    </script>
 
 </body>
