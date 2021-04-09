@@ -1,21 +1,7 @@
 :root{
-  /* --bg-color:#F1F1F1; -------------------------------------------------*/
-  /* --bg-color-content:#ffffff; -------------------------------------------------*/
-  /* --border:1px solid #2d5e8e; -------------------------------------------------*/
-  /* --border-5px:5px solid #2d5e8e; -------------------------------------------------*/
-  /* --border-2px:2px solid #616161; -------------------------------------------------*/
-  /* --border-15px:15px solid #e4e4e4; -------------------------------------------------*/
-  /* --main-font:'PT Sans', sans-serif; -------------------------------------------------*/
-  /* --box-shadow-main:0px 0px 5px #5c8ab9; -------------------------------------------------*/
-  /* --text-shadow-main:0px 0px 2px #5c8ab9; -------------------------------------------------*/
-  /* --border-radius-main:9px 9px 9px 9px; -------------------------------------------------*/
-  /* --button-background:linear-gradient(to bottom right, #13375a, #a3c1de, #143e67); -------------------------------------------------*/
-
   --main-color:#5681bf;
   --second-color:#687c9a;
   --third-color:#859fc4;
-  --main-border:2px solid #5681bf;
-  /* --second-color:#5c8ab9; -------------------------------------------------*/
 }
 
 *{ box-sizing: border-box }
@@ -74,13 +60,6 @@ button,
 .user_settings_list_wrap,
 .user_settings_list > li {
   cursor: pointer;
-}
-
-.settings_box,
-.user_foto > img,
-.user_login > span > img,
-p[id="alert-message"] {
-  width: 100%;
 }
 
 
@@ -146,7 +125,8 @@ p[id="alert-message"] {
   padding: 3px;
   margin: 5px;
   border-radius: 50%;
-  border: var(--main-border);
+  border: 2px solid;
+  border-color: var(--third-color);
 }
 .user_foto > img {
   border-radius: 50%;
@@ -163,7 +143,8 @@ p[id="alert-message"] {
   margin-left: 30px;
   background: #fff;
   border-radius: 50%;
-  border: var(--main-border);
+  border: 2px solid;
+  border-color: var(--third-color);
 }
 .user_settings_list_wrap > i {
   width: 25px;
@@ -176,16 +157,20 @@ p[id="alert-message"] {
   display: none;
   top: 35px;
   right: 5px;
-  min-width: 120px;
+  min-width: 20px;
   max-width: 200px;
+  opacity: 0;
+  font-size: 0px;
   padding: 0px 10px;
   margin: 0;
   border-radius: 9px;
-  border: var(--main-border);
+  border: 2px solid;
+  border-color: var(--third-color);
   background: #fff;
   list-style: none;
 }
 .user_settings_list_show { display: block }
+
 .user_settings_list::before { 
   content: '';
   position: absolute;
@@ -218,7 +203,8 @@ p[id="alert-message"] {
   width: 30%;
   padding: 3px;
   border-radius: 7px;
-  border: var(--main-border);
+  border: 2px solid;
+  border-color: var(--third-color);
 }
 .user_login > span > img { width: 100%; }
 .user_login > span:hover { border-width: 1px }
