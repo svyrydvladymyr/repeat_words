@@ -16,6 +16,8 @@ const renderFriends = (req, res, err) => {
     });
 }
 
+
+
 module.exports = {
     renderMain,
     renderSettings,

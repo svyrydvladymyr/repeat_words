@@ -2,6 +2,7 @@
   --main-color:#5681bf;
   --second-color:#687c9a;
   --third-color:#859fc4;
+  --fourth-color:#e8e8e8;
 }
 
 *{ box-sizing: border-box }
@@ -48,7 +49,8 @@ button,
 .settings_wrap,
 .time_scale_wrap,
 .user_login,
-.user_login > span {
+.user_login > a,
+.logo_wrap > span > a {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -56,7 +58,6 @@ button,
 }
 
 button, 
-.user_login > span,
 .user_settings_list_wrap,
 .user_settings_list > li {
   cursor: pointer;
@@ -99,8 +100,21 @@ button,
 
 /* logo -------------------------------------------------*/
 .logo_wrap { justify-content: flex-start }
-.logo_wrap img{ width: 60px }
 .logo_wrap p{ margin: 0px 0px 0px 7px }
+.logo_wrap > span,
+.logo_wrap > span > a { 
+  width: 64px;
+  height: 64px;
+}
+.logo_wrap > span > a { 
+  border: 5px solid;
+  border-radius: 8px;
+  color: var(--main-color);
+  font: bold 30px cursive;
+  text-decoration-line: none;
+  background: var(--fourth-color);
+  border-color: var(--main-color);
+}
 .logo_wrap p > a {   
   color: var(--main-color);
   font: bold 24px cursive;
@@ -170,7 +184,6 @@ button,
   list-style: none;
 }
 .user_settings_list_show { display: block }
-
 .user_settings_list::before { 
   content: '';
   position: absolute;
@@ -199,15 +212,16 @@ button,
   height: 60px;
   justify-content: space-around;
 }
-.user_login > span { 
+.user_login > a { 
   width: 30%;
   padding: 3px;
   border-radius: 7px;
   border: 2px solid;
   border-color: var(--third-color);
 }
-.user_login > span > img { width: 100%; }
-.user_login > span:hover { border-width: 1px }
+
+.user_login > a > img { width: 100%; }
+.user_login > a:hover { border-width: 1px }
 
 /* button -------------------------------------------------*/
 button {
@@ -239,9 +253,9 @@ button[id='btn-listening'] > i { width: 22px; }
 .settings_box {
   width: 100%;
   padding: 8px;
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid;
   font-size: 14px;  
-  color: #464646;
+  border-color: var(--fourth-color);
 }
 .settings_box:last-child {
   padding-bottom: 0px;
@@ -256,34 +270,37 @@ button[id='btn-listening'] > i { width: 22px; }
   padding: 4px;
   margin: 0;  
   text-align: center;
-  border: 5px solid #e8e8e8;
+  border: 5px solid;
   border-radius: 12px;
-  background: var(--third-color);
   color: #fff;
   font-weight: bold;
+  background-color: var(--third-color);
+  border-color: var(--fourth-color);
 }
 .settings_wrap > p {
   padding: 4px;
   margin: 0;
-  border: 5px solid #e8e8e8;
-  background: var(--second-color);
+  border: 5px solid;
   border-radius: 12px;
   width: 42px;
   color: #fff;
   font-size: 12px;
   font-weight: bold;
   text-align: center;
+  background-color: var(--second-color);
+  border-color: var(--fourth-color);
 }
 .settings_wrap > select {
   outline: 0;
-  border: 5px solid #e8e8e8;
-  background: var(--second-color);
+  border: 5px solid;
   border-radius: 12px;
   padding: 4px 4px;
   max-width: 350px;
   width: 100%;
   color: #fff;
   font-size: 12px;
+  background-color: var(--second-color);
+  border-color: var(--fourth-color);
 }
 input[type=range] {
   outline: 0;
@@ -291,10 +308,11 @@ input[type=range] {
   padding: 4px;
   max-width: 300px;
   width: 81%;
-  border: 5px solid #e8e8e8;
-  background-color: var(--second-color);
+  border: 5px solid;
   border-radius: 12px;
   -webkit-appearance: none;
+  border-color: var(--fourth-color);
+  background-color: var(--second-color);
 }
 input[type=range]::-webkit-slider-runnable-track {
   border: 0;
@@ -307,7 +325,7 @@ input[type=range]::-webkit-slider-runnable-track {
 input[type=range]::-webkit-slider-thumb {
   width: 10px;
   height: 10px;
-  background: #e8e8e8;
+  background: var(--fourth-color);
   border: solid rgba(215, 255, 255, 0.4);
   border-width: 8px 6px 8px 6px;
   border-radius: 3px;
