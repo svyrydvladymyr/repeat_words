@@ -2,8 +2,6 @@ const con = require('../db/connectToDB').con;
 const {token, clienttoken, pageNotFound, log} = require('./service');
 const Cookies = require('cookies');
 
-
-
 //render page if bad autorization 
 const renderNotPage = (req, res, err) => {
     res.render(`notfound`, {
@@ -153,6 +151,7 @@ const autorisationSetCookie = (req, res, user) => {
 const autorisationRouts = (req, res, err, user) => {
 
     console.log("routes", user);
+    
     if(err){
         (err === 'ER_SERVER') ? renderNotPage(req, res, 'error_server') : res.redirect('/');  
     } else {
