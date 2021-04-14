@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const {users} = require('./db/createDB');
+const {users, userssettings} = require('./db/createDB');
 const {log, accessLog} = require('./modules/service');
-const {autorisationRouts, autorisationSocial, passportStrategy} = require('./modules/autorisation.js');
-const {renderMain, renderSettings, renderFriends} = require('./modules/renderPage');
+const {autorisationSetCookie, autorisationSocial} = require('./modules/autorisation.js');
+const {renderPage} = require('./modules/renderPage');
 const passport = require('passport'); 
 const FacebookStrategy = require('passport-facebook').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -22,7 +22,12 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'displayName', 'name', 'gender', 'profileUrl', 'emails', 'picture.type(large)']
 }, function(accessToken, refreshToken, profile, done) {process.nextTick(() => {autorisationSocial(profile, done)})}));
 app.get('/facebook', passport.authenticate('facebook'));
-app.get('/facebookcallback', (req, res, next) => {passport.authenticate('facebook', (err, user, info) => {autorisationRouts(req, res, err, user)})(req, res, next)});
+app.get('/facebookcallback', (req, res, next) => {
+  passport.authenticate('facebook', (err, user, info) => {
+    err 
+      ? renderPage(req, res, 'main', err) 
+      : autorisationSetCookie(req, res, user);
+  })(req, res, next)});
 
 // Google Strategy
 passport.use(new GoogleStrategy({
@@ -32,7 +37,12 @@ passport.use(new GoogleStrategy({
     profileFields: ['id', 'displayName', 'name', 'gender', 'profileUrl', 'emails', 'picture.type(large)']
   }, (accessToken, refreshToken, profile, done) => {process.nextTick(() => {autorisationSocial(profile, done)})}));
 app.get('/google', passport.authenticate('google', {scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email']}));
-app.get('/googlecallback', (req, res, next) => {passport.authenticate('google', (err, user, info) => {autorisationRouts(req, res, err, user)})(req, res, next)});
+app.get('/googlecallback', (req, res, next) => {
+  passport.authenticate('google', (err, user, info) => {
+    err 
+      ? renderPage(req, res, 'main', err) 
+      : autorisationSetCookie(req, res, user);
+  })(req, res, next)});
   
 // // LinkedIn Strategy
 passport.use(new LinkedInStrategy({
@@ -42,7 +52,12 @@ passport.use(new LinkedInStrategy({
     profileFields: ['id', 'displayName', 'name', 'gender', 'profileUrl', 'emails', 'picture.type(large)']
   }, (accessToken, refreshToken, profile, done) => {process.nextTick(() => {autorisationSocial(profile, done)})}));
 app.get('/linkedin', passport.authenticate('linkedin'));
-app.get('/linkedincallback', (req, res, next) => {passport.authenticate('linkedin', (err, user, info) => {autorisationRouts(req, res, err, user)})(req, res, next)});
+app.get('/linkedincallback', (req, res, next) => {
+  passport.authenticate('linkedin', (err, user, info) => {
+    err 
+      ? renderPage(req, res, 'main', err) 
+      : autorisationSetCookie(req, res, user);
+  })(req, res, next)});
 
 //template engineer
 app.set('views', __dirname + '/templates'); 
@@ -53,15 +68,15 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
 //console logs
-app.use((req, res, next) => {log(`////////-${req.method}-//////////`, req.url); next();});
+app.use((req, res, next) => {log(`URL-REQUEST:-(${req.method})-`, req.url); next();});
 
 //system logs
 app.use((req, res, next) => {accessLog(req, res, next)});
 
 //pages
-app.use('/settings', (req, res) => {renderSettings(req, res)});
-app.use('/friends', (req, res) => {renderFriends(req, res)});
-app.use('/', (req, res) => {renderMain(req, res)});
+app.use('/settings', (req, res) => {renderPage(req, res, 'settings')});
+app.use('/friends', (req, res) => {renderPage(req, res, 'friends')});
+app.use('/', (req, res) => {renderPage(req, res)});
 
 app.get('/$', (req, res, next) => {res.redirect('index')});
 app.get('*', (req, res) => {res.status(404).send(pageNotFound);});

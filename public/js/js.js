@@ -10,9 +10,6 @@
     let voices = [];
 
 
-    // add alert message row
-    if ($_('.main_body').length > 0) { $_('.main_body')[0].innerHTML += '<p id="alert-message"></p>' };
-
     // dropdown menu
     const dropdowns = $_('.user_settings_list');
     const makeCounter = function() {
