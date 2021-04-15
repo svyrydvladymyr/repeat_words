@@ -4,23 +4,26 @@
         <p><a href="/">repeatWords</a></p>
     </div>
     <div class="user_wrap">
-        <!-- <p id="user_name">Свироид Володимир</p>
-        <div class="user_foto">
-            <img src="img/my_foto.jpg" alt="foto" id="user_foto">
-            <div class="user_settings_list_wrap">
-                <i class='fas fa-cogs' onclick="showSettingsList()"></i> 
-                <ul class="user_settings_list">
-                    <li><a href="/settings">settings</a></li>
-                    <li><a href="/friends">friends</a></li>
-                    <li><a href="/">exit</a></li>
-                </ul>
+        <% if (DATA.permission.permAuthorised === 1) { %>
+            <p id="user_name"><%=DATA.user.surname %> <%=DATA.user.name %></p>
+            <div class="user_foto">
+                <img src="<%=DATA.user.foto %>" alt="foto" id="user_foto">                
+                <div class="user_settings_list_wrap">
+                    <i class='fas fa-cogs' onclick="showSettingsList()"></i> 
+                    <ul class="user_settings_list">
+                        <li><a href="/settings">settings</a></li>
+                        <li><a href="/friends">friends</a></li>
+                        <li><a href="/">exit</a></li>
+                    </ul>
+                </div>
+            </div>  
+        <% } %>
+        <% if (DATA.permission.permAuthorised === 0) { %>
+            <div class="user_login">
+                <a href="/google"><img src="img/google.png" alt="google"></a>
+                <a href="/facebook"><img src="img/facebook.png" alt="facebook"></a>
+                <a href="/linkedin"><img src="img/linkedin.png" alt="facebook"></a>
             </div>
-        </div>   -->
-        
-        <div class="user_login">
-            <a href="/google"><img src="img/google.png" alt="google"></a>
-            <a href="/facebook"><img src="img/facebook.png" alt="facebook"></a>
-            <a href="/linkedin"><img src="img/linkedin.png" alt="facebook"></a>
-        </div>
+        <% } %>
     </div>
 </div>

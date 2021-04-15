@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const {users, userssettings} = require('./db/createDB');
 const {log, accessLog} = require('./modules/service');
-const {autorisationSetCookie, autorisationSocial} = require('./modules/autorisation.js');
+const {SetCookie, autorisationSocial} = require('./modules/autorisation.js');
 const {renderPage} = require('./modules/renderPage');
 const passport = require('passport'); 
 const FacebookStrategy = require('passport-facebook').Strategy;
@@ -26,7 +26,7 @@ app.get('/facebookcallback', (req, res, next) => {
   passport.authenticate('facebook', (err, user, info) => {
     err 
       ? renderPage(req, res, 'main', err) 
-      : autorisationSetCookie(req, res, user);
+      : SetCookie(req, res, user);
   })(req, res, next)});
 
 // Google Strategy
@@ -41,7 +41,7 @@ app.get('/googlecallback', (req, res, next) => {
   passport.authenticate('google', (err, user, info) => {
     err 
       ? renderPage(req, res, 'main', err) 
-      : autorisationSetCookie(req, res, user);
+      : SetCookie(req, res, user);
   })(req, res, next)});
   
 // // LinkedIn Strategy
@@ -56,7 +56,7 @@ app.get('/linkedincallback', (req, res, next) => {
   passport.authenticate('linkedin', (err, user, info) => {
     err 
       ? renderPage(req, res, 'main', err) 
-      : autorisationSetCookie(req, res, user);
+      : SetCookie(req, res, user);
   })(req, res, next)});
 
 //template engineer

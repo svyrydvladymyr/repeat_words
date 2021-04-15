@@ -12,7 +12,7 @@ const users = () => {
         birthday VARCHAR(11),
         country VARCHAR(40),                   
         provider VARCHAR(40),                   
-        date_registered DATE                          
+        date_registered DATETIME                          
         )`; 
     con.query(sql, function (err, result) {if (err) throw err; console.log("Table users created")});
 }

@@ -31,8 +31,9 @@ const autorisationSocial = (profile, done) => {
                 email : profile.emails === undefined ? '' : `${profile.emails[0].value}`,
                 provider : profile.provider === undefined ? '' : `${profile.provider}`
             };
-        (error) ? done(`Problem with created user: ${error}`, null) : null;  
-        if (result && result.length === 0) {   
+        if (error) { 
+            done(`Problem with created user: ${error}`, null); 
+        } else if (result && result.length === 0) {   
             const date = new Date();        
             const sql = `INSERT INTO users (userid, name, surname, email, date_registered, ava, provider) 
                        VALUES ('${user.id}', 
@@ -43,12 +44,15 @@ const autorisationSocial = (profile, done) => {
                        '${user.ava}', 
                        '${user.provider}')`;     
             con.query(sql, (error, result) => {
-                (error) ? done(`Error creating user record: ${error}`, null) : null;
-                log("user-registered", result.affectedRows);
-                con.query(`INSERT INTO userssettings (userid) VALUES ('${user.id}')`, (err, result) => {
-                    log("settings-added", result ? result.affectedRows : err.code);       
-                    return done(null, profile);              
-                });                
+                if (error) { 
+                    done(`Error creating user record: ${error}`, null) 
+                } else {
+                    log("user-registered", result ? result.affectedRows : null);
+                    con.query(`INSERT INTO userssettings (userid) VALUES ('${user.id}')`, (err, result) => {
+                        log("settings-added", result ? result.affectedRows : err.code);       
+                        return done(null, profile);              
+                    });  
+                };              
             }); 
         } else if (result[0].userid === user.id){
             log("user-is-already-authorized", user.id);
@@ -57,13 +61,15 @@ const autorisationSocial = (profile, done) => {
             con.query(`UPDATE users SET ava = '${user.ava}' WHERE userid = '${user.id}'`, (err, result) => {log("setted-new-ava", result.affectedRows)});
             user.email !== '' ? con.query(`UPDATE users SET email = '${user.email}' WHERE userid = '${user.id}'`, (err, result) => {log("setted-new-email", result.affectedRows)}) : null;
             return done(null, profile);
-        } else {return done(`code-error`, null)}; 
+        } else {
+            return done(`code-error`, null);
+        }; 
     }); 
 };
 
-const autorisationSetCookie = (req, res, user) => {
+const SetCookie = (req, res, user) => {
     const tokenId = token(20);
-    con.query(`UPDATE users SET token = '${tokenId}' WHERE useridu = '${user.id}'`, (error, result) => {
+    con.query(`UPDATE users SET token = '${tokenId}' WHERE userid = '${user.id}'`, (error, result) => {
         if (error) { 
             renderPage(req, res, 'main', `Token update error: ${error}`); 
         } else {
@@ -76,7 +82,7 @@ const autorisationSetCookie = (req, res, user) => {
 
 
 module.exports = {
-    autorisationSetCookie,
+    SetCookie,
     autorisationSocial,
     renderNotPage,
 }

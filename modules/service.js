@@ -5,47 +5,40 @@ const pageNotFound = `<p style="text-align: center; color: red; margin: 100px au
 const fs = require('fs');
 
 //transliteration
-let translit = word => {return transliteratedValue = transliteration.transliterate(word)};
+const translit = word => {return transliteratedValue = transliteration.transliterate(word)};
+
+//client token
+const clienttoken = (req, res) => new Cookies(req, res, {"keys":['volodymyr']}).get('sessionisdd', {signed:true});
 
 //generate token
-let token = length => {
+const token = length => {
     let result = '';
-    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for ( var i = 0; i < length; i++ ) {result += characters.charAt(Math.floor(Math.random() * characters.length))}
     return result;
 };
 
 //consoleLog message
-let log = (mess, val) => {
-    let iter = 25 - mess.length, arrow = '';
-    for (let i = 0; i < iter; i++){ arrow += '-' };
+const log = (mess, val, arrow = '') => {
+    for (let i = 0; i < 25 - mess.length; i++){ arrow += '-' };
     console.log(`--${mess}${arrow}>> `, val);   
 };
 
-//client token
-let clienttoken = (req, res) => {
-    let cookies, clientToken;
-    cookies = new Cookies(req, res, {"keys":['volodymyr']});
-    clientToken = cookies.get('sessionisdd', {signed:true});
-    log('/////-CLIENT-TOKEN-/////', clientToken);                    
-    return clientToken;
-};
-
 //date format minutes
-let readyMin = function(fullDate){
-    let createDate = new Date(fullDate);
+const readyMin = function(fullDate){
+    const createDate = new Date(fullDate);
     return finDay = ((createDate.getMinutes() >= 1) && (createDate.getMinutes() <= 9)) ? "0" + createDate.getMinutes() : createDate.getMinutes();
 };  
 
 //date format day
-let readyDay = function(fullDate){
-    let createDate = new Date(fullDate);
+const readyDay = function(fullDate){
+    const createDate = new Date(fullDate);
     return finDay = ((createDate.getDate() >= 1) && (createDate.getDate() <= 9)) ? "0" + createDate.getDate() : createDate.getDate();
 };  
 
 //date format month
-let readyMonth = function(fullDate){    
-    let createDate = new Date(fullDate);
+const readyMonth = function(fullDate){    
+    const createDate = new Date(fullDate);
     return finMonth = ((createDate.getMonth() >= 0) && (createDate.getMonth() <= 8)) 
         ? "0" + (createDate.getMonth()+1) 
         : (createDate.getMonth() == 9) ? 10 
@@ -54,9 +47,9 @@ let readyMonth = function(fullDate){
 }; 
 
 //ready full date
-let readyFullDate = (fullDate, reverse) => {
-    let dateRegFull = new Date(fullDate);
-    let dateRegFullEmpty = new Date();
+const readyFullDate = (fullDate, reverse) => {
+    const dateRegFull = new Date(fullDate);
+    const dateRegFullEmpty = new Date();
     if (reverse === 'reverse'){
         return dateReg = ((fullDate === '') || (fullDate === undefined)) 
             ? dateRegFullEmpty.getHours() + ":" + readyMin(dateRegFullEmpty) + " " + readyDay(dateRegFullEmpty) + "-" + readyMonth(dateRegFullEmpty) + "-" + dateRegFullEmpty.getFullYear() 
