@@ -29,7 +29,41 @@ const userssettings = () => {
     con.query(sql, function (err, result) {if (err) throw err; console.log("Table userssettings created")});
 };
 
+const wordlists = () => {
+    const sql = `CREATE TABLE wordlists (id INT AUTO_INCREMENT PRIMARY KEY,
+        list_name VARCHAR(100),
+        userid VARCHAR(100),
+        list_permission VARCHAR(10),
+        date_create DATETIME,
+        date_updeta DATETIME
+        )`; 
+    con.query(sql, function (err, result) {if (err) throw err; console.log("Table wordlists created")});
+};
+
+const listssettings = () => {
+    const sql = `CREATE TABLE listssettings (id INT AUTO_INCREMENT PRIMARY KEY,
+        list_name VARCHAR(100),
+        userid VARCHAR(100),
+        list_type VARCHAR(10)
+        )`; 
+    con.query(sql, function (err, result) {if (err) throw err; console.log("Table listssettings created")});
+};
+
+const words = () => {
+    const sql = `CREATE TABLE words (id INT AUTO_INCREMENT PRIMARY KEY,
+        word_v1 VARCHAR(100),
+        word_v1_lang VARCHAR(100),
+        word_v2 VARCHAR(100),
+        word_v2_lang VARCHAR(100),
+        date_create DATETIME
+        )`; 
+    con.query(sql, function (err, result) {if (err) throw err; console.log("Table words created")});
+};
+
 module.exports = {
     users,
-    userssettings
+    userssettings,
+    wordlists,
+    listssettings,
+    words
 };

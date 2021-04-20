@@ -47,6 +47,7 @@ button,
 .user_wrap,
 .settings_box,
 .settings_wrap,
+.settings_box_default,
 .time_scale_wrap,
 .user_login,
 .user_login > a,
@@ -331,6 +332,20 @@ input[type=range]::-webkit-slider-thumb {
   border-radius: 3px;
   cursor: pointer;
   -webkit-appearance: none;
+}
+
+.settings_box_default{
+  flex-direction: column;
+}
+.settings_box_default b, p{
+  margin: 6px;
+}
+.settings_box_default b{
+  color:var(--main-color);
+}
+.settings_box_default p{
+  color:var(--third-color);
+
 }
 
 /* alert message -------------------------------------------------*/

@@ -76,6 +76,7 @@ app.use((req, res, next) => {accessLog(req, res, next)});
 //pages
 app.use('/settings', (req, res) => {renderPage(req, res, 'settings')});
 app.use('/friends', (req, res) => {renderPage(req, res, 'friends')});
+app.use('/exit', (req, res) => {renderPage(req, res, 'exit')});
 app.use('/', (req, res) => {renderPage(req, res)});
 
 app.get('/$', (req, res, next) => {res.redirect('index')});

@@ -1,7 +1,7 @@
 const con = require('../db/connectToDB').con;
-const {token, clienttoken, pageNotFound, log} = require('./service');
+const {token, log, addCookies} = require('./service');
 const {renderPage} = require('./renderPage');
-const Cookies = require('cookies');
+// const Cookies = require('cookies');
 
 
 //render page if bad autorization 
@@ -56,10 +56,19 @@ const autorisationSocial = (profile, done) => {
             }); 
         } else if (result[0].userid === user.id){
             log("user-is-already-authorized", user.id);
-            con.query(`UPDATE users SET name = '${user.name}' WHERE userid = '${user.id}'`, (err, result) => {log("setted-new-name", result.affectedRows)});
-            con.query(`UPDATE users SET surname = '${user.surname}' WHERE userid = '${user.id}'`, (err, result) => {log("setted-new-surname", result.affectedRows)});
-            con.query(`UPDATE users SET ava = '${user.ava}' WHERE userid = '${user.id}'`, (err, result) => {log("setted-new-ava", result.affectedRows)});
-            user.email !== '' ? con.query(`UPDATE users SET email = '${user.email}' WHERE userid = '${user.id}'`, (err, result) => {log("setted-new-email", result.affectedRows)}) : null;
+            con.query(`INSERT INTO userssettings (userid) VALUES ('${user.id}')`, (err, result) => {
+                log("settings-added", result ? result.affectedRows : err.code)
+            });  
+            con.query(`UPDATE users SET name = '${user.name}', surname = '${user.surname}', ava = '${user.ava}' WHERE userid = '${user.id}'`, (err, result) => {
+                log("updade-user-data", result ? result.affectedRows : err.code)
+            });
+            con.query(`SELECT email FROM users WHERE userid = '${profile.id}'`, (error, result) => {
+                if (result && result[0].email === null) {
+                    user.email !== '' ? con.query(`UPDATE users SET email = '${user.email}' WHERE userid = '${user.id}'`, (err, result) => {
+                        log("updade-user-email", result ? result.affectedRows : err.code)
+                    }) : null;
+                };
+            });
             return done(null, profile);
         } else {
             return done(`code-error`, null);
@@ -71,10 +80,10 @@ const SetCookie = (req, res, user) => {
     const tokenId = token(20);
     con.query(`UPDATE users SET token = '${tokenId}' WHERE userid = '${user.id}'`, (error, result) => {
         if (error) { 
+            addCookies(req, res, '', '-1');
             renderPage(req, res, 'main', `Token update error: ${error}`); 
-        } else {
-            const cookies = new Cookies(req, res, {"keys":['volodymyr']});
-            cookies.set('sessionisdd', `${tokenId}`, {maxAge: '', path: '/', signed:true});
+        } else {        
+            addCookies(req, res, tokenId, '');    
             res.redirect('/'); 
         };          
     });    

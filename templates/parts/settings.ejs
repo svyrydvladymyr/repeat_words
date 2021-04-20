@@ -1,39 +1,48 @@
 <div class="part_wrap">
+    <% if (DATA.permission.permAuthorised === 1) { %>
         
-    <div class="settings_box">
-        <div class="lang_title_wrap">
-            <h5 id="settings-my-lang-title">My language</h5>
-            <img id="settings-my-lang">
+        <div class="settings_box">
+            <div class="lang_title_wrap">
+                <h5 id="settings-my-lang-title">My language</h5>
+                <img id="settings-my-lang">
+            </div>
+
+            <div id="settings-my-lang-box">
+
+
+            </div>
+            <p id="settings-my-lang-name"></p>
         </div>
 
-        <div id="settings-my-lang-box">
 
-
+        <div class="settings_box">
+            <h5>voice</h5>
+            <div class="settings_wrap">
+                <select id='voice-list'></select>
+            </div>
         </div>
-        <p id="settings-my-lang-name"></p>
-    </div>
-
-
-    <div class="settings_box">
-        <h5>voice</h5>
-        <div class="settings_wrap">
-            <select id='voice-list'></select>
+        <div class="settings_box">
+            <h5>spead</h5>
+            <div class="settings_wrap">
+                <input type="range" id="voice-spead" min="0.5" max="2" step="0.1">
+                <p><span id="voice-spead-label"></span> x</p>
+            </div>
         </div>
-    </div>
-    <div class="settings_box">
-        <h5>spead</h5>
-        <div class="settings_wrap">
-            <input type="range" id="voice-spead" min="0.5" max="2" step="0.1">
-            <p><span id="voice-spead-label"></span> x</p>
+        <div class="settings_box">
+            <h5>pitch</h5>
+            <div class="settings_wrap">
+                <input type="range" id="voice-pitch" min="0" max="2" step="0.1">
+                <p><span id="voice-pitch-label"></span></p>
+            </div>
         </div>
-    </div>
-    <div class="settings_box">
-        <h5>pitch</h5>
-        <div class="settings_wrap">
-            <input type="range" id="voice-pitch" min="0" max="2" step="0.1">
-            <p><span id="voice-pitch-label"></span></p>
+    <% } %>
+    <% if (DATA.permission.permAuthorised === 0) { %>
+        <div class="settings_box_default">
+            <b>Якщо ви не авторизовані то вам доступні тільки стандартні налаштування!</b>
+            <p>Тип голосу: Google UK English Female</p>
+            <p>Швидкість мовлення: 1x</p>
+            <p>Висота голосу: 1</p>
         </div>
-    </div>
-
+    <% } %> 
     <%- include("./error.ejs") %>
 </div>    

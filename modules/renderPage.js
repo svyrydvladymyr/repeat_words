@@ -1,4 +1,4 @@
-const {log, clienttoken} = require('./service');
+const {log, clienttoken, addCookies} = require('./service');
 const con = require('../db/connectToDB').con;
 
 const DATA = {
@@ -26,53 +26,32 @@ const DATA = {
     }
 };
 
-const clearDATA = (paran) => {
-    switch (paran) {
-        case 'user':
-            DATA.user.id = '';
-            DATA.user.name = 'Name';
-            DATA.user.surname = 'Surname';
-            DATA.user.foto = 'img/no_user.png';
-            break;
-        case 'usersett':
-            DATA.usersett.spead = 1,
-            DATA.usersett.pitch = 1,
-            DATA.usersett.voice = 4,
-            DATA.usersett.lang = 'en-US',
-            DATA.usersett.langInterface = 'en-US'
-            break;
-        case 'permission':
-            DATA.permission.permAuthorised = 0; 
-            break;
-        case 'errors':
-            DATA.errors.errMessage = '',
-            DATA.errors.SERVER_ERROR = ''
-            break;
-        default:
-            DATA.user.id = '';
-            DATA.user.name = 'Name';
-            DATA.user.surname = 'Surname';
-            DATA.user.foto = 'img/no_user.png';
-            DATA.usersett.spead = 1,
-            DATA.usersett.pitch = 1,
-            DATA.usersett.voice = 4,
-            DATA.usersett.lang = 'en-US',
-            DATA.usersett.langInterface = 'en-US'
-            DATA.permission.permAuthorised = 0; 
-            DATA.errors.errMessage = '',
-            DATA.errors.SERVER_ERROR = ''
-            break;
-    };   
+const clearDATA = () => {
+    DATA.user.id = '';
+    DATA.user.name = 'Name';
+    DATA.user.surname = 'Surname';
+    DATA.user.foto = 'img/no_user.png';
+    DATA.usersett.spead = 1;
+    DATA.usersett.pitch = 1;
+    DATA.usersett.voice = 4;
+    DATA.usersett.lang = 'en-US';
+    DATA.usersett.langInterface = 'en-US';
+    DATA.permission.permAuthorised = 0; 
+    DATA.errors.errMessage = '';
+    DATA.errors.SERVER_ERROR = '';
 };
 
 const getTableRecord = (sql) => {
-    return new Promise((resolve, reject) => {                   
-        con.query(sql, function (err, result) { err ? resolve({'err': err}) : resolve(result) });    
+    return new Promise((resolve) => { 
+        con.query(sql, function (err, result) { 
+            err ? resolve({'err': err}) : resolve(result) 
+        }) 
     });
 };
 
-const getUser = (req, res, pageName) => {
-    getTableRecord(`SELECT * FROM users WHERE token = '${clienttoken(req, res)}'`)
+
+const getUser = async (req, res) => {
+    return await getTableRecord(`SELECT * FROM users WHERE token = '${clienttoken(req, res)}'`)
     .then((user) => {
         if (user.err) {
             throw new Error(user.err);
@@ -102,35 +81,40 @@ const getUser = (req, res, pageName) => {
         };     
         return DATA.user.id;       
     })            
-    .then((userID) => {
-        log("11111111111111", userID);
-        log("11111111111111", DATA);
-    })
-    .then(() => {
-        
-    })
     .catch((err) => {
         log('error-get-user-info', err); 
         DATA.permission.permAuthorised = 0;                
-        res.render(pageName, { DATA });
-    });  
+        return DATA.user.id;
+    });
 };
 
+
+// const getUser222 = async (id) => {   
+//     return await getTableRecord(`SELECT * FROM userssettings WHERE userid = '${id}'`)
+//     .then((userssettings) => {
+//         log("5555555550000", id);
+//         log("555555555userssettings", userssettings);
+//     })
+//     .then(() => {
+//         return 'next'; 
+//     })
+// };
+
 const renderPage = (req, res, pageName = 'main', err = '') => {
-    clearDATA('');
+    clearDATA();
     if (err !== '') {        
         DATA.errors.SERVER_ERROR = `SERVER ERROR: ${err}`;
         res.render(pageName, { DATA }); 
     } else {
-        
-        return new Promise((resolve) => {resolve()})
-        .then(() => {
-            return getUser(req, res, pageName)
-        })
-        .then(() => {
-            res.render(pageName, { DATA });
-        })
-        
+        if (pageName === 'exit') {
+            addCookies(req, res, '', '-1');
+            res.redirect('/'); 
+        } else {           
+            Promise.resolve(req, res)
+            .then(getUser)
+            // .then(() => { log("DATA", DATA) })
+            .then(() => { res.render(pageName, { DATA }) });
+        };   
     };
 };
 

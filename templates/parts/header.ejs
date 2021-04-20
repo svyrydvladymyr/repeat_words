@@ -13,10 +13,15 @@
                     <ul class="user_settings_list">
                         <li><a href="/settings">settings</a></li>
                         <li><a href="/friends">friends</a></li>
-                        <li><a href="/">exit</a></li>
+                        <li><a href="/exit">exit</a></li>
                     </ul>
                 </div>
             </div>  
+            <script>
+                localStorage.setItem("SpeakVoice", '<%=DATA.usersett.voice %>');
+                localStorage.setItem("SpeakSpeed", '<%=DATA.usersett.spead %>');
+                localStorage.setItem("SpeakPitch", '<%=DATA.usersett.pitch %>');
+            </script>
         <% } %>
         <% if (DATA.permission.permAuthorised === 0) { %>
             <div class="user_login">
@@ -24,6 +29,11 @@
                 <a href="/facebook"><img src="img/facebook.png" alt="facebook"></a>
                 <a href="/linkedin"><img src="img/linkedin.png" alt="facebook"></a>
             </div>
+            <script>
+                localStorage.setItem("SpeakVoice", '4');
+                localStorage.setItem("SpeakSpeed", '1');
+                localStorage.setItem("SpeakPitch", '1');
+            </script>
         <% } %>
     </div>
 </div>

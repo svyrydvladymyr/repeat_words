@@ -1,7 +1,6 @@
 const transliteration = require('transliteration.cyr');
-const Cookies = require('cookies');
-const con = require('../db/connectToDB').con;
 const pageNotFound = `<p style="text-align: center; color: red; margin: 100px auto; font: bold 16px Arial;">PAGE NOT FOUND!!!</p>`;
+const Cookies = require('cookies');
 const fs = require('fs');
 
 //transliteration
@@ -9,6 +8,12 @@ const translit = word => {return transliteratedValue = transliteration.translite
 
 //client token
 const clienttoken = (req, res) => new Cookies(req, res, {"keys":['volodymyr']}).get('sessionisdd', {signed:true});
+
+//add or clear Cookies
+const addCookies = (req, res, token, param) => {
+    const cookies = new Cookies(req, res, {"keys":['volodymyr']});
+    cookies.set('sessionisdd', `${token}`, {maxAge: `${param}`, path: '/', signed:true});
+};
 
 //generate token
 const token = length => {
@@ -84,6 +89,7 @@ module.exports = {
     token,
     log,
     clienttoken,
+    addCookies,
     readyFullDate,
     checOnTrueVal,
     accessLog
