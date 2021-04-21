@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const {users, userssettings} = require('./db/createDB');
 const {log, accessLog} = require('./modules/service');
+const {setSettings} = require('./modules/settings');
 const {SetCookie, autorisationSocial} = require('./modules/autorisation.js');
 const {renderPage} = require('./modules/renderPage');
 const passport = require('passport'); 
@@ -72,6 +73,9 @@ app.use((req, res, next) => {log(`URL-REQUEST:-(${req.method})-`, req.url); next
 
 //system logs
 app.use((req, res, next) => {accessLog(req, res, next)});
+
+//requests
+app.use('/setsettings', (req, res) => {setSettings(req, res)});
 
 //pages
 app.use('/settings', (req, res) => {renderPage(req, res, 'settings')});

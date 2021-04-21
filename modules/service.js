@@ -2,6 +2,7 @@ const transliteration = require('transliteration.cyr');
 const pageNotFound = `<p style="text-align: center; color: red; margin: 100px auto; font: bold 16px Arial;">PAGE NOT FOUND!!!</p>`;
 const Cookies = require('cookies');
 const fs = require('fs');
+const con = require('../db/connectToDB').con;
 
 //transliteration
 const translit = word => {return transliteratedValue = transliteration.transliterate(word)};
@@ -66,6 +67,15 @@ const readyFullDate = (fullDate, reverse) => {
     };
 };
 
+//save logs
+let accessLog = (req, res, next) => {
+    let logs = `IP: ${req.ip}  TIME: ${new Date().toLocaleString()}  URL: ${req.url}\n`;
+    let namefile = `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`;
+    fs.appendFile(`./log/${namefile}.txt`, logs, (err) => {if (err) {console.log(err)}});
+    next();
+}
+
+
 //chack on true values
 let checOnTrueVal = (el) => {
     let reg = "[^a-zA-Zа-яА-Я0-9-()_+=.'\":/\,іІїЇєЄ /\n]";
@@ -74,13 +84,13 @@ let checOnTrueVal = (el) => {
     return res;    
 }
 
-//save logs
-let accessLog = (req, res, next) => {
-    let logs = `IP: ${req.ip}  TIME: ${new Date().toLocaleString()}  URL: ${req.url}\n`;
-    let namefile = `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`;
-    fs.appendFile(`./log/${namefile}.txt`, logs, (err) => {if (err) {console.log(err)}});
-    next();
-}
+const getTableRecord = (sql) => {
+    return new Promise((resolve) => { 
+        con.query(sql, function (err, result) { 
+            err ? resolve({'err': err}) : resolve(result) 
+        }) 
+    });
+};
 
 
 module.exports = {
@@ -92,5 +102,6 @@ module.exports = {
     addCookies,
     readyFullDate,
     checOnTrueVal,
-    accessLog
+    accessLog,
+    getTableRecord
 }

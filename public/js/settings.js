@@ -13,23 +13,17 @@ voiceSpeadLabel.textContent = voiceSpead.value;
 voicePitchLabel.textContent = voicePitch.value;
 
 if(synth.onvoiceschanged !== undefined) { synth.onvoiceschanged = () => { 
-    voices = synth.getVoices()
+    voices = synth.getVoices();
     var selectedIndex = voiceStorage === 0 ? 0 : voiceStorage;
     voiceList.innerHTML = '';
-    voices.forEach((voice)=>{
+    voices.forEach((voice, index)=>{
     var listItem = document.createElement('option');
         listItem.textContent = voice.name;
         listItem.setAttribute('data-lang', voice.lang);
         listItem.setAttribute('data-name', voice.name);
+        listItem.setAttribute('value', index);
         voiceList.appendChild(listItem);
     });
     voiceList.selectedIndex = selectedIndex;            
 }};
 
-voiceSpead.addEventListener('change', () => { localStorage.setItem("SpeakSpeed", voiceSpead.value) });
-voiceSpead.addEventListener('input', () => { voiceSpeadLabel.textContent = voiceSpead.value });
-
-voicePitch.addEventListener('change', () => { localStorage.setItem("SpeakPitch", voicePitch.value) });
-voicePitch.addEventListener('input', () => { voicePitchLabel.textContent = voicePitch.value });
-
-voiceList.addEventListener('change', () => { localStorage.setItem("SpeakVoice", voiceList.selectedIndex) });

@@ -1,4 +1,4 @@
-const {log, clienttoken, addCookies} = require('./service');
+const {log, clienttoken, addCookies, getTableRecord} = require('./service');
 const con = require('../db/connectToDB').con;
 
 const DATA = {
@@ -39,14 +39,6 @@ const clearDATA = () => {
     DATA.permission.permAuthorised = 0; 
     DATA.errors.errMessage = '';
     DATA.errors.SERVER_ERROR = '';
-};
-
-const getTableRecord = (sql) => {
-    return new Promise((resolve) => { 
-        con.query(sql, function (err, result) { 
-            err ? resolve({'err': err}) : resolve(result) 
-        }) 
-    });
 };
 
 
@@ -110,8 +102,7 @@ const renderPage = (req, res, pageName = 'main', err = '') => {
             addCookies(req, res, '', '-1');
             res.redirect('/'); 
         } else {           
-            Promise.resolve(req, res)
-            .then(getUser)
+            getUser(req, res)
             // .then(() => { log("DATA", DATA) })
             .then(() => { res.render(pageName, { DATA }) });
         };   
@@ -119,5 +110,6 @@ const renderPage = (req, res, pageName = 'main', err = '') => {
 };
 
 module.exports = {
-    renderPage
+    renderPage,
+    getTableRecord
 };

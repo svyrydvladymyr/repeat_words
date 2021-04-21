@@ -1,5 +1,5 @@
 const con = require('../db/connectToDB').con;
-const {token, log, addCookies} = require('./service');
+const {token, log, addCookies, clienttoken, getTableRecord} = require('./service');
 const {renderPage} = require('./renderPage');
 // const Cookies = require('cookies');
 
@@ -56,9 +56,9 @@ const autorisationSocial = (profile, done) => {
             }); 
         } else if (result[0].userid === user.id){
             log("user-is-already-authorized", user.id);
-            con.query(`INSERT INTO userssettings (userid) VALUES ('${user.id}')`, (err, result) => {
-                log("settings-added", result ? result.affectedRows : err.code)
-            });  
+            // con.query(`INSERT INTO userssettings (userid) VALUES ('${user.id}')`, (err, result) => {
+            //     log("settings-added", result ? result.affectedRows : err.code)
+            // });  
             con.query(`UPDATE users SET name = '${user.name}', surname = '${user.surname}', ava = '${user.ava}' WHERE userid = '${user.id}'`, (err, result) => {
                 log("updade-user-data", result ? result.affectedRows : err.code)
             });
@@ -89,9 +89,18 @@ const SetCookie = (req, res, user) => {
     });    
 };
 
+const autorisationCheck = async (req, res) => {
+    return await getTableRecord(`SELECT userid FROM users WHERE token = '${clienttoken(req, res)}'`)
+    .then((user) => { 
+        return (user.err || user == '') ? false : user[0].userid; 
+    });
+};
+
+
 
 module.exports = {
     SetCookie,
     autorisationSocial,
     renderNotPage,
+    autorisationCheck
 }

@@ -237,7 +237,7 @@ button {
   color: #4b7495;
 }
 button:hover {
-  box-shadow: 0px 0px 4px #c1c1c1;
+  box-shadow: 0px 0px 2px #c1c1c1;
   color: #111111;
 }
 button:disabled, button:disabled:hover {

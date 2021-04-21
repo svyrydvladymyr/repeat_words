@@ -15,5 +15,44 @@
     <script src="./js/js.js"></script>
     <script src='./js/icon.js'></script>
     <script src='./js/settings.js'></script>
+    <script>
+        voiceSpead.addEventListener('input', () => { voiceSpeadLabel.textContent = voiceSpead.value });
+        voicePitch.addEventListener('input', () => { voicePitchLabel.textContent = voicePitch.value });
+    </script>
+    <% if (DATA.permission.permAuthorised === 0) { %>
+        <script>
+            voiceSpead.addEventListener('change', () => { localStorage.setItem("SpeakSpeed", voiceSpead.value) });    
+            voicePitch.addEventListener('change', () => { localStorage.setItem("SpeakPitch", voicePitch.value) });    
+            voiceList.addEventListener('change', () => { localStorage.setItem("SpeakVoice", voiceList.selectedIndex) });
+        </script>
+    <% } %> 
+    <% if (DATA.permission.permAuthorised === 1) { %>
+        <script>
+            voiceSpead.addEventListener('change', () => {
+                send({"type":"speed", "value":voiceSpead.value}, '/setsettings', (result) => {
+                    console.log('result', result);
+                    
+                    localStorage.setItem("SpeakSpeed", voiceSpead.value); 
+                });
+            });    
+            voicePitch.addEventListener('change', () => { 
+                send({"type":"pitch", "value":voicePitch.value}, '/setsettings', (result) => {
+                    console.log('result', result);
+                    
+                    localStorage.setItem("SpeakPitch", voicePitch.value) 
+                });                
+            });    
+            voiceList.addEventListener('change', () => { 
+                send({"type":"voice", "value":voiceList.selectedIndex}, '/setsettings', (result) => {
+                    console.log('result', result);
+                    
+                    localStorage.setItem("SpeakVoice", voiceList.selectedIndex)  
+                }); 
+
+                
+            });
+        </script>
+    <% } %> 
+
 
 </body>

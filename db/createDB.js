@@ -49,12 +49,12 @@ const listssettings = () => {
     con.query(sql, function (err, result) {if (err) throw err; console.log("Table listssettings created")});
 };
 
+
 const words = () => {
     const sql = `CREATE TABLE words (id INT AUTO_INCREMENT PRIMARY KEY,
         word_v1 VARCHAR(100),
-        word_v1_lang VARCHAR(100),
         word_v2 VARCHAR(100),
-        word_v2_lang VARCHAR(100),
+        word_lang VARCHAR(10),
         date_create DATETIME
         )`; 
     con.query(sql, function (err, result) {if (err) throw err; console.log("Table words created")});
