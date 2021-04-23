@@ -22,7 +22,7 @@ const DATA = {
         pitch : 1,
         voice : 4,
         lang : 'en-US',
-        langInterface : 'en-US'
+        color : 'blue'
     }
 };
 
@@ -35,7 +35,7 @@ const clearDATA = () => {
     DATA.usersett.pitch = 1;
     DATA.usersett.voice = 4;
     DATA.usersett.lang = 'en-US';
-    DATA.usersett.langInterface = 'en-US';
+    DATA.usersett.color = 'blue';
     DATA.permission.permAuthorised = 0; 
     DATA.errors.errMessage = '';
     DATA.errors.SERVER_ERROR = '';
@@ -69,7 +69,7 @@ const getUser = async (req, res) => {
             DATA.usersett.pitch = userssettings[0].pitch;
             DATA.usersett.voice = userssettings[0].voice;
             DATA.usersett.lang = userssettings[0].my_lang;
-            DATA.usersett.langInterface = userssettings[0].interface_lang;                    
+            DATA.usersett.color = userssettings[0].color;                    
         };     
         return DATA.user.id;       
     })            

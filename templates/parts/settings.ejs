@@ -1,20 +1,21 @@
 <div class="part_wrap">
-    <% if (DATA.permission.permAuthorised === 1) { %>
-        
+    <% if (DATA.permission.permAuthorised === 1) { %>        
         <div class="settings_box">
             <div class="lang_title_wrap">
-                <h5 id="settings-my-lang-title">My language</h5>
-                <img id="settings-my-lang">
+                <h5>My language</h5>
+                <img id="my-lang" src="./img/lang/<%=DATA.usersett.lang %>.png" title="<%=DATA.usersett.lang %>">
             </div>
-
-            <div id="settings-my-lang-box">
-
-
+            <div class="settings-my-lang-box">
+                <img src="./img/lang/uk-UA.png" alt="uk-UA" title="uk-UA">
+                <img src="./img/lang/it-IT.png" alt="it-IT" title="it-IT">
+                <img src="./img/lang/de-DE.png" alt="de-DE" title="de-DE">
+                <img src="./img/lang/fr-FR.png" alt="fr-FR" title="fr-FR">
+                <img src="./img/lang/es-ES.png" alt="es-ES" title="es-ES">
+                <img src="./img/lang/zh-CN.png" alt="zh-CN" title="zh-CN">
+                <img src="./img/lang/pl-PL.png" alt="pl-PL" title="pl-PL">
+                <img src="./img/lang/ru-RU.png" alt="ru-RU" title="ru-RU">
             </div>
-            <p id="settings-my-lang-name"></p>
         </div>
-
-
         <div class="settings_box">
             <h5>voice</h5>
             <div class="settings_wrap">

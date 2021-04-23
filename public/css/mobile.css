@@ -7,3 +7,15 @@
 .settings_wrap > p { width: 24% }
 .settings_wrap > select { max-width: 100% }
 input[type=range] { max-width: 76%; width: 76% }
+.settings-my-lang-box { 
+    max-width: 100%; 
+    padding: 5px 0px 0px 0px; 
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.settings-my-lang-box img { width: 60px }
+.lang_title_wrap { width: 100% }
+.lang_title_wrap > img {
+    width: 40px;
+    top: -25px;
+}

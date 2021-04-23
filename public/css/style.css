@@ -1,10 +1,3 @@
-:root{
-  --main-color:#5681bf;
-  --second-color:#687c9a;
-  --third-color:#859fc4;
-  --fourth-color:#e8e8e8;
-}
-
 *{ box-sizing: border-box }
 
 body {
@@ -48,6 +41,7 @@ button,
 .settings_box,
 .settings_wrap,
 .settings_box_default,
+.settings-my-lang-box,
 .time_scale_wrap,
 .user_login,
 .user_login > a,
@@ -190,7 +184,8 @@ button,
   position: absolute;
   top: -10px;
   right: 10px;
-  border: 5px solid #5681cd;
+  border: 5px solid;
+  border-color: var(--main-color);
   border-top: 5px solid transparent;
   border-left: 5px solid transparent;
   transform: skew(-20deg);
@@ -201,9 +196,10 @@ button,
   margin: 0;
   padding: 5px;
   text-align: center;
-  border-bottom: 1px solid #5681bf;
+  border-bottom: 1px solid;
+  border-color: var(--main-color);
 }
-.user_settings_list > li:hover { text-shadow: 0px 0px 1px #5681bf }
+.user_settings_list > li:hover { text-shadow: 0px 0px 1px var(--main-color) }
 .user_settings_list > li > a { text-decoration: none; color: var(--main-color) }
 .user_settings_list > li:last-child { border-bottom: 0px }
 
@@ -266,7 +262,8 @@ button[id='btn-listening'] > i { width: 22px; }
   max-width: 370px;
   width: 100%;
 }
-.settings_box h5 {
+.settings_box > h5, .lang_title_wrap {
+  position: relative;
   width: 100px;
   padding: 4px;
   margin: 0;  
@@ -333,6 +330,40 @@ input[type=range]::-webkit-slider-thumb {
   cursor: pointer;
   -webkit-appearance: none;
 }
+
+.settings-my-lang-box {
+  justify-content: space-between;
+  width: 100%;
+  max-width: 350px;
+  padding: 0px 5px;
+  margin-left: 9px;
+  margin-right: 9px;
+}
+.settings-my-lang-box img{
+  cursor: pointer;
+  width: 36px;
+  border: 5px solid;
+  border-color: var(--fourth-color);
+  border-radius: 9px;
+  padding: 3px;
+  background: var(--second-color);
+}
+.settings-my-lang-box img:hover{
+  border: 2px solid;
+  border-color: var(--fourth-color);
+}
+.lang_title_wrap > h5{margin: 0;}
+.lang_title_wrap > img{
+  position: absolute;
+  border: 4px solid;
+  border-color: var(--fourth-color);
+  border-radius: 8px;
+  width: 28px;
+  top: -15px;
+  right: -12px;
+}
+
+
 
 .settings_box_default{
   flex-direction: column;

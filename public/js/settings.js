@@ -1,6 +1,8 @@
 const voiceList = $_('#voice-list')[0],
     voiceSpead = $_('#voice-spead')[0],
     voicePitch = $_('#voice-pitch')[0],
+    myLang = $_('.settings-my-lang-box')[0].children,
+    myLangSet = $_('#my-lang')[0];
     voiceSpeadLabel = $_('#voice-spead-label')[0],
     voicePitchLabel = $_('#voice-pitch-label')[0],
     voiceStorage = +localStorage.getItem("SpeakVoice"),
