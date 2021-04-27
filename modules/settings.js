@@ -41,7 +41,7 @@ const setSettings = (req, res) => {
             con.query(`UPDATE userssettings SET ${type} = '${value}' WHERE userid = '${userid}'`, (err, result) => {
                 log(`updade-user-settings-${type}`, result ? result.affectedRows : err.code)
             });
-            res.send({"userid": userid});
+            (type === 'my_lang') ? res.send(require(`./lang/${value}`)) : res.send({"res": value});
         } else {
             res.send({"error":"bad-request"});
         }

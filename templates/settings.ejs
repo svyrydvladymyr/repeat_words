@@ -39,10 +39,13 @@
                 })});
             for (const i of myLang) {
                 i.addEventListener('click', () => { send({"type":"my_lang", "value":i.title}, '/setsettings', (result) => {
+                    const langPack = JSON.parse(result);
+                    ["language", "voice", "speed", "pitch", "back", "settings", "friends", "exit", "site", "dev"].forEach(e => {
+                        if ($_(`#${e}-title`)[0]) { 
+                            $_(`#${e}-title`)[0].textContent = langPack[e] ? langPack[e] : '--------'; 
+                        };
+                    });
                     localStorage.setItem("myLang", i.title);
-                    
-                    // console.log('myLangSet', myLangSet);  
-
                     myLangSet.setAttribute("title", i.title);
                     myLangSet.setAttribute("src", `./img/lang/${i.title}.png`);
                 })});

@@ -2,11 +2,12 @@
     <% if (DATA.permission.permAuthorised === 1) { %>        
         <div class="settings_box">
             <div class="lang_title_wrap">
-                <h5>My language</h5>
+                <h5 id="language-title"><%=DATA.langPack.language %></h5>
                 <img id="my-lang" src="./img/lang/<%=DATA.usersett.lang %>.png" title="<%=DATA.usersett.lang %>">
             </div>
             <div class="settings-my-lang-box">
                 <img src="./img/lang/uk-UA.png" alt="uk-UA" title="uk-UA">
+                <!-- <img src="./img/lang/en-GB.png" alt="en-GB" title="en-GB"> -->
                 <img src="./img/lang/it-IT.png" alt="it-IT" title="it-IT">
                 <img src="./img/lang/de-DE.png" alt="de-DE" title="de-DE">
                 <img src="./img/lang/fr-FR.png" alt="fr-FR" title="fr-FR">
@@ -17,33 +18,33 @@
             </div>
         </div>
         <div class="settings_box">
-            <h5>voice</h5>
+            <h5 id="voice-title"><%=DATA.langPack.voice %></h5>
             <div class="settings_wrap">
                 <select id='voice-list'></select>
             </div>
         </div>
         <div class="settings_box">
-            <h5>spead</h5>
+            <h5 id="speed-title"><%=DATA.langPack.speed %></h5>
             <div class="settings_wrap">
-                <input type="range" id="voice-spead" min="0.5" max="2" step="0.1">
-                <p><span id="voice-spead-label"></span> x</p>
+                <input type="range" id="voice-speed" min="0.5" max="2" step="0.1">
+                <p><span id="voice-speed-label"></span> x</p>
             </div>
         </div>
         <div class="settings_box">
-            <h5>pitch</h5>
+            <h5 id="pitch-title"><%=DATA.langPack.pitch %></h5>
             <div class="settings_wrap">
                 <input type="range" id="voice-pitch" min="0" max="2" step="0.1">
                 <p><span id="voice-pitch-label"></span></p>
             </div>
         </div>
     <% } %>
-    <% if (DATA.permission.permAuthorised === 0) { %>
+    <!-- <% if (DATA.permission.permAuthorised === 0) { %>
         <div class="settings_box_default">
             <b>Якщо ви не авторизовані то вам доступні тільки стандартні налаштування!</b>
             <p>Тип голосу: Google UK English Female</p>
             <p>Швидкість мовлення: 1x</p>
             <p>Висота голосу: 1</p>
         </div>
-    <% } %> 
+    <% } %>  -->
     <%- include("./error.ejs") %>
 </div>    

@@ -9,7 +9,6 @@ const synth = window.speechSynthesis,
 
 let voices = [];
 
-
 // dropdown menu
 const dropdowns = $_('.user_settings_list');
 const makeCounter = function() {
