@@ -7,51 +7,69 @@
     <%- include("./parts/header.ejs") %>    
     <div class="main_body">
         <%- include("./parts/backtomain.ejs") %>
-        <%- include("./parts/settings.ejs") %>         
+        <div class="part_wrap">
+            <% if (DATA.permission.permAuthorised === 1) { %>        
+                <div class="settings_box">
+                    <div class="lang_title_wrap">
+                        <h5 id="language-title"><%=DATA.langPack.language %></h5>
+                        <img id="my-lang" src="./img/lang/<%=DATA.usersett.lang %>.png" title="<%=DATA.usersett.lang %>">
+                    </div>
+                    <div class="settings-my-lang-box">
+                        <img src="./img/lang/uk-UA.png" alt="uk-UA" title="uk-UA">
+                        <!-- <img src="./img/lang/en-GB.png" alt="en-GB" title="en-GB"> -->
+                        <img src="./img/lang/it-IT.png" alt="it-IT" title="it-IT">
+                        <img src="./img/lang/de-DE.png" alt="de-DE" title="de-DE">
+                        <img src="./img/lang/fr-FR.png" alt="fr-FR" title="fr-FR">
+                        <img src="./img/lang/es-ES.png" alt="es-ES" title="es-ES">
+                        <img src="./img/lang/zh-CN.png" alt="zh-CN" title="zh-CN">
+                        <img src="./img/lang/pl-PL.png" alt="pl-PL" title="pl-PL">
+                        <img src="./img/lang/ru-RU.png" alt="ru-RU" title="ru-RU">
+                    </div>
+                </div>
+                <div class="settings_box">
+                    <h5 id="voice-title"><%=DATA.langPack.voice %></h5>
+                    <div class="settings_wrap">
+                        <select id='voice-list'></select>
+                    </div>
+                </div>
+                <div class="settings_box">
+                    <h5 id="speed-title"><%=DATA.langPack.speed %></h5>
+                    <div class="settings_wrap">
+                        <input type="range" id="voice-speed" min="0.5" max="2" step="0.1">
+                        <p><span id="voice-speed-label"></span> x</p>
+                    </div>
+                </div>
+                <div class="settings_box">
+                    <h5 id="pitch-title"><%=DATA.langPack.pitch %></h5>
+                    <div class="settings_wrap">
+                        <input type="range" id="voice-pitch" min="0" max="2" step="0.1">
+                        <p><span id="voice-pitch-label"></span></p>
+                    </div>
+                </div>
+                <div class="settings_box">                    
+                    <h5 id="color-title"><%=DATA.langPack.color %></h5>                    
+                    <div class="settings-my-lang-box">
+                        <p>-</p>
+                        <p>-</p>
+                        <p>-</p>
+                    </div>
+                </div>
+            <% } %>
+            <% if (DATA.permission.permAuthorised === 0) { %>
+                <div class="settings_box_default">
+                    <b>Якщо ви не авторизовані то вам доступні тільки стандартні налаштування!</b>
+                    <p>Тип голосу: Google UK English Female</p>
+                    <p>Швидкість мовлення: 1x</p>
+                    <p>Висота голосу: 1</p>
+                </div>
+            <% } %> 
+            <%- include("./parts/error.ejs") %>
+        </div>           
     </div>
-
     <%- include("./parts/footer.ejs") %>
-
     <script src="./js/js.js"></script>
     <script src='./js/icon.js'></script>
-    <script src='./js/settings.js'></script>
-    <script>
-        voiceSpead.addEventListener('input', () => { voiceSpeadLabel.textContent = voiceSpead.value });
-        voicePitch.addEventListener('input', () => { voicePitchLabel.textContent = voicePitch.value });
-    </script>
-    <% if (DATA.permission.permAuthorised === 0) { %>
-        <script>
-            voiceSpead.addEventListener('change', () => { localStorage.setItem("SpeakSpeed", voiceSpead.value) });    
-            voicePitch.addEventListener('change', () => { localStorage.setItem("SpeakPitch", voicePitch.value) });    
-            voiceList.addEventListener('change', () => { localStorage.setItem("SpeakVoice", voiceList.selectedIndex) });
-        </script>
-    <% } %> 
     <% if (DATA.permission.permAuthorised === 1) { %>
-        <script>
-            voiceSpead.addEventListener('change', () => { send({"type":"speed", "value":voiceSpead.value}, '/setsettings', (result) => {
-                    localStorage.setItem("SpeakSpeed", voiceSpead.value); 
-                })});    
-            voicePitch.addEventListener('change', () => { send({"type":"pitch", "value":voicePitch.value}, '/setsettings', (result) => {
-                    localStorage.setItem("SpeakPitch", voicePitch.value) 
-                })});    
-            voiceList.addEventListener('change', () => { send({"type":"voice", "value":voiceList.selectedIndex}, '/setsettings', (result) => {
-                    localStorage.setItem("SpeakVoice", voiceList.selectedIndex)  
-                })});
-            for (const i of myLang) {
-                i.addEventListener('click', () => { send({"type":"my_lang", "value":i.title}, '/setsettings', (result) => {
-                    const langPack = JSON.parse(result);
-                    ["language", "voice", "speed", "pitch", "back", "settings", "friends", "exit", "site", "dev"].forEach(e => {
-                        if ($_(`#${e}-title`)[0]) { 
-                            $_(`#${e}-title`)[0].textContent = langPack[e] ? langPack[e] : '--------'; 
-                        };
-                    });
-                    localStorage.setItem("myLang", i.title);
-                    myLangSet.setAttribute("title", i.title);
-                    myLangSet.setAttribute("src", `./img/lang/${i.title}.png`);
-                })});
-            }
-        </script>
-    <% } %> 
-
-
+        <script src='./js/settings.js'></script>
+    <% } %>
 </body>

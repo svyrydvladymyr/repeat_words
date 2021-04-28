@@ -6,13 +6,26 @@
 <body>
     <%- include("./parts/header.ejs") %>
     <div class="main_body">
-        <%- include("./parts/mainbody.ejs") %>
+        <div class="part_wrap">
+            <% if (DATA.permission.permAuthorised === 1) { %>
+        
+
+
+
+                <button id='btnSpeak' title="main btn" onclick="redirect('/repeat-words')">Повторення слів &nbsp;<i class='fas fa-graduation-cap'></i></button>
+        
+
+
+
+            <% } %> 
+            <% if (DATA.permission.permAuthorised === 0) { %>
+                <button id='btnSpeak' title="main btn" onclick="redirect('/repeat-words')">Повторення слів &nbsp;<i class='fas fa-graduation-cap'></i></button>
+                <button id='btnSpeak' title="main btn" onclick="redirect('/settings')">Інформація про налаштування &nbsp;<i class='fas fa-cogs'></i></button>
+            <% } %> 
+            <%- include("./parts/error.ejs") %>
+        </div>
     </div>
     <%- include("./parts/footer.ejs") %>
-
     <script src="./js/js.js"></script>
-    <script src="./js/speach_module.js"></script>
-    <script src="./js/listening_module.js"></script>
     <script src='./js/icon.js'></script>
-
 </body>

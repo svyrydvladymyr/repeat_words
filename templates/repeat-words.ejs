@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <%- include("./parts/head.ejs") %>
+</head>
+<body>
+    <%- include("./parts/header.ejs") %>
+    <div class="main_body">
+        <%- include("./parts/backtomain.ejs") %>
+        <div class="part_wrap">
+
+            <input id='txt-input' value="helo" /> 
+            <br><br><br>
+        
+            <p id="show-speach"></p>
+            <br>   
+        
+            <button id='btn-speak'><i class='fas fa-volume-up'></i></button>
+            <button id='btn-listening'><i class='fas fa-microphone-alt'></i><p id="time_scale"></p></button>
+            
+            <!-- <button id='btnSpeak'><i class='fas fa-info'></i></button>
+            <button id='btnSpeak'><i class='fas fa-question'></i></button>
+            <button id='btnSpeak'><i class='fas fa-ellipsis-h'></i></button>
+            <button id='btnSpeak'><i class='far fa-eye'></i></button>
+            <button id='btnSpeak'><i class='far fa-save'></i></button>
+            <button id='btnSpeak'><i class='far fa-frown'></i></button>
+            <button id='btnSpeak'><i class='far fa-grin'></i></button>
+            <button id='btnSpeak'><i class='fas fa-award'></i></button>
+            <button id='btnSpeak'><i class='far fa-file-alt'></i></button>
+            <button id='btnSpeak'><i class='fas fa-home'></i></button>
+            <button id='btnSpeak'><i class='far fa-calendar-alt'></i></button>
+            <button id='btnSpeak'><i class='far fa-address-card'></i></button>
+            <button id='btnSpeak'><i class='fas fa-reply'></i></button>
+            <button id='btnSpeak'><i class='fas fa-plus'></i></button>
+            <button id='btnSpeak'><i class='far fa-trash-alt'></i></button>
+            <button id='btnSpeak'><i class='far fa-thumbs-up'></i></button>
+            <button id='btnSpeak'><i class='far fa-thumbs-down'></i></button>
+            <button id='btnSpeak'><i class='fas fa-file-export'></i></button>
+            <button id='btnSpeak'><i class='fas fa-user-plus'></i></button>
+            <button id='btnSpeak' title="Send answer">Send &nbsp;<i class='far fa-paper-plane'></i></button>
+            <button id='btnSpeak'><i class='far fa-keyboard'></i></button>
+            <button id='btnSpeak'><i class='fas fa-user-times'></i></button>
+            <button id='btnSpeak'><i class='fas fa-graduation-cap'></i></button>
+            <button id='btnSpeak'><i class='fa fa-th-list'></i></button>
+            <button id='btnSpeak'><i class='fa fa-list-alt'></i></button>
+            <button id='btnSpeak'><i class='fa fa-venus-mars'></i></button> -->
+           
+           
+            <%- include("./parts/error.ejs") %>
+        </div>
+    </div>
+    <%- include("./parts/footer.ejs") %>
+    <script src="./js/js.js"></script>
+    <script src="./js/speach_module.js"></script>
+    <script src="./js/listening_module.js"></script>
+    <script src='./js/icon.js'></script>
+</body>

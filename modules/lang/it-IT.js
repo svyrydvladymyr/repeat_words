@@ -3,6 +3,7 @@ module.exports = {
     "voice" : "Tipo di voce",
     "speed" : "Velocità",
     "pitch" : "Tonalità",
+    "color" : "Colore",
     "back" : "tornare a casa",
     "settings" : "Impostazioni",
     "friends" : "Amici",

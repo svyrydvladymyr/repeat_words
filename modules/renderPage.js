@@ -40,6 +40,7 @@ const clearDATA = () => {
     DATA.permission.permAuthorised = 0; 
     DATA.errors.errMessage = '';
     DATA.errors.SERVER_ERROR = '';
+    DATA.langPack = require('./lang/uk-UA');
 };
 
 
@@ -84,7 +85,7 @@ const getUser = async (req, res) => {
         } catch(e) {
             langPack = require(`./lang/uk-UA`);
             DATA.usersett.lang = 'uk-UA';
-            console.error("Module is not found");
+            log('Module is not found', 0); 
         }
         if (access) { DATA.langPack = langPack };
         return DATA.user.id;       

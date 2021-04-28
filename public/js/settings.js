@@ -40,4 +40,28 @@ if(synth.onvoiceschanged !== undefined) { synth.onvoiceschanged = () => {
     };
     voiceList.selectedIndex = selectedIndex;            
 }};
+voiceSpead.addEventListener('input', () => { voiceSpeadLabel.textContent = voiceSpead.value });
+voicePitch.addEventListener('input', () => { voicePitchLabel.textContent = voicePitch.value });
+voiceSpead.addEventListener('change', () => { send({"type":"speed", "value":voiceSpead.value}, '/setsettings', (result) => {
+        localStorage.setItem("SpeakSpeed", voiceSpead.value); 
+    })});    
+voicePitch.addEventListener('change', () => { send({"type":"pitch", "value":voicePitch.value}, '/setsettings', (result) => {
+        localStorage.setItem("SpeakPitch", voicePitch.value) 
+    })});    
+voiceList.addEventListener('change', () => { send({"type":"voice", "value":voiceList.selectedIndex}, '/setsettings', (result) => {
+        localStorage.setItem("SpeakVoice", voiceList.selectedIndex)  
+    })});
+for (const i of myLang) {
+    i.addEventListener('click', () => { send({"type":"my_lang", "value":i.title}, '/setsettings', (result) => {
+        const langPack = JSON.parse(result);
+        ["language", "voice", "speed", "pitch", "color", "back", "settings", "friends", "exit", "site", "dev"].forEach(e => {
+            if ($_(`#${e}-title`)[0]) { 
+                $_(`#${e}-title`)[0].textContent = langPack[e] ? langPack[e] : '--------'; 
+            };
+        });
+        localStorage.setItem("myLang", i.title);
+        myLangSet.setAttribute("title", i.title);
+        myLangSet.setAttribute("src", `./img/lang/${i.title}.png`);
+    })});
+}
 

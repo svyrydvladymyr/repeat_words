@@ -26,7 +26,7 @@ const setSettings = (req, res) => {
             }    
             my_lang.forEach(e => { if (e === value) {param = true} });
             color.forEach(e => { if (e === value) {param = true} });
-            if (type && param) { access = true };    
+            if (typeParam && param) { access = true };    
 
             // console.log('type', type);
             // console.log('param', param);

@@ -19,3 +19,4 @@ input[type=range] { max-width: 76%; width: 76% }
     width: 40px;
     top: -25px;
 }
+button[title='main btn'] { width: 94% }

@@ -78,6 +78,7 @@ app.use((req, res, next) => {accessLog(req, res, next)});
 app.use('/setsettings', (req, res) => {setSettings(req, res)});
 
 //pages
+app.use('/repeat-words', (req, res) => {renderPage(req, res, 'repeat-words')});
 app.use('/settings', (req, res) => {renderPage(req, res, 'settings')});
 app.use('/friends', (req, res) => {renderPage(req, res, 'friends')});
 app.use('/exit', (req, res) => {renderPage(req, res, 'exit')});

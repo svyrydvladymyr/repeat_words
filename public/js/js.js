@@ -1,4 +1,5 @@
 const $_ = (value, parent = document) => parent.querySelectorAll(value);
+const redirect = way => window.location.replace(`${way}`);;
 
 const error = {
         proba : 'sdfsdf'
