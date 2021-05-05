@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
     <%- include("./parts/head.ejs") %>
+        <script>
+            const langString = '<%=DATA.langList %>', langList = langString.split(",");
+            const interfaceLangParam = '<%=DATA.usersett.interface %>';
+        </script>
 </head>
 <body>
     <%- include("./parts/header.ejs") %>    
@@ -11,20 +15,25 @@
             <% if (DATA.permission.permAuthorised === 1) { %>        
                 <div class="settings_box">
                     <div class="lang_title_wrap">
+                        <h5 id="interface-title"><%=DATA.langPack.interface %></h5>
+                    </div>
+                    <div class="settings-interface-box">
+                        <div>
+                            <p>English</p>
+                            <div class="interface-check" title="en-US"></div>
+                        </div>
+                        <div>      
+                            <div class="interface-check" title="my"></div>                      
+                            <p>Your language</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings_box">
+                    <div class="lang_title_wrap">
                         <h5 id="language-title"><%=DATA.langPack.language %></h5>
-                        <img id="my-lang" src="./img/lang/<%=DATA.usersett.lang %>.png" title="<%=DATA.usersett.lang %>">
+                        <img id="my-lang" src="./img/lang/<%=DATA.usersett.lang %>.png" alt="" title="<%=DATA.usersett.lang %>">
                     </div>
-                    <div class="settings-my-lang-box">
-                        <img src="./img/lang/uk-UA.png" alt="uk-UA" title="uk-UA">
-                        <!-- <img src="./img/lang/en-GB.png" alt="en-GB" title="en-GB"> -->
-                        <img src="./img/lang/it-IT.png" alt="it-IT" title="it-IT">
-                        <img src="./img/lang/de-DE.png" alt="de-DE" title="de-DE">
-                        <img src="./img/lang/fr-FR.png" alt="fr-FR" title="fr-FR">
-                        <img src="./img/lang/es-ES.png" alt="es-ES" title="es-ES">
-                        <img src="./img/lang/zh-CN.png" alt="zh-CN" title="zh-CN">
-                        <img src="./img/lang/pl-PL.png" alt="pl-PL" title="pl-PL">
-                        <img src="./img/lang/ru-RU.png" alt="ru-RU" title="ru-RU">
-                    </div>
+                    <div class="settings-my-lang-box"></div>
                 </div>
                 <div class="settings_box">
                     <h5 id="voice-title"><%=DATA.langPack.voice %></h5>

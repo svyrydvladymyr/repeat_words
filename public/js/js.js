@@ -60,4 +60,13 @@ const send = (obj, url, fun) => {
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type", "application/json");
     xmlhttp.send(JSON.stringify(obj));     
-};      
+};    
+
+//for change language in settings menu  
+const setLanguage = (langPack) => {
+    ["interface", "language", "voice", "speed", "pitch", "color", "back", "settings", "friends", "exit", "site", "dev"].forEach(e => {
+        if ($_(`#${e}-title`)[0]) { 
+            $_(`#${e}-title`)[0].textContent = langPack[e] ? langPack[e] : '--------'; 
+        };
+    });
+}

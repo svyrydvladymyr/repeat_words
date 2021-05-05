@@ -1,4 +1,5 @@
 module.exports = {
+    "interface" : "Lingua dell'interfaccia",
     "language" : "Mio linguaggio",
     "voice" : "Tipo di voce",
     "speed" : "Velocità",

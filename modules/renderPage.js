@@ -1,4 +1,4 @@
-const {log, clienttoken, addCookies, getTableRecord} = require('./service');
+const {log, clienttoken, addCookies, getTableRecord, langList} = require('./service');
 const con = require('../db/connectToDB').con;
 
 const DATA = {
@@ -21,10 +21,12 @@ const DATA = {
         spead : 1,
         pitch : 1,
         voice : 4,
-        lang : 'uk-UA',
+        lang : 'none',
+        interface : 'en-US',
         color : 'blue'
     },
-    langPack : require('./lang/uk-UA')
+    langPack : require('./lang/en-US'),
+    langList : langList
 };
 
 const clearDATA = () => {
@@ -35,12 +37,13 @@ const clearDATA = () => {
     DATA.usersett.spead = 1;
     DATA.usersett.pitch = 1;
     DATA.usersett.voice = 4;
-    DATA.usersett.lang = 'uk-UA';
+    DATA.usersett.lang = 'none';
+    DATA.usersett.interface = 'en-US';
     DATA.usersett.color = 'blue';
     DATA.permission.permAuthorised = 0; 
     DATA.errors.errMessage = '';
     DATA.errors.SERVER_ERROR = '';
-    DATA.langPack = require('./lang/uk-UA');
+    DATA.langPack = require('./lang/en-US');
 };
 
 
@@ -72,19 +75,24 @@ const getUser = async (req, res) => {
             DATA.usersett.voice = userssettings[0].voice;
             DATA.usersett.lang = userssettings[0].my_lang;
             DATA.usersett.color = userssettings[0].color;
+            DATA.usersett.interface = (userssettings[0].interface === 'my') ? userssettings[0].my_lang : 'en-US';
         };     
-        return userssettings[0].my_lang;       
+        return DATA.usersett.interface;       
     })            
     .then((lang) => {
         let access = false, langPack;
-        ['uk-UA', 'it-IT', 'de-DE', 'fr-FR', 'es-ES', 'zh-CN', 'pl-PL', 'ru-RU'].forEach(e => { 
-            if (e === lang) {access = true} 
-        });
+
+        // console.log(req.acceptsLanguages() );
+        // console.log(req.acceptsLanguages()[0] );
+        
+        langList.push('en-US');    
+        langList.forEach(e => { if (e === lang) {access = true} });
+        langList.pop();
         try {
             langPack = require(`./lang/${lang}`);
         } catch(e) {
-            langPack = require(`./lang/uk-UA`);
-            DATA.usersett.lang = 'uk-UA';
+            langPack = require(`./lang/en-US`);
+            DATA.usersett.interface = 'en-US';
             log('Module is not found', 0); 
         }
         if (access) { DATA.langPack = langPack };

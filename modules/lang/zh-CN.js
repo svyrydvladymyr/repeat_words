@@ -1,4 +1,5 @@
 module.exports = {
+    "interface" : "界面语言",
     "language" : "我的语言",
     "voice" : "声音类型",
     "speed" : "速度",

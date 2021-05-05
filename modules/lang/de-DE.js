@@ -1,4 +1,5 @@
 module.exports = {
+    "interface" : "Schnittstellensprache",
     "language" : "Meine Sprache",
     "voice" : "Sprachtyp",
     "speed" : "Geschwindigkeit",

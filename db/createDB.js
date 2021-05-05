@@ -20,7 +20,8 @@ const users = () => {
 const userssettings = () => {
     const sql = `CREATE TABLE userssettings (id INT AUTO_INCREMENT PRIMARY KEY,
         userid VARCHAR(100) NOT NULL UNIQUE,
-        my_lang VARCHAR(20) DEFAULT 'uk-UA',    
+        interface VARCHAR(20) DEFAULT 'en-US',    
+        my_lang VARCHAR(20) DEFAULT 'none',    
         voice INT DEFAULT '4',                   
         speed VARCHAR(40) DEFAULT '1', 
         pitch VARCHAR(40) DEFAULT '1',            

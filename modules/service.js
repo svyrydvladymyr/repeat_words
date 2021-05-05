@@ -4,6 +4,8 @@ const Cookies = require('cookies');
 const fs = require('fs');
 const con = require('../db/connectToDB').con;
 
+const langList = ['uk-UA', 'it-IT', 'de-DE', 'fr-FR', 'es-ES', 'zh-CN', 'pl-PL', 'ru-RU'];
+
 //transliteration
 const translit = word => {return transliteratedValue = transliteration.transliterate(word)};
 
@@ -95,6 +97,7 @@ const getTableRecord = (sql) => {
 
 module.exports = {
     pageNotFound,
+    langList,
     translit,
     token,
     log,
