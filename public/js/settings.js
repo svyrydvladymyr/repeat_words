@@ -8,7 +8,10 @@ const voiceList = $_('#voice-list')[0],
     voicePitchLabel = $_('#voice-pitch-label')[0],
     voiceStorage = +localStorage.getItem("SpeakVoice"),
     voiceSpeadStorage = +localStorage.getItem("SpeakSpeed"),
-    voicePitchStorage = +localStorage.getItem("SpeakPitch");
+    voicePitchStorage = +localStorage.getItem("SpeakPitch"),
+    errorMess = $_('#alert-message')[0],
+    colorBox = $_('.settings-color-box')[0],
+    colorList = ['blue', 'green', 'red', 'yellow', 'grey'];
 
 voiceSpead.value = voiceSpeadStorage === 0 || isNaN(voiceSpeadStorage) ? 1 : voiceSpeadStorage;
 voicePitch.value = voicePitchStorage === 0 || isNaN(voicePitchStorage) ? 1 : voicePitchStorage;
@@ -44,18 +47,20 @@ if(synth.onvoiceschanged !== undefined) { synth.onvoiceschanged = () => {
 voiceSpead.addEventListener('input', () => { voiceSpeadLabel.textContent = voiceSpead.value });
 voicePitch.addEventListener('input', () => { voicePitchLabel.textContent = voicePitch.value });
 voiceSpead.addEventListener('change', () => { send({"type":"speed", "value":voiceSpead.value}, '/setsettings', (result) => {
-        localStorage.setItem("SpeakSpeed", voiceSpead.value); 
-    })});    
+    errorMess.innerHTML = '';
+    localStorage.setItem("SpeakSpeed", voiceSpead.value); 
+})});    
 voicePitch.addEventListener('change', () => { send({"type":"pitch", "value":voicePitch.value}, '/setsettings', (result) => {
-        localStorage.setItem("SpeakPitch", voicePitch.value) 
-    })});    
+    errorMess.innerHTML = '';
+    localStorage.setItem("SpeakPitch", voicePitch.value) 
+})});    
 voiceList.addEventListener('change', () => { send({"type":"voice", "value":voiceList.selectedIndex}, '/setsettings', (result) => {
-        localStorage.setItem("SpeakVoice", voiceList.selectedIndex)  
-    })});
+    errorMess.innerHTML = '';
+    localStorage.setItem("SpeakVoice", voiceList.selectedIndex)  
+})});
 
-// console.log('llll', interfaceLang);
-// console.log('llll', interfaceLangParam);
-const chancheLangBtn = (el, val) => {
+//change interface language button
+const changeLangBtn = (el, val) => {
     if (el === val) {
         interfaceLang[0].classList.add('interface_checked');
         interfaceLang[1].classList.remove('interface_checked');
@@ -64,24 +69,31 @@ const chancheLangBtn = (el, val) => {
         interfaceLang[0].classList.remove('interface_checked');
     };
 }; 
-chancheLangBtn(interfaceLangParam, 'en-US');
+changeLangBtn(interfaceLangParam, 'en-US');
 
+//change interface language
 for (const i of interfaceLang) {
-    i.addEventListener('click', () => { send({"type":"interface", "value":i.title}, '/setsettings', (result) => {
+    const obj = {"type":"interface", "value":i.title};
+    i.addEventListener('click', () => { send(obj, '/setsettings', (result) => {
         const langPack = JSON.parse(result);
+        errorMess.innerHTML = '';
         // console.log(langPack);
         setLanguage(langPack);
-        chancheLangBtn(langPack.interface, 'Interface language');
+        changeLangBtn(langPack.interface, 'Interface language');
     })});
 };
 
+//create flag list
 myLangBox.innerHTML = '';
-for (const i of langList) { myLangBox.innerHTML += `<img src="./img/lang/${i}.png" alt="" title="${i}">` };
+langList.forEach(el => { myLangBox.innerHTML += `<img src="./img/lang/${el}.png" alt="" title="${el}">` });
 
+//change my language
 const myLang = $_('.settings-my-lang-box')[0].children;
 for (const i of myLang) {
-    i.addEventListener('click', () => { send({"type":"my_lang", "value":i.title}, '/setsettings', (result) => {
+    const obj = {"type":"my_lang", "value":i.title};
+    i.addEventListener('click', () => { send(obj , '/setsettings', (result) => {
         const langPack = JSON.parse(result);
+        errorMess.innerHTML = '';
         // console.log('rrrr', langPack);
         (!langPack.res) ? setLanguage(langPack) : null;
         localStorage.setItem("myLang", i.title);
@@ -90,3 +102,19 @@ for (const i of myLang) {
     })});
 };
 
+//create color list
+colorBox.innerHTML = '';
+colorList.forEach(el => { colorBox.innerHTML += `<p class="${el}" title="${el}"></p>` });
+
+//change site color
+const myColor = $_('.settings-color-box')[0].children;
+for (const i of myColor) {
+    const obj = {"type":"color", "value":i.title};
+    i.addEventListener('click', () => { send(obj , '/setsettings', (result) => {
+        const resColor = JSON.parse(result);
+        errorMess.innerHTML = '';
+        // console.log('rrrr', resColor);
+        if (resColor.error) { errorMess.innerHTML = resColor.error }
+        if (resColor.res) { location.reload() };
+    })});
+};

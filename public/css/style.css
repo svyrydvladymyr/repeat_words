@@ -44,6 +44,7 @@ button,
 .settings-interface-box,
 .settings-interface-box > div,
 .settings-my-lang-box,
+.settings-color-box,
 .time_scale_wrap,
 .user_login,
 .user_login > a,
@@ -311,7 +312,8 @@ input[type=range]::-webkit-slider-thumb {
 }
 /* settings language -----------------------------------------------*/
 .settings-interface-box,
-.settings-my-lang-box {
+.settings-my-lang-box,
+.settings-color-box {
   justify-content: space-between;
   width: 100%;
   max-width: 350px;
@@ -347,6 +349,24 @@ input[type=range]::-webkit-slider-thumb {
   right: -12px;
 }
 
+/* settings color -----------------------------------------------*/
+.settings-color-box p {
+  cursor: pointer;
+  width: 18%;
+  min-height: 30px;
+  margin: 0px;
+  border: 5px solid;
+  border-color: var(--fourth-color);
+  border-radius: 9px;
+}
+.settings-color-box p:hover { border: 3px solid var(--fourth-color) }
+.blue{ background-color: #687c9a }
+.green{ background-color: #356a3e }
+.red{ background-color: #82353f }
+.yellow{ background-color: #9d9743 }
+.grey{ background-color: #545454 }
+
+/* settings interface ------------------------------------------*/
 .settings-interface-box > div {
   position: relative;
   margin: 0;

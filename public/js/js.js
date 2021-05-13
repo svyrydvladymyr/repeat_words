@@ -38,6 +38,7 @@ const showSettingsList = () => {
     dropdowns[0].classList.toggle('user_settings_list_show');
     dropdowns[0].classList.contains('user_settings_list_show') ? menuAnimation('increment') : menuAnimation('decrement');
 };    
+
 window.onclick = function(event) {        
     if (!event.target.matches('.user_settings_list_wrap > i')) {
         for (let i = 0; i < dropdowns.length; i++) {

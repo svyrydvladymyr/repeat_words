@@ -1,9 +1,12 @@
 const transliteration = require('transliteration.cyr');
-const pageNotFound = `<p style="text-align: center; color: red; margin: 100px auto; font: bold 16px Arial;">PAGE NOT FOUND!!!</p>`;
 const Cookies = require('cookies');
 const fs = require('fs');
 const con = require('../db/connectToDB').con;
 
+
+const pageNotFound = `<p style="text-align: center; color: red; margin: 100px auto; font: bold 16px Arial;">PAGE NOT FOUND!!!</p>`;
+
+//language list
 const langList = ['uk-UA', 'it-IT', 'de-DE', 'fr-FR', 'es-ES', 'zh-CN', 'pl-PL', 'ru-RU'];
 
 //transliteration
@@ -77,7 +80,6 @@ let accessLog = (req, res, next) => {
     next();
 }
 
-
 //chack on true values
 let checOnTrueVal = (el) => {
     let reg = "[^a-zA-Zа-яА-Я0-9-()_+=.'\":/\,іІїЇєЄ /\n]";
@@ -86,6 +88,7 @@ let checOnTrueVal = (el) => {
     return res;    
 }
 
+//get table record
 const getTableRecord = (sql) => {
     return new Promise((resolve) => { 
         con.query(sql, function (err, result) { 
