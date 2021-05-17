@@ -1,4 +1,4 @@
-const {log, getTableRecord, langList} = require('./service');
+const {log, getTableRecord, langList, voiceList} = require('./service');
 const {autorisationCheck} = require('./autorisation');
 const con = require('../db/connectToDB').con;
 
@@ -24,13 +24,17 @@ const setSettings = (req, res) => {
             langList.push('en-US', 'my');
             langList.forEach(e => { if (e === value) {param = true} });
             langList.splice(-2, 2);
+            voiceList.forEach(e => { if (e === value) {param = true} });
             color.forEach(e => { if (e === value) {param = true} });
             if (typeParam && param) { access = true };    
-            // console.log('type', type);
-            // console.log('param', param);
-            // console.log('access', access);
-            // console.log('type', type);
-            // console.log('value', value);
+
+
+            console.log('type', type);
+            console.log('value', value);
+            console.log('param', param);
+            console.log('access', access);
+
+
             return userid;
         };
     })

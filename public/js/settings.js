@@ -6,115 +6,130 @@ const voiceList = $_('#voice-list')[0],
     myLangSet = $_('#my-lang')[0],
     voiceSpeadLabel = $_('#voice-speed-label')[0],
     voicePitchLabel = $_('#voice-pitch-label')[0],
-    voiceStorage = +localStorage.getItem("SpeakVoice"),
     voiceSpeadStorage = +localStorage.getItem("SpeakSpeed"),
     voicePitchStorage = +localStorage.getItem("SpeakPitch"),
-    errorMess = $_('#alert-message')[0],
     colorBox = $_('.settings-color-box')[0],
-    colorList = ['blue', 'green', 'red', 'yellow', 'grey'];
+    colorList = ['blue', 'green', 'red', 'yellow', 'grey'],
+    synth = window.speechSynthesis;
+let voices = [], selectedIndex = 3, voiceIndex, selectedLanguage;
 
 voiceSpead.value = voiceSpeadStorage === 0 || isNaN(voiceSpeadStorage) ? 1 : voiceSpeadStorage;
 voicePitch.value = voicePitchStorage === 0 || isNaN(voicePitchStorage) ? 1 : voicePitchStorage;
 voiceSpeadLabel.textContent = voiceSpead.value;
 voicePitchLabel.textContent = voicePitch.value;
 
-if(synth.onvoiceschanged !== undefined) { synth.onvoiceschanged = () => { 
-    voices = synth.getVoices();
-    // console.log(voices);
-    const langArr = [
-        "Microsoft Zira Desktop - English (United States)",
-        "Microsoft David Desktop - English (United States)",
-        "Google US English",
-        "Google UK English Female",
-        "Google UK English Male"
-    ];
-    var selectedIndex = voiceStorage === 0 ? 0 : voiceStorage;
-    voiceList.innerHTML = '';
-    for (const i of langArr) {
-        voices.forEach((voice, index)=>{
-            if (voice.name == i) {
-                var listItem = document.createElement('option');
-                listItem.textContent = voice.name;
-                listItem.setAttribute('data-lang', voice.lang);
-                listItem.setAttribute('data-name', voice.name);
-                listItem.setAttribute('value', index);
-                voiceList.appendChild(listItem);
-            };
+if(synth.onvoiceschanged !== undefined) { 
+    synth.onvoiceschanged = () => {        
+        voices = synth.getVoices();
+        const userVoiceIndex = getVoicesIndex(voices);
+        voiceIndex = (userVoiceIndex !== undefined) 
+            ? userVoiceIndex 
+            : getVoicesIndex(voices, 'Google UK English Female');
+        selectedLanguage = (userVoiceIndex !== undefined) 
+            ? voices[voiceIndex].name 
+            : 'Google UK English Female';
+        langArr.forEach((el, index) => {
+            if (el === selectedLanguage) { selectedIndex = index };
         });
-    };
-    voiceList.selectedIndex = selectedIndex;            
-}};
+        voiceList.innerHTML = '';
+        for (const i of langArr) {
+            voices.forEach((voice)=>{
+                if (voice.name == i) {
+                    var listItem = document.createElement('option');
+                    listItem.textContent = voice.name;
+                    listItem.setAttribute('value', voice.name);
+                    voiceList.appendChild(listItem);
+                };
+            });
+        };
+        voiceList.selectedIndex = selectedIndex;
+    };            
+};
+
 voiceSpead.addEventListener('input', () => { voiceSpeadLabel.textContent = voiceSpead.value });
 voicePitch.addEventListener('input', () => { voicePitchLabel.textContent = voicePitch.value });
-voiceSpead.addEventListener('change', () => { send({"type":"speed", "value":voiceSpead.value}, '/setsettings', (result) => {
-    errorMess.innerHTML = '';
-    localStorage.setItem("SpeakSpeed", voiceSpead.value); 
-})});    
-voicePitch.addEventListener('change', () => { send({"type":"pitch", "value":voicePitch.value}, '/setsettings', (result) => {
-    errorMess.innerHTML = '';
-    localStorage.setItem("SpeakPitch", voicePitch.value) 
-})});    
-voiceList.addEventListener('change', () => { send({"type":"voice", "value":voiceList.selectedIndex}, '/setsettings', (result) => {
-    errorMess.innerHTML = '';
-    localStorage.setItem("SpeakVoice", voiceList.selectedIndex)  
-})});
+voiceSpead.addEventListener('change', () => { 
+    send({"type":"speed", "value":voiceSpead.value}, '/setsettings', (result) => {
+        alertMessage.innerHTML = '';
+        localStorage.setItem("SpeakSpeed", voiceSpead.value); 
+    });
+});    
+voicePitch.addEventListener('change', () => { 
+    send({"type":"pitch", "value":voicePitch.value}, '/setsettings', (result) => {
+        alertMessage.innerHTML = '';
+        localStorage.setItem("SpeakPitch", voicePitch.value) 
+    });
+});
+voiceList.addEventListener('change', (event) => {    
+    send({"type":"voice", "value": $_('#voice-list')[0].value}, '/setsettings', (result) => {
+        alertMessage.innerHTML = '';
+        localStorage.setItem("SpeakVoice", voices[voiceIndex].name)  
+    });
+});
+
+//for change language in settings menu  
+const setLanguage = (langPack) => {
+    ["interface", "language", "voice", "speed", "pitch", "color", "back", "settings", "friends", "exit", "site", "dev"].forEach(e => {
+        if ($_(`#${e}-title`)[0]) { 
+            $_(`#${e}-title`)[0].textContent = langPack[e] ? langPack[e] : '--------'; 
+        };
+    });
+};
 
 //change interface language button
 const changeLangBtn = (el, val) => {
     if (el === val) {
         interfaceLang[0].classList.add('interface_checked');
-        interfaceLang[1].classList.remove('interface_checked');
+        if (interfaceLang[1]) { interfaceLang[1].classList.remove('interface_checked') };        
     } else {
-        interfaceLang[1].classList.add('interface_checked');
+        if (interfaceLang[1]) { interfaceLang[1].classList.add('interface_checked') };
         interfaceLang[0].classList.remove('interface_checked');
     };
 }; 
+
+//change settings lists (interface, language, color)
+const changeSettingsLists = (list, type, resFun) => {
+    for (const i of list) {
+        const obj = {"type": type, "value": i.title};
+        i.addEventListener('click', () => { send(obj , '/setsettings', (result) => {
+            const res = JSON.parse(result);
+            alertMessage.innerHTML = '';
+            // console.log('res', res);
+            resFun(res, i);
+        })});
+    };
+}; 
+
+//set interface Language Parametrs-----------------------------------------------------
 changeLangBtn(interfaceLangParam, 'en-US');
-
 //change interface language
-for (const i of interfaceLang) {
-    const obj = {"type":"interface", "value":i.title};
-    i.addEventListener('click', () => { send(obj, '/setsettings', (result) => {
-        const langPack = JSON.parse(result);
-        errorMess.innerHTML = '';
-        // console.log(langPack);
-        setLanguage(langPack);
-        changeLangBtn(langPack.interface, 'Interface language');
-    })});
-};
+changeSettingsLists(interfaceLang, "interface", (result, i) => {
+    setLanguage(result);
+    changeLangBtn(result.interface, 'Interface language');
+});
 
-//create flag list
+//create flag list---------------------------------------------------------------------
 myLangBox.innerHTML = '';
 langList.forEach(el => { myLangBox.innerHTML += `<img src="./img/lang/${el}.png" alt="" title="${el}">` });
-
 //change my language
-const myLang = $_('.settings-my-lang-box')[0].children;
-for (const i of myLang) {
-    const obj = {"type":"my_lang", "value":i.title};
-    i.addEventListener('click', () => { send(obj , '/setsettings', (result) => {
-        const langPack = JSON.parse(result);
-        errorMess.innerHTML = '';
-        // console.log('rrrr', langPack);
-        (!langPack.res) ? setLanguage(langPack) : null;
-        localStorage.setItem("myLang", i.title);
+changeSettingsLists($_('.settings-my-lang-box')[0].children, "my_lang", (result, i) => {
+    if (!result.res && !result.error) { setLanguage(result) };
+    if (result.res && !result.error && !myLangSet) { location.reload() };
+    if (result.error) { alertMessage.innerHTML = result.error };
+    if (myLangSet) {      
         myLangSet.setAttribute("title", i.title);
         myLangSet.setAttribute("src", `./img/lang/${i.title}.png`);
-    })});
-};
+    };
+    localStorage.setItem("myLang", i.title);
+});
 
-//create color list
+//create color list---------------------------------------------------------------------
 colorBox.innerHTML = '';
 colorList.forEach(el => { colorBox.innerHTML += `<p class="${el}" title="${el}"></p>` });
-
 //change site color
-const myColor = $_('.settings-color-box')[0].children;
-for (const i of myColor) {
-    const obj = {"type":"color", "value":i.title};
-    i.addEventListener('click', () => { send(obj , '/setsettings', (result) => {
-        const resColor = JSON.parse(result);
-        errorMess.innerHTML = '';
-        // console.log('rrrr', resColor);
-        if (resColor.error) { errorMess.innerHTML = resColor.error }
-        if (resColor.res) { location.reload() };
-    })});
-};
+changeSettingsLists($_('.settings-color-box')[0].children, "color", (result, i) => {
+    if (result.error) { alertMessage.innerHTML = result.error }
+    if (result.res) { location.reload() };
+});
+
+

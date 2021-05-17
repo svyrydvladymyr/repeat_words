@@ -7,7 +7,25 @@ const con = require('../db/connectToDB').con;
 const pageNotFound = `<p style="text-align: center; color: red; margin: 100px auto; font: bold 16px Arial;">PAGE NOT FOUND!!!</p>`;
 
 //language list
-const langList = ['uk-UA', 'it-IT', 'de-DE', 'fr-FR', 'es-ES', 'zh-CN', 'pl-PL', 'ru-RU'];
+const langList = [
+    'uk-UA', 
+    'it-IT', 
+    'de-DE', 
+    'fr-FR', 
+    'es-ES', 
+    'zh-CN', 
+    'pl-PL', 
+    'ru-RU'
+];
+
+//voice list
+const voiceList = [
+    "Microsoft Zira Desktop - English (United States)",
+    "Microsoft David Desktop - English (United States)",
+    "Google US English",
+    "Google UK English Female",
+    "Google UK English Male"
+];
 
 //transliteration
 const translit = word => {return transliteratedValue = transliteration.transliterate(word)};
@@ -101,6 +119,7 @@ const getTableRecord = (sql) => {
 module.exports = {
     pageNotFound,
     langList,
+    voiceList,
     translit,
     token,
     log,

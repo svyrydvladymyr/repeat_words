@@ -4,6 +4,7 @@
     <%- include("./parts/head.ejs") %>
         <script>
             const langString = '<%=DATA.langList %>', langList = langString.split(",");
+            const voiceString = '<%=DATA.voiceList %>', langArr = voiceString.split(",");
             const interfaceLangParam = '<%=DATA.usersett.interface %>';
         </script>
 </head>
@@ -22,16 +23,20 @@
                             <p>English</p>
                             <div class="interface-check" title="en-US"></div>
                         </div>
-                        <div>      
-                            <div class="interface-check" title="my"></div>                      
-                            <p>Your language</p>
-                        </div>
+                        <% if (DATA.usersett.lang !== 'none' && DATA.usersett.lang !== undefined) { %>
+                            <div>      
+                                <div class="interface-check" title="my"></div>                      
+                                <p>Your language</p>
+                            </div>
+                        <% } %> 
                     </div>
                 </div>
                 <div class="settings_box">
                     <div class="lang_title_wrap">
                         <h5 id="language-title"><%=DATA.langPack.language %></h5>
-                        <img id="my-lang" src="./img/lang/<%=DATA.usersett.lang %>.png" alt="" title="<%=DATA.usersett.lang %>">
+                        <% if (DATA.usersett.lang !== 'none' && DATA.usersett.lang !== undefined) { %>
+                            <img id="my-lang" src="./img/lang/<%=DATA.usersett.lang %>.png" alt="" title="<%=DATA.usersett.lang %>">                            
+                        <% } %>                         
                     </div>
                     <div class="settings-my-lang-box"></div>
                 </div>

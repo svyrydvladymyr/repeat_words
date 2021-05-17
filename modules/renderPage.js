@@ -1,4 +1,4 @@
-const {log, clienttoken, addCookies, getTableRecord, langList} = require('./service');
+const {log, clienttoken, addCookies, getTableRecord, langList, voiceList} = require('./service');
 const con = require('../db/connectToDB').con;
 
 const DATA = {
@@ -26,7 +26,8 @@ const DATA = {
         color : 'blue'
     },
     langPack : require('./lang/en-US'),
-    langList : langList
+    langList : langList,
+    voiceList : voiceList
 };
 
 const clearDATA = () => {
@@ -69,6 +70,9 @@ const getUser = async (req, res) => {
             log("settings-request-error", userssettings.code);
         } else if (userssettings == '') {
             log("not-found-settings-record", userssettings);
+            con.query(`INSERT INTO userssettings (userid) VALUES ('${DATA.user.id}')`, (err, result) => {
+                log("settings-added", result ? result.affectedRows : err.code);        
+            });  
         } else {
             DATA.usersett.spead = userssettings[0].speed;
             DATA.usersett.pitch = userssettings[0].pitch;
@@ -81,10 +85,6 @@ const getUser = async (req, res) => {
     })            
     .then((lang) => {
         let access = false, langPack;
-
-        // console.log(req.acceptsLanguages() );
-        // console.log(req.acceptsLanguages()[0] );
-        
         langList.push('en-US');    
         langList.forEach(e => { if (e === lang) {access = true} });
         langList.pop();

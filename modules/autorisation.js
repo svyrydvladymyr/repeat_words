@@ -56,9 +56,6 @@ const autorisationSocial = (profile, done) => {
             }); 
         } else if (result[0].userid === user.id){
             log("user-is-already-authorized", user.id);
-            // con.query(`INSERT INTO userssettings (userid) VALUES ('${user.id}')`, (err, result) => {
-            //     log("settings-added", result ? result.affectedRows : err.code)
-            // });  
             con.query(`UPDATE users SET name = '${user.name}', surname = '${user.surname}', ava = '${user.ava}' WHERE userid = '${user.id}'`, (err, result) => {
                 log("updade-user-data", result ? result.affectedRows : err.code)
             });

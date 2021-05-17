@@ -22,7 +22,7 @@ const userssettings = () => {
         userid VARCHAR(100) NOT NULL UNIQUE,
         interface VARCHAR(20) DEFAULT 'en-US',    
         my_lang VARCHAR(20) DEFAULT 'none',    
-        voice INT DEFAULT '4',                   
+        voice VARCHAR(60) DEFAULT 'Google UK English Female',                   
         speed VARCHAR(40) DEFAULT '1', 
         pitch VARCHAR(40) DEFAULT '1',            
         color VARCHAR(20) DEFAULT 'blue'            
