@@ -1,5 +1,8 @@
 input[type=range] { max-width: 76%; width: 76% }
-button[title='main btn'] { width: 94% }
+.selectLanguage,
+button[title='main btn'] { 
+    width: 94%; 
+}
 
 .logo_wrap, .user_wrap { width: 100%; justify-content: center }
 .user_wrap { flex-direction: column }

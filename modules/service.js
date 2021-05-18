@@ -17,7 +17,16 @@ const langList = [
     'pl-PL', 
     'ru-RU'
 ];
-
+const langName = [
+    'УКРАЇНСЬКА', 
+    'ITALIANO',
+    'DEUTSCHE', 
+    'FRANÇAIS',
+    'ESPAÑOL',
+    '中国人',
+    'POLSKIE',
+    'РОССИЙСКАЯ'
+];
 //voice list
 const voiceList = [
     "Microsoft Zira Desktop - English (United States)",
@@ -118,6 +127,7 @@ const getTableRecord = (sql) => {
 
 module.exports = {
     pageNotFound,
+    langName,
     langList,
     voiceList,
     translit,

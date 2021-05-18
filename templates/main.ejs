@@ -3,7 +3,8 @@
 <head>
     <%- include("./parts/head.ejs") %>
     <script>
-        const langString = '<%=DATA.langList %>', langList = langString.split(",");
+        const langStringList = '<%=DATA.langList %>', langList = langStringList.split(",");
+        const langStringName = '<%=DATA.langName %>', langName = langStringName.split(",");
     </script>
 </head>
 <body>
@@ -11,12 +12,13 @@
     <div class="main_body">
         <div class="part_wrap">
             <% if (DATA.permission.permAuthorised === 1) { %>        
-                <% if (DATA.usersett.lang === 'none' || DATA.usersett.lang === undefined) { %>
-
-                    <p>SELECT Language</p>
-
-                <% } else { %> 
+                <% if (DATA.usersett.lang !== 'none') { %>
                     <button id='btnSpeak' title="main btn" onclick="redirect('/repeat-words')">Повторення слів &nbsp;<i class='fas fa-graduation-cap'></i></button>
+
+
+
+
+
 
 
                     
@@ -32,19 +34,16 @@
     <%- include("./parts/footer.ejs") %>
     <script src="./js/js.js"></script>
     <script src='./js/icon.js'></script>
-    
-    <% if (DATA.usersett.lang === 'none' || DATA.usersett.lang === undefined) { %>
+    <% if (DATA.usersett.lang === 'none' && DATA.permission.permAuthorised === 1) { %>
         <script>
-            const selectLanguageBox = $_('.main_body > .part_wrap')[0]
-            langList.forEach(el => { selectLanguageBox.innerHTML += `<button id='btnSpeak' title="${el}" >${el}<i class='fas fa-graduation-cap'></i></button>` });
-            
-            const setLanguage = () => {
-                send({"type": "my_lang", "value": "uk-UA"}, "/setsettings", (result) => {
-                    console.log('0000000', res);
-                })
-                
-            }
-
+            const selectLanguageBox = $_('.main_body > .part_wrap')[0];
+            langList.forEach((el, index) => { 
+                selectLanguageBox.innerHTML += `<button class="selectLanguage" title="${el}" >${langName[index]}<img src="../img/lang/${el}.png"></button>`; 
+            });            
+            changeSettingsLists(selectLanguageBox.children, "my_lang", (result, i) => {
+                if (result.error) { alertMessage.innerHTML = result.error }
+                if (result.res) { location.reload() };
+            });
         </script>
     <% } %> 
 </body>

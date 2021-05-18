@@ -6,6 +6,7 @@ module.exports = {
     "pitch" : "Tone pitch",
     "color" : "Color",
     "back" : "back to home",
+    "profile" : "Profile",
     "settings" : "Settings",
     "friends" : "Friends",
     "exit" : "Exit",

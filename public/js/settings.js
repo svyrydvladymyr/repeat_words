@@ -87,19 +87,6 @@ const changeLangBtn = (el, val) => {
     };
 }; 
 
-//change settings lists (interface, language, color)
-const changeSettingsLists = (list, type, resFun) => {
-    for (const i of list) {
-        const obj = {"type": type, "value": i.title};
-        i.addEventListener('click', () => { send(obj , '/setsettings', (result) => {
-            const res = JSON.parse(result);
-            alertMessage.innerHTML = '';
-            // console.log('res', res);
-            resFun(res, i);
-        })});
-    };
-}; 
-
 //set interface Language Parametrs-----------------------------------------------------
 changeLangBtn(interfaceLangParam, 'en-US');
 //change interface language
@@ -131,5 +118,6 @@ changeSettingsLists($_('.settings-color-box')[0].children, "color", (result, i) 
     if (result.error) { alertMessage.innerHTML = result.error }
     if (result.res) { location.reload() };
 });
+
 
 

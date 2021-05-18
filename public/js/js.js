@@ -70,3 +70,16 @@ const getVoicesIndex = (voices, defaultVoice) => {
     });
     return indexFin;
 };
+
+//change settings lists (interface, language, color)
+const changeSettingsLists = (list, type, resFun) => {
+    for (const i of list) {
+        const obj = {"type": type, "value": i.title};
+        i.addEventListener('click', () => { send(obj , '/setsettings', (result) => {
+            const res = JSON.parse(result);
+            alertMessage.innerHTML = '';
+            // console.log('res', res);
+            resFun(res, i);
+        })});
+    };
+}; 

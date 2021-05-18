@@ -22,10 +22,10 @@ const setSettings = (req, res) => {
                 if (typeParam && (value >= 0 && value <= 20)) { access = true };                
             };                
             langList.push('en-US', 'my');
-            langList.forEach(e => { if (e === value) {param = true} });
+            langList.forEach(el => { if (el === value) {param = true} });
             langList.splice(-2, 2);
-            voiceList.forEach(e => { if (e === value) {param = true} });
-            color.forEach(e => { if (e === value) {param = true} });
+            voiceList.forEach(el => { if (el === value) {param = true} });
+            color.forEach(el => { if (el === value) {param = true} });
             if (typeParam && param) { access = true };    
 
 

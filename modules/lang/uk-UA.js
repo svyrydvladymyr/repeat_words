@@ -6,6 +6,7 @@ module.exports = {
     "pitch" : "Висота тону",
     "color" : "Колір",
     "back" : "повернутися на головну",
+    "profile" : "Профіль",
     "settings" : "Налаштування",
     "friends" : "Друзі",
     "exit" : "Вихід",

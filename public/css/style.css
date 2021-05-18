@@ -451,6 +451,7 @@ button[title='Send answer'] { width: 100px }
 button[id='btn-listening'] > i { width: 22px; }
 
 /* main btn ------------------------------------------------------*/
+.selectLanguage,
 button[title='main btn'] {
   position: relative;
   width: 60%;
@@ -462,6 +463,11 @@ button[title='main btn'] {
   border: 1px solid;
   background: #ffffff;
 }
+.selectLanguage {
+  padding: 13px 60px 13px 10px;
+  margin: 15px auto;
+}
+.selectLanguage > img,
 button[title='main btn'] > i {
   position: absolute;
   right: 0px;
@@ -472,6 +478,19 @@ button[title='main btn'] > i {
   border-radius: 0px 6px 6px 0px;
   background: var(--fourth-color);
   color: var(--main-color);
+}
+.selectLanguage > img {
+  border-radius: 6px;
+  border: 1px solid var(--main-color);
+  background: var(--fourth-color);
+  padding: 3px;
+  height: 80%;
+  width: 50px;
+  right: 5px;
+}
+.selectLanguage:hover { 
+  color: var(--main-color);
+  box-shadow: 0px 0px 3px var(--main-color);
 }
 button[title='main btn']:hover {
   box-shadow: 0px 0px 2px var(--main-color);

@@ -22,7 +22,7 @@ const renderNotPage = (req, res, err) => {
 };
 
 const autorisationSocial = (profile, done) => {
-    // console.log(profile);
+    console.log(profile);
     con.query(`SELECT * FROM users WHERE userid = '${profile.id}'`, (error, result) => {
         const user = { id : profile.id,
                 ava : profile.photos === undefined ? '' : `${profile.photos[0].value}`,

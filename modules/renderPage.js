@@ -1,4 +1,4 @@
-const {log, clienttoken, addCookies, getTableRecord, langList, voiceList} = require('./service');
+const {log, clienttoken, addCookies, getTableRecord, langName, langList, voiceList} = require('./service');
 const con = require('../db/connectToDB').con;
 
 const DATA = {
@@ -26,8 +26,9 @@ const DATA = {
         color : 'blue'
     },
     langPack : require('./lang/en-US'),
-    langList : langList,
-    voiceList : voiceList
+    langList : [],
+    langName : [],
+    voiceList : []
 };
 
 const clearDATA = () => {
@@ -48,7 +49,7 @@ const clearDATA = () => {
 };
 
 
-const getUser = async (req, res) => {
+const getUser = async (req, res, pageName) => {
     return await getTableRecord(`SELECT * FROM users WHERE token = '${clienttoken(req, res)}'`)
     .then((user) => {
         if (user.err) {
@@ -80,6 +81,19 @@ const getUser = async (req, res) => {
             DATA.usersett.lang = userssettings[0].my_lang;
             DATA.usersett.color = userssettings[0].color;
             DATA.usersett.interface = (userssettings[0].interface === 'my') ? userssettings[0].my_lang : 'en-US';
+            if (pageName === 'settings') {
+                DATA.langList = langList;
+                DATA.voiceList = voiceList;
+            }
+            if (pageName === 'main') {
+                let param = true;
+                langList.forEach(el => { if (el === DATA.usersett.lang) {param = false} });
+                if (param) {
+                    DATA.usersett.lang = 'none';
+                    DATA.langList = langList;
+                    DATA.langName = langName;
+                };
+            };
         };     
         return DATA.usersett.interface;       
     })            
@@ -127,7 +141,7 @@ const renderPage = (req, res, pageName = 'main', err = '') => {
             addCookies(req, res, '', '-1');
             res.redirect('/'); 
         } else {           
-            getUser(req, res)
+            getUser(req, res, pageName)
             // .then(() => { log("DATA", DATA) })
             .then(() => { res.render(pageName, { DATA }) });
         };   
