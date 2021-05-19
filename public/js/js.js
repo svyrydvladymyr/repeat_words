@@ -8,6 +8,17 @@ const error = {
 const alertMessage = $_('#alert-message')[0],
       voiceStorage = localStorage.getItem("SpeakVoice");
 
+//languages name list
+const nameLang = {
+    "uk-UA" : "УКРАЇНСЬКА", 
+    "it-IT" : "ITALIANO",
+    "de-DE" : "DEUTSCHE", 
+    "fr-FR" : "FRANÇAIS",
+    "es-ES" : "ESPAÑOL",
+    "zh-CN" : "中国人",
+    "pl-PL" : "POLSKIE",
+    "ru-RU" : "РОССИЙСКАЯ"
+};
 
 // dropdown menu
 const dropdowns = $_('.user_settings_list');
@@ -83,3 +94,5 @@ const changeSettingsLists = (list, type, resFun) => {
         })});
     };
 }; 
+
+

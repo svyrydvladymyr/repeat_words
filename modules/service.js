@@ -17,6 +17,7 @@ const langList = [
     'pl-PL', 
     'ru-RU'
 ];
+//languages name list
 const langName = [
     'УКРАЇНСЬКА', 
     'ITALIANO',

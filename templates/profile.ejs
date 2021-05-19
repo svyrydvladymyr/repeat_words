@@ -8,12 +8,19 @@
     <div class="main_body">
         <%- include("./parts/backtomain.ejs") %>
         <div class="part_wrap">
-            <p>profile</p>
-
-
-            
-        
-            
+            <div class="settings_box_default">
+                <p><b><%=DATA.langPack.userName %>:</b> <%=DATA.user.surname %> <%=DATA.user.name %></p>
+                <p><b><%=DATA.langPack.email %>:</b> <%=DATA.user.email %></p>
+                <p><b><%=DATA.langPack.provider %>:</b> <%=DATA.user.provider %></p>
+                <p><b><%=DATA.langPack.registerDate %>:</b> <%=DATA.user.date_registered %></p>
+                <p class="line"></p>
+                <p><b><%=DATA.langPack.interface %>:</b>  <%=DATA.usersett.interface %></p>
+                <p><b><%=DATA.langPack.language %>:</b> <%=DATA.usersett.lang %></p>
+                <p class="line"></p>
+                <p><b><%=DATA.langPack.voice %>:</b> <%=DATA.usersett.voice %></p>
+                <p><b><%=DATA.langPack.speed %>:</b> <%=DATA.usersett.spead %>x</p>
+                <p><b><%=DATA.langPack.pitch %>:</b> <%=DATA.usersett.pitch %></p>
+            </div>           
         </div>
         <%- include("./parts/error.ejs") %>
     </div>

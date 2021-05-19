@@ -1,4 +1,4 @@
-const {log, clienttoken, addCookies, getTableRecord, langName, langList, voiceList} = require('./service');
+const {log, clienttoken, addCookies, getTableRecord, readyFullDate, langName, langList, voiceList} = require('./service');
 const con = require('../db/connectToDB').con;
 
 const DATA = {
@@ -15,12 +15,16 @@ const DATA = {
         id : '',
         name : 'Name',
         surname : 'Surname',
-        foto : 'img/no_user.png'
+        foto : 'img/no_user.png',
+        email : '',
+        birthday : '',
+        provider : '',
+        date_registered : ''
     },
     usersett : {
         spead : 1,
         pitch : 1,
-        voice : 4,
+        voice : 'Google UK English Female',
         lang : 'none',
         interface : 'en-US',
         color : 'blue'
@@ -36,9 +40,13 @@ const clearDATA = () => {
     DATA.user.name = 'Name';
     DATA.user.surname = 'Surname';
     DATA.user.foto = 'img/no_user.png';
+    DATA.user.birthday = '';
+    DATA.user.email = '';
+    DATA.user.provider = '';
+    DATA.user.date_registered = '';
     DATA.usersett.spead = 1;
     DATA.usersett.pitch = 1;
-    DATA.usersett.voice = 4;
+    DATA.usersett.voice = 'Google UK English Female';
     DATA.usersett.lang = 'none';
     DATA.usersett.interface = 'en-US';
     DATA.usersett.color = 'blue';
@@ -47,7 +55,6 @@ const clearDATA = () => {
     DATA.errors.SERVER_ERROR = '';
     DATA.langPack = require('./lang/en-US');
 };
-
 
 const getUser = async (req, res, pageName) => {
     return await getTableRecord(`SELECT * FROM users WHERE token = '${clienttoken(req, res)}'`)
@@ -61,7 +68,14 @@ const getUser = async (req, res, pageName) => {
             DATA.user.name = user[0].name;
             DATA.user.surname = user[0].surname;
             DATA.user.foto = user[0].ava;
+            DATA.user.birthday = user[0].birthday;
+            DATA.user.email = user[0].email;
+            DATA.user.provider = user[0].provider;
+            DATA.user.date_registered = readyFullDate(user[0].date_registered, 'reverse');
             DATA.permission.permAuthorised = 1;
+
+           
+            console.log( readyFullDate(user[0].date_registered, 'reverse'));
             return `SELECT * FROM userssettings WHERE userid = '${user[0].userid}'`;
         };
     })

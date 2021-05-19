@@ -366,7 +366,7 @@ input[type=range]::-webkit-slider-thumb {
 .yellow{ background-color: #9d9743 }
 .grey{ background-color: #545454 }
 
-/* settings interface ------------------------------------------*/
+/*settings interface ------------------------------------------*/
 .settings-interface-box > div {
   position: relative;
   margin: 0;
@@ -405,6 +405,11 @@ input[type=range]::-webkit-slider-thumb {
 .settings_box_default b, p{ margin: 6px }
 .settings_box_default b{ color:var(--main-color) }
 .settings_box_default p{ color:var(--third-color) }
+.settings_box_default .line{ 
+  margin: 20px 0px;
+  width: 100%; 
+  border-bottom: 1px solid var(--fourth-color); 
+}
 
 /* alert message --------------------------------------------------*/
 p[id="alert-message"] {

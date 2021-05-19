@@ -8,11 +8,8 @@ const users = () => {
         name VARCHAR(80) NOT NULL, 
         surname VARCHAR(80) NOT NULL,
         email VARCHAR(60),
-        birthday VARCHAR(11),
-        country VARCHAR(40),                   
         provider VARCHAR(40),                   
-        date_registered DATETIME,
-        active VARCHAR(5) DEFAULT 'yes'                        
+        date_registered DATETIME
         )`; 
     con.query(sql, function (err, result) {if (err) throw err; console.log("Table users created")});
 };
