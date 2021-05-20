@@ -18,6 +18,7 @@ const DATA = {
         foto : 'img/no_user.png',
         email : '',
         birthday : '',
+        gender : '',
         provider : '',
         date_registered : ''
     },
@@ -41,6 +42,7 @@ const clearDATA = () => {
     DATA.user.surname = 'Surname';
     DATA.user.foto = 'img/no_user.png';
     DATA.user.birthday = '';
+    DATA.user.gender = '';
     DATA.user.email = '';
     DATA.user.provider = '';
     DATA.user.date_registered = '';
@@ -54,6 +56,9 @@ const clearDATA = () => {
     DATA.errors.errMessage = '';
     DATA.errors.SERVER_ERROR = '';
     DATA.langPack = require('./lang/en-US');
+    DATA.langList = [];
+    DATA.langName = [];
+    DATA.voiceList = [];
 };
 
 const getUser = async (req, res, pageName) => {
@@ -68,13 +73,14 @@ const getUser = async (req, res, pageName) => {
             DATA.user.name = user[0].name;
             DATA.user.surname = user[0].surname;
             DATA.user.foto = user[0].ava;
-            DATA.user.birthday = user[0].birthday;
-            DATA.user.email = user[0].email;
-            DATA.user.provider = user[0].provider;
-            DATA.user.date_registered = readyFullDate(user[0].date_registered, 'reverse');
             DATA.permission.permAuthorised = 1;
-
-           
+            if (pageName === 'profile') {
+                DATA.user.email = user[0].email;
+                DATA.user.birthday = user[0].birthday;
+                DATA.user.gender = user[0].gender;
+                DATA.user.provider = user[0].provider;
+                DATA.user.date_registered = readyFullDate(user[0].date_registered, 'reverse');
+            }           
             console.log( readyFullDate(user[0].date_registered, 'reverse'));
             return `SELECT * FROM userssettings WHERE userid = '${user[0].userid}'`;
         };
@@ -108,7 +114,7 @@ const getUser = async (req, res, pageName) => {
                     DATA.langName = langName;
                 };
             };
-        };     
+        };   
         return DATA.usersett.interface;       
     })            
     .then((lang) => {

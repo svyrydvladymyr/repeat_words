@@ -8,8 +8,9 @@ const error = {
 const alertMessage = $_('#alert-message')[0],
       voiceStorage = localStorage.getItem("SpeakVoice");
 
-//languages name list
-const nameLang = {
+//languages name list object
+const langNameObj = {
+    "en-US" : "ENGLISH", 
     "uk-UA" : "УКРАЇНСЬКА", 
     "it-IT" : "ITALIANO",
     "de-DE" : "DEUTSCHE", 

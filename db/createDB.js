@@ -8,6 +8,9 @@ const users = () => {
         name VARCHAR(80) NOT NULL, 
         surname VARCHAR(80) NOT NULL,
         email VARCHAR(60),
+        email_verified VARCHAR(60),
+        birthday DATE,
+        gender VARCHAR(11),
         provider VARCHAR(40),                   
         date_registered DATETIME
         )`; 

@@ -18,6 +18,7 @@ button[title='main btn'] {
     margin: 0px 
 }
 .settings-my-lang-box img { width: 12% }
+.settings_box_default p { display: contents }
 .lang_title_wrap { width: 100% }
 .lang_title_wrap > img { 
     width: 40px; 
@@ -40,3 +41,4 @@ button[title='main btn'] {
     height: 25px!important;
     margin: auto;
 }
+
