@@ -13,8 +13,8 @@ const DATA = {
     },
     user : {
         id : '',
-        name : 'Name',
-        surname : 'Surname',
+        name : '',
+        surname : '',
         foto : 'img/no_user.png',
         email : '',
         birthday : '',
@@ -38,8 +38,8 @@ const DATA = {
 
 const clearDATA = () => {
     DATA.user.id = '';
-    DATA.user.name = 'Name';
-    DATA.user.surname = 'Surname';
+    DATA.user.name = '';
+    DATA.user.surname = '';
     DATA.user.foto = 'img/no_user.png';
     DATA.user.birthday = '';
     DATA.user.gender = '';
@@ -81,7 +81,7 @@ const getUser = async (req, res, pageName) => {
                 DATA.user.provider = user[0].provider;
                 DATA.user.date_registered = readyFullDate(user[0].date_registered, 'reverse');
             }           
-            console.log( readyFullDate(user[0].date_registered, 'reverse'));
+            // console.log( readyFullDate(user[0].date_registered, 'reverse'));
             return `SELECT * FROM userssettings WHERE userid = '${user[0].userid}'`;
         };
     })

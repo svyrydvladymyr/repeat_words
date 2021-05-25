@@ -1,4 +1,6 @@
 input[type=range] { max-width: 76%; width: 76% }
+input[name="gender"] { width: 30px; height: 30px }
+
 .selectLanguage,
 button[title='main btn'] { 
     width: 94%; 

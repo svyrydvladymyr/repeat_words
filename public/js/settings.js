@@ -22,6 +22,8 @@ if(synth.onvoiceschanged !== undefined) {
     synth.onvoiceschanged = () => {        
         voices = synth.getVoices();
         const userVoiceIndex = getVoicesIndex(voices);
+        console.log(userVoiceIndex);
+
         voiceIndex = (userVoiceIndex !== undefined) 
             ? userVoiceIndex 
             : getVoicesIndex(voices, 'Google UK English Female');
@@ -63,13 +65,15 @@ voicePitch.addEventListener('change', () => {
 voiceList.addEventListener('change', (event) => {    
     send({"type":"voice", "value": $_('#voice-list')[0].value}, '/setsettings', (result) => {
         alertMessage.innerHTML = '';
+        console.log(voices);
+        console.log(voiceIndex);
         localStorage.setItem("SpeakVoice", voices[voiceIndex].name)  
     });
 });
 
 //for change language in settings menu  
 const setLanguage = (langPack) => {
-    ["interface", "language", "voice", "speed", "pitch", "color", "back", "settings", "friends", "exit", "site", "dev"].forEach(e => {
+    changeSettings.forEach(e => {
         if ($_(`#${e}-title`)[0]) { 
             $_(`#${e}-title`)[0].textContent = langPack[e] ? langPack[e] : '--------'; 
         };

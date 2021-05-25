@@ -1,25 +1,8 @@
 const $_ = (value, parent = document) => parent.querySelectorAll(value);
-const redirect = way => window.location.replace(`${way}`);;
-
-const error = {
-        proba : 'sdfsdf'
-    };
-
+const redirect = way => window.location.replace(`${way}`);
 const alertMessage = $_('#alert-message')[0],
       voiceStorage = localStorage.getItem("SpeakVoice");
-
-//languages name list object
-const langNameObj = {
-    "en-US" : "ENGLISH", 
-    "uk-UA" : "УКРАЇНСЬКА", 
-    "it-IT" : "ITALIANO",
-    "de-DE" : "DEUTSCHE", 
-    "fr-FR" : "FRANÇAIS",
-    "es-ES" : "ESPAÑOL",
-    "zh-CN" : "中国人",
-    "pl-PL" : "POLSKIE",
-    "ru-RU" : "РОССИЙСКАЯ"
-};
+let oldVersion, plase, forRemote = [];
 
 // dropdown menu
 const dropdowns = $_('.user_settings_list');
@@ -50,6 +33,7 @@ const showSettingsList = () => {
     dropdowns[0].classList.contains('user_settings_list_show') ? menuAnimation('increment') : menuAnimation('decrement');
 };    
 
+//for close context menu
 window.onclick = function(event) {        
     if (!event.target.matches('.user_settings_list_wrap > i')) {
         for (let i = 0; i < dropdowns.length; i++) {
@@ -59,6 +43,38 @@ window.onclick = function(event) {
             };
         };
     };
+
+    console.log(forRemote);
+
+    ['gender', 'birthday'].forEach(element => {
+        if (!event.target.matches(`#${element}>b>.fa-edit`) &&
+            !event.target.matches(`.forRemote${element}`)) {
+            for (let i = 0; i < forRemote.length; i++) {
+                if (forRemote[i].classList.contains(`forRemote${element}`)) {
+                    plase.innerHTML = oldVersion;                            
+                };
+            };
+        };
+    });
+
+
+    // if (!event.target.matches('#gender>b>.fa-edit') &&
+    //     !event.target.matches('.forRemotegender')) {
+    //     for (let i = 0; i < forRemote.length; i++) {
+    //         if (forRemote[i].classList.contains('forRemotegender')) {
+    //             plase.innerHTML = oldVersion;                            
+    //         };
+    //     };
+    // };
+    // if (!event.target.matches('#birthday>b>.fa-edit') &&
+    //     !event.target.matches('.forRemotebirthday')) {
+    //     for (let i = 0; i < forRemote.length; i++) {
+    //         if (forRemote[i].classList.contains('forRemotebirthday')) {
+    //             plase.innerHTML = oldVersion;                            
+    //         };
+    //     };
+    // };
+    
 };
 
 //for send AJAX  
@@ -78,21 +94,24 @@ const getVoicesIndex = (voices, defaultVoice) => {
     let indexFin;
     const voiceForCheck = (defaultVoice !== undefined) ? defaultVoice : voiceStorage;
     voices.forEach((el, index) => { 
-        (el.name == voiceForCheck) ? indexFin = index : null; 
-    });
+        if (el.name == voiceForCheck) { indexFin = index }; 
+    });    
     return indexFin;
 };
 
 //change settings lists (interface, language, color)
 const changeSettingsLists = (list, type, resFun) => {
     for (const i of list) {
-        const obj = {"type": type, "value": i.title};
-        i.addEventListener('click', () => { send(obj , '/setsettings', (result) => {
-            const res = JSON.parse(result);
-            alertMessage.innerHTML = '';
-            // console.log('res', res);
-            resFun(res, i);
-        })});
+        // const obj = {"type": type, "value": i.title};
+        const event = (type === 'birthday') ? "change" : 'click';
+        i.addEventListener(event, () => { 
+            send({"type": type, "value": (type === 'birthday') ? $_('.forRemotebirthday')[0].value : i.title} , '/setsettings', (result) => {
+                // const res = JSON.parse(result);
+                alertMessage.innerHTML = '';
+                // console.log('res', JSON.parse(result));
+                resFun(JSON.parse(result), i);
+            });
+        });
     };
 }; 
 

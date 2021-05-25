@@ -514,3 +514,8 @@ button[title='main btn']:hover {
 #profile_interf {
   font-weight: normal;
 }
+input[name="gender"] {
+  cursor: pointer;
+  margin: 0px;
+  height: 10px;
+}
