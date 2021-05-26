@@ -519,3 +519,20 @@ input[name="gender"] {
   margin: 0px;
   height: 10px;
 }
+input[type="date"] {
+  cursor: pointer;
+  padding: 0px 10px;
+  color: var(--main-color);
+  border: 1px solid var(--second-color);
+  border-radius: 6px;
+  height: 16px;
+  width: 135px;
+  font-size: 12px;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  height: 10px;
+  width: 10px;
+}
+
+

@@ -1,6 +1,7 @@
 const {log, getTableRecord, langList, voiceList} = require('./service');
 const {autorisationCheck} = require('./autorisation');
 const con = require('../db/connectToDB').con;
+const moment = require('moment');
 
 const setSettings = (req, res) => {
     const type = req.body.type, value = req.body.value,
@@ -28,8 +29,9 @@ const setSettings = (req, res) => {
             color.forEach(el => { if (el === value) {param = true} });
             if (typeParam && param) { access = true };    
             if (typeParam && (value === 'venus' || value === 'mars')) { access = true };    
+            if (typeParam && moment(value, 'YYYY-MM-DD', true).isValid()) { access = true };    
 
-
+            console.log('birthday_valid', moment(value, 'YYYY-MM-DD', true).isValid());
             console.log('type', type);
             console.log('value', value);
             console.log('param', param);

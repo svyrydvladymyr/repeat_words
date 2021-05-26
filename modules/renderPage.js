@@ -1,5 +1,6 @@
 const {log, clienttoken, addCookies, getTableRecord, readyFullDate, langName, langList, voiceList} = require('./service');
 const con = require('../db/connectToDB').con;
+const moment = require('moment');
 
 const DATA = {
     errors : {
@@ -76,7 +77,7 @@ const getUser = async (req, res, pageName) => {
             DATA.permission.permAuthorised = 1;
             if (pageName === 'profile') {
                 DATA.user.email = user[0].email;
-                DATA.user.birthday = user[0].birthday;
+                DATA.user.birthday = moment(user[0].birthday).format('YYYY-MM-DD');;
                 DATA.user.gender = user[0].gender;
                 DATA.user.provider = user[0].provider;
                 DATA.user.date_registered = readyFullDate(user[0].date_registered, 'reverse');

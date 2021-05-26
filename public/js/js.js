@@ -77,6 +77,22 @@ window.onclick = function(event) {
     
 };
 
+//date format day
+const readyDay = function(fullDate){
+    const createDate = new Date(fullDate);
+    return finDay = ((createDate.getDate() >= 1) && (createDate.getDate() <= 9)) ? "0" + createDate.getDate() : createDate.getDate();
+};  
+
+//date format month
+const readyMonth = function(fullDate){    
+    const createDate = new Date(fullDate);
+    return finMonth = ((createDate.getMonth() >= 0) && (createDate.getMonth() <= 8)) 
+        ? "0" + (createDate.getMonth()+1) 
+        : (createDate.getMonth() == 9) ? 10 
+        : (createDate.getMonth() == 10) ? 11
+        : (createDate.getMonth() == 11) ? 12 : null;          
+}; 
+
 //for send AJAX  
 const send = (obj, url, fun) => {
     xmlhttp = new XMLHttpRequest();

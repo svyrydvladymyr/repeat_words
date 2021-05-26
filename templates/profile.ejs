@@ -11,7 +11,9 @@
             <div class="settings_box_default">
                 <% if (DATA.permission.permAuthorised === 1) { %>        
                     <p><b><%=DATA.langPack.userName %>:</b> <%=DATA.user.surname %> <%=DATA.user.name %></p>
-                    <p><b><i class='far fa-edit'></i> &nbsp; <%=DATA.langPack.email %>:</b> <%=DATA.user.email %></p>
+                    <p id="birthday">
+                        <b><i class='far fa-edit'></i> &nbsp; <%=DATA.langPack.email %>:</b> 
+                        <span><%=DATA.user.email %></span></p>
                     <p id="birthday">
                         <b><i class='far fa-edit'></i> &nbsp; <%=DATA.langPack.birthday %>:</b> 
                         <span><%=DATA.user.birthday %></span>
@@ -45,58 +47,39 @@
             const profileLang = $_('#profile_lang')[0];
             profileInterf.innerHTML = langNameObj[profileInterf.innerHTML];
             profileLang.innerHTML = langNameObj[profileLang.innerHTML];
-            
-            //for change user gender
-            $_('#gender>b>.fa-edit')[0].addEventListener('click', () => {
-                setTimeout(() => {
-                    plase = $_('#gender>span')[0];
-                    oldVersion = plase.innerHTML;
-                    plase.innerHTML = `
-                        <input type="radio" id="gendervenus" class="forRemotegender" name="gender" title="venus">
-                        <label for="gendervenus" style="color:red"><i class='fa fa-venus'></i></label>
-                        &nbsp;
+
+            //for change user (gender, birthday)
+            ['gender', 'birthday'].forEach(element => {
+                $_(`#${element}>b>.fa-edit`)[0].addEventListener('click', () => {
+                    let date = new Date().getFullYear() + '-' + readyMonth(new Date()) + '-' + readyDay(new Date()); 
+                    console.log(date);
+                    htmlArr = {
+                        gender : 
+                        `<input type="radio" id="gendervenus" class="forRemotegender" name="gender" title="venus">
+                        <label for="gendervenus" style="color:red"><i class='fa fa-venus'></i></label> &nbsp;                                
                         <input type="radio" id="gendermars" class="forRemotegender" name="gender" title="mars">
-                        <label for="gendermars" style="color:blue"><i class='fa fa-mars'></i></label>
-                    `; 
-                    forRemote = $_('#gender>span>.forRemotegender');
-                    changeSettingsLists(plase.children, "gender", (result, i) => {
-                        if (result.error) { 
-                            plase.innerHTML = oldVersion;
-                            alertMessage.innerHTML = result.error;
-                        };
-                        if (result.res) { 
-                            plase.innerHTML = result.res;
-                            oldVersion = result.res; 
-                        };
-                    });
-                }, 50);
-
-            });
-
-            //for change user birthday
-            $_('#birthday>b>.fa-edit')[0].addEventListener('click', () => {
-                setTimeout(() => {
-                    plase = $_('#birthday>span')[0];
-                    console.log(plase);
-                    oldVersion = plase.innerHTML;
-                    plase.innerHTML = `
-                        <input type="date" class="forRemotebirthday">
-                    `; 
-
-                    forRemote = $_('#birthday>span>.forRemotebirthday');
-
-                    changeSettingsLists(plase.children, "birthday", (result, i) => {
-                        if (result.error) { 
-                            plase.innerHTML = oldVersion;
-                            alertMessage.innerHTML = result.error;
-                        };
-                        if (result.res) { 
-                            plase.innerHTML = result.res;
-                            oldVersion = result.res; 
-                        };
-                    });
-                }, 50);
-
+                        <label for="gendermars" style="color:blue"><i class='fa fa-mars'></i></label>`,
+                        birthday : 
+                        `<input type="date" class="forRemotebirthday" min="1920-01-01" max="${date}" value="">`
+                    };                    
+                    setTimeout(() => {
+                        plase = $_(`#${element}>span`)[0];
+                        !$_(`.forRemote${element}`)[0] ? oldVersion = plase.innerHTML : null;                   
+                        plase.innerHTML = htmlArr[element];
+                        if (element === 'birthday') { $_('.forRemotebirthday')[0].value = oldVersion }
+                        forRemote = $_(`#${element}>span>.forRemote${element}`);
+                        changeSettingsLists(plase.children, element, (result, i) => {
+                            if (result.error) { 
+                                plase.innerHTML = oldVersion;
+                                alertMessage.innerHTML = result.error;
+                            };
+                            if (result.res) { 
+                                plase.innerHTML = result.res;
+                                oldVersion = result.res; 
+                            };
+                        });
+                    }, 50);
+                });
             });
         </script>
     <% } %> 
