@@ -402,11 +402,14 @@ input[type=range]::-webkit-slider-thumb {
 
 /* default settings message ---------------------------------------*/
 .settings_box_default{ flex-direction: column }
-.settings_box_default b, p{ margin: 6px }
-.settings_box_default b{ color:var(--main-color) }
+.settings_box_default p{ margin: 6px }
+.settings_box_default b{ margin: 0px 6px; color:var(--main-color) }
 .settings_box_default p{ 
   min-width: 130px;
+  min-height: 20px;
   color:var(--third-color); 
+  display: flex;
+  align-items: center;
 }
 .settings_box_default b > i{ 
   cursor: pointer;
@@ -416,6 +419,7 @@ input[type=range]::-webkit-slider-thumb {
   display: block;
   margin: 20px 0px;
   width: 100%; 
+  min-height: 0px;
   border-bottom: 1px solid var(--fourth-color); 
 }
 
@@ -517,7 +521,7 @@ button[title='main btn']:hover {
 input[name="gender"] {
   cursor: pointer;
   margin: 0px;
-  height: 10px;
+  height: 12px;
 }
 input[type="date"] {
   cursor: pointer;
@@ -525,7 +529,7 @@ input[type="date"] {
   color: var(--main-color);
   border: 1px solid var(--second-color);
   border-radius: 6px;
-  height: 16px;
+  height: 20px;
   width: 135px;
   font-size: 12px;
 }
@@ -534,5 +538,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 10px;
   width: 10px;
 }
-
+input[type="email"] {
+  outline: 0;
+  padding: 0px 10px;
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+  border-radius: 6px;
+  height: 20px;
+  min-width: 100px;
+  width: 200px;
+  text-align: center;
+  font-size: 12px;
+}
+input[type="email"]:focus {
+  border-color: 1px solid var(--main-color);
+  box-shadow: 0px 0px 2px var(--main-color);
+}
 

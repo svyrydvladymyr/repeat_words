@@ -27,3 +27,15 @@ const changeSettings = [
     "site", 
     "dev"
 ];
+
+settingsTemplate = {
+    gender : 
+        `<input type="radio" id="gendervenus" class="forRemotegender" name="gender" title="venus">
+        <label for="gendervenus" style="color:red"><i class='fa fa-venus'></i></label> &nbsp;                                
+        <input type="radio" id="gendermars" class="forRemotegender" name="gender" title="mars">
+        <label for="gendermars" style="color:blue"><i class='fa fa-mars'></i></label>`,
+    birthday : 
+        `<input type="date" class="forRemotebirthday" min="1920-01-01" max="${moment(new Date).format('YYYY-MM-DD')}" value="">`,
+    emailverified : 
+        `<input type="email" class="forRemoteemailverified" maxLength="60" value="" title="">`
+};   

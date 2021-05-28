@@ -7,10 +7,10 @@ const users = () => {
         ava VARCHAR(255), 
         name VARCHAR(80) NOT NULL, 
         surname VARCHAR(80) NOT NULL,
-        email VARCHAR(60),
-        email_verified VARCHAR(60),
-        birthday DATE,
-        gender VARCHAR(11),
+        email VARCHAR(60) DEFAULT '',
+        emailverified VARCHAR(60) DEFAULT '',
+        birthday DATE DEFAULT '',
+        gender VARCHAR(11) DEFAULT '',
         provider VARCHAR(40),                   
         date_registered DATETIME
         )`; 

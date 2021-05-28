@@ -14,7 +14,7 @@ const con = mysql.createConnection(db_config);
 con.connect((err) => {
     if (err) {
     console.log("err-connect-to-db", err);
-    res.send(err);       
+    // res.send(err);       
     }});  
 
 setInterval(function () { con.query('SELECT 1') }, 10000);

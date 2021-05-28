@@ -70,14 +70,21 @@ const getUser = async (req, res, pageName) => {
         } else if (user == '') {  
             throw new Error('the-user-is-not-authorized');
         } else {
+
+            // console.log('birthday', user[0].birthday);
+            // console.log('email' ,user[0].email);
+            // console.log('emailverified' ,user[0].emailverified);
+
             DATA.user.id = user[0].userid;
             DATA.user.name = user[0].name;
             DATA.user.surname = user[0].surname;
             DATA.user.foto = user[0].ava;
             DATA.permission.permAuthorised = 1;
             if (pageName === 'profile') {
-                DATA.user.email = user[0].email;
-                DATA.user.birthday = moment(user[0].birthday).format('YYYY-MM-DD');;
+                const birthday = (user[0].birthday !== null && user[0].birthday !== '') ? moment(user[0].birthday).format('YYYY-MM-DD') : '';
+                const email = (user[0].emailverified === 'null' || user[0].emailverified === '') ? user[0].email : user[0].emailverified;
+                DATA.user.email = (email === 'null') ? '' : email;
+                DATA.user.birthday = birthday;
                 DATA.user.gender = user[0].gender;
                 DATA.user.provider = user[0].provider;
                 DATA.user.date_registered = readyFullDate(user[0].date_registered, 'reverse');

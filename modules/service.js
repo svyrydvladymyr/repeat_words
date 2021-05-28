@@ -43,6 +43,10 @@ const translit = word => {return transliteratedValue = transliteration.translite
 //client token
 const clienttoken = (req, res) => new Cookies(req, res, {"keys":['volodymyr']}).get('sessionisdd', {signed:true});
 
+//validation email
+const validEmail = text => (text.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) ? true : false;
+
+
 //add or clear Cookies
 const addCookies = (req, res, token, param) => {
     const cookies = new Cookies(req, res, {"keys":['volodymyr']});
@@ -139,5 +143,6 @@ module.exports = {
     readyFullDate,
     checOnTrueVal,
     accessLog,
-    getTableRecord
+    getTableRecord,
+    validEmail
 }

@@ -11,7 +11,7 @@
             <div class="settings_box_default">
                 <% if (DATA.permission.permAuthorised === 1) { %>        
                     <p><b><%=DATA.langPack.userName %>:</b> <%=DATA.user.surname %> <%=DATA.user.name %></p>
-                    <p id="birthday">
+                    <p id="emailverified">
                         <b><i class='far fa-edit'></i> &nbsp; <%=DATA.langPack.email %>:</b> 
                         <span><%=DATA.user.email %></span></p>
                     <p id="birthday">
@@ -48,36 +48,48 @@
             profileInterf.innerHTML = langNameObj[profileInterf.innerHTML];
             profileLang.innerHTML = langNameObj[profileLang.innerHTML];
 
+
             //for change user (gender, birthday)
-            ['gender', 'birthday'].forEach(element => {
-                $_(`#${element}>b>.fa-edit`)[0].addEventListener('click', () => {
-                    let date = new Date().getFullYear() + '-' + readyMonth(new Date()) + '-' + readyDay(new Date()); 
-                    console.log(date);
-                    htmlArr = {
-                        gender : 
-                        `<input type="radio" id="gendervenus" class="forRemotegender" name="gender" title="venus">
-                        <label for="gendervenus" style="color:red"><i class='fa fa-venus'></i></label> &nbsp;                                
-                        <input type="radio" id="gendermars" class="forRemotegender" name="gender" title="mars">
-                        <label for="gendermars" style="color:blue"><i class='fa fa-mars'></i></label>`,
-                        birthday : 
-                        `<input type="date" class="forRemotebirthday" min="1920-01-01" max="${date}" value="">`
-                    };                    
+            ['gender', 'birthday', 'emailverified'].forEach(element => {
+                $_(`#${element}>b>.fa-edit`)[0].addEventListener('click', () => {           
                     setTimeout(() => {
+                        console.log(element);
+
+
                         plase = $_(`#${element}>span`)[0];
                         !$_(`.forRemote${element}`)[0] ? oldVersion = plase.innerHTML : null;                   
-                        plase.innerHTML = htmlArr[element];
-                        if (element === 'birthday') { $_('.forRemotebirthday')[0].value = oldVersion }
-                        forRemote = $_(`#${element}>span>.forRemote${element}`);
+                        plase.innerHTML = settingsTemplate[element];                           
+                        forRemote = $_(`#${element}>span>.forRemote${element}`);                       
+                        const remotePlace = $_(`.forRemote${element}`)[0];
+                        if (element === 'emailverified') { 
+                            remotePlace.value = oldVersion; 
+                            remotePlace.addEventListener('input', () => {
+                                if (validEmail(remotePlace.value)) {
+                                    remotePlace.title = remotePlace.value;
+                                    remotePlace.style.borderColor = 'var(--main-color)';
+                                } else if (remotePlace.value === '') {
+                                    remotePlace.title = 'null';
+                                    remotePlace.style.borderColor = 'var(--main-color)';
+                                } else {
+                                    remotePlace.title = '';
+                                    remotePlace.style.borderColor = 'red';
+                                };
+                            });
+                        };
+                        if (element === 'birthday') { 
+                            remotePlace.value = oldVersion;
+                            remotePlace.addEventListener('change', () => { remotePlace.title = remotePlace.value });
+                        } 
                         changeSettingsLists(plase.children, element, (result, i) => {
                             if (result.error) { 
                                 plase.innerHTML = oldVersion;
                                 alertMessage.innerHTML = result.error;
                             };
-                            if (result.res) { 
+                            if (result.res || result.res === '') { 
                                 plase.innerHTML = result.res;
                                 oldVersion = result.res; 
                             };
-                        });
+                        });                        
                     }, 50);
                 });
             });

@@ -1,13 +1,11 @@
-const {log, getTableRecord, langList, voiceList} = require('./service');
+const {log, getTableRecord, validEmail, langList, voiceList} = require('./service');
 const {autorisationCheck} = require('./autorisation');
 const con = require('../db/connectToDB').con;
 const moment = require('moment');
 
 const setSettings = (req, res) => {
-    const type = req.body.type, value = req.body.value,
-          color = ['blue', 'red', 'green', 'yellow', 'grey'],
-          typeArr = ['speed', 'pitch', 'voice', 'my_lang', 'interface', 'color', 'gender', 'birthday'];    
-          let access = false, param = false, typeParam = false, interfaceLang, interfaceParam;
+    const type = req.body.type, value = req.body.value;
+          let access = false, interfaceLang, interfaceParam;
     // console.log('type', req.body.type);
     // console.log('value', req.body.value);
     // console.log('valueIS', !isNaN(req.body.value));
@@ -16,34 +14,52 @@ const setSettings = (req, res) => {
         if (userid === false) {
             throw new Error('error-autorisation');
         } else {
-            typeArr.forEach(e => { if (e === type) {typeParam = true} });
-            if (!isNaN(value)) {
-                if (typeParam && (value >= 0.5 && value <= 2)) { access = true };
-                if (typeParam && (value >= 0 && value <= 2)) { access = true };
-                if (typeParam && (value >= 0 && value <= 20)) { access = true };                
-            };                
-            langList.push('en-US', 'my');
-            langList.forEach(el => { if (el === value) {param = true} });
-            langList.splice(-2, 2);
-            voiceList.forEach(el => { if (el === value) {param = true} });
-            color.forEach(el => { if (el === value) {param = true} });
-            if (typeParam && param) { access = true };    
-            if (typeParam && (value === 'venus' || value === 'mars')) { access = true };    
-            if (typeParam && moment(value, 'YYYY-MM-DD', true).isValid()) { access = true };    
+            switch (type) {
+                case 'speed':
+                    if (value >= 0.5 && value <= 2) { access = true };
+                    break;
+                case 'pitch':
+                    if (value >= 0 && value <= 2) { access = true };
+                    break;
+                case 'voice':
+                    voiceList.forEach(el => { 
+                        if (el === value) { access = true };
+                    }); 
+                    break;
+                case 'my_lang' || 'interface':
+                    langList.push('en-US', 'my');
+                    langList.forEach(el => { 
+                        if (el === value) { access = true };
+                    });
+                    langList.splice(-2, 2);
+                    break;
+                case 'color':
+                    ['blue', 'red', 'green', 'yellow', 'grey'].forEach(el => { 
+                        if (el === value) { access = true };
+                    });
+                    break;
+                case 'gender':
+                    if ((value === 'venus' || value === 'mars')) { access = true };
+                    break;
+                case 'birthday':
+                    if (moment(value, 'YYYY-MM-DD', true).isValid()) { access = true };
+                    break;
+                case 'emailverified':
+                    if (validEmail(value) || value === 'null') {  access = true };
+                    break;
+            }
 
             console.log('birthday_valid', moment(value, 'YYYY-MM-DD', true).isValid());
             console.log('type', type);
             console.log('value', value);
-            console.log('param', param);
             console.log('access', access);
-
 
             return userid;
         };
     })
     .then((userid) => {        
         if (access) {
-            if (type === 'gender' || type === 'birthday') {
+            if (type === 'gender' || type === 'birthday'|| type === 'emailverified') {
                 con.query(`UPDATE users SET ${type} = '${value}' WHERE userid = '${userid}'`, (err, result) => {
                     log(`updade-user-info-${type}`, result ? result.affectedRows : err)
                 }); 
@@ -75,7 +91,7 @@ const setSettings = (req, res) => {
             ? res.send({"res": value}) 
             : res.send(require(`./lang/${interfaceLang}`));    
         } else {
-            res.send({"res": value});
+            res.send({"res": (value == 'null') ? '' : value});
         };
     })
     .catch((err) => {

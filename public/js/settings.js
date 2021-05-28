@@ -22,7 +22,7 @@ if(synth.onvoiceschanged !== undefined) {
     synth.onvoiceschanged = () => {        
         voices = synth.getVoices();
         const userVoiceIndex = getVoicesIndex(voices);
-        console.log(userVoiceIndex);
+        // console.log(userVoiceIndex);
 
         voiceIndex = (userVoiceIndex !== undefined) 
             ? userVoiceIndex 

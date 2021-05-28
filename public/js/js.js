@@ -1,5 +1,10 @@
+//get element
 const $_ = (value, parent = document) => parent.querySelectorAll(value);
+//redirect page
 const redirect = way => window.location.replace(`${way}`);
+//validation email
+const validEmail = text => (text.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) ? true : false;
+
 const alertMessage = $_('#alert-message')[0],
       voiceStorage = localStorage.getItem("SpeakVoice");
 let oldVersion, plase, forRemote = [];
@@ -46,7 +51,7 @@ window.onclick = function(event) {
 
     console.log(forRemote);
 
-    ['gender', 'birthday'].forEach(element => {
+    ['gender', 'birthday', 'emailverified'].forEach(element => {
         if (!event.target.matches(`#${element}>b>.fa-edit`) &&
             !event.target.matches(`.forRemote${element}`)) {
             for (let i = 0; i < forRemote.length; i++) {
@@ -119,14 +124,20 @@ const getVoicesIndex = (voices, defaultVoice) => {
 const changeSettingsLists = (list, type, resFun) => {
     for (const i of list) {
         // const obj = {"type": type, "value": i.title};
-        const event = (type === 'birthday') ? "change" : 'click';
-        i.addEventListener(event, () => { 
-            send({"type": type, "value": (type === 'birthday') ? $_('.forRemotebirthday')[0].value : i.title} , '/setsettings', (result) => {
-                // const res = JSON.parse(result);
-                alertMessage.innerHTML = '';
-                // console.log('res', JSON.parse(result));
-                resFun(JSON.parse(result), i);
-            });
+        // let event = 'click';
+        // (type === 'birthday') ? event = "change" : null;
+        // (type === 'emailverified') ? event = "change" : null;
+        i.addEventListener((type === 'birthday' || type === 'emailverified') ? 'change' : 'click', () => { 
+            // const value = (type === 'birthday') ? $_(`.forRemote${type}`)[0].value : i.title;
+            // const value = i.title;
+            if (i.title !== '') {
+                send({"type": type, "value": i.title} , '/setsettings', (result) => {
+                    // const res = JSON.parse(result);
+                    alertMessage.innerHTML = '';
+                    // console.log('res', JSON.parse(result));
+                    resFun(JSON.parse(result), i);
+                });
+            };
         });
     };
 }; 
