@@ -412,6 +412,7 @@ input[type=range]::-webkit-slider-thumb {
 .settings_box_default .line{ 
   display: block;
   margin: 20px 0px;
+  padding: 0;
   width: 100%; 
   min-height: 0px;
   border-bottom: 1px solid var(--fourth-color); 
@@ -515,8 +516,11 @@ button[title='main btn']:hover {
 input[name="gender"] {
   cursor: pointer;
   margin: 0px;
-  height: 20px;
+  height: 17px;
   width: 50px;
+}
+#gender i {
+  font-size: 18px;
 }
 input[type="date"] {
   cursor: pointer;
@@ -541,7 +545,7 @@ input[type="email"] {
   border-radius: 4px;
   height: 30px;
   min-width: 100px;
-  width: 260px;
+  width: 230px;
   text-align: center;
   font-size: 12px;
 }

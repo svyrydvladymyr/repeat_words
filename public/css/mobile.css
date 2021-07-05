@@ -4,6 +4,11 @@ input[type=range] {
     border-radius: 12px;
     height: 38px;
 }
+input[name="gender"] {
+    height: 24px;
+    width: 60px;
+}
+#gender > span i { font-size: 22px }
 
 .selectLanguage,
 button[title='main btn'] { 
