@@ -1,9 +1,14 @@
 //get element
 const $_ = (value, parent = document) => parent.querySelectorAll(value);
+
 //redirect page
 const redirect = way => window.location.replace(`${way}`);
+
 //validation email
 const validEmail = text => (text.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) ? true : false;
+
+//logout
+const exit = () => { send({}, '/exit', (res) => { location.reload() }) };
 
 const alertMessage = $_('#alert-message')[0],
       voiceStorage = localStorage.getItem("SpeakVoice");

@@ -37,5 +37,5 @@ settingsTemplate = {
     birthday : 
         `<input type="date" class="forRemotebirthday" min="1920-01-01" max="${moment(new Date).format('YYYY-MM-DD')}" value="">`,
     emailverified : 
-        `<input type="email" class="forRemoteemailverified" maxLength="60" value="" title="">`
+        `<input type="email" class="forRemoteemailverified" onInput="this.parentNode.dataset.value = this.value" maxLength = "60" value="" title="">`
 };   

@@ -230,7 +230,7 @@ button,
   width: 100%;
   padding: 8px;
   border-bottom: 1px solid;
-  font-size: 14px;  
+  font-size: 16px;  
   border-color: var(--fourth-color);
 }
 .settings_box:last-child {
@@ -244,53 +244,47 @@ button,
 .settings_box > h5, .lang_title_wrap {
   position: relative;
   width: 140px;
-  padding: 4px;
-  margin: 0;  
+  padding: 11px 2px;
+  margin: 0;
   text-align: center;
-  border: 5px solid;
   border-radius: 12px;
-  color: #fff;
-  font-weight: bold;
-  background-color: var(--third-color);
-  border-color: var(--fourth-color);
+  color: var(--second-color);
+  border-color: #ffffff;
 }
 .settings_wrap > p {
-  padding: 4px;
-  margin: 0;
-  border: 5px solid;
-  border-radius: 12px;
+  padding: 5px;
+  margin: 0px 0px 0px 5px;
+  border: 2px solid;
+  border-radius: 8px;
   width: 42px;
-  color: #fff;
+  color: #687c9a;
   font-size: 12px;
   font-weight: bold;
   text-align: center;
-  background-color: var(--second-color);
   border-color: var(--fourth-color);
 }
 /* settings select -------------------------------------------------*/
 .settings_wrap > select {
   outline: 0;
-  border: 5px solid;
-  border-radius: 12px;
-  padding: 4px 4px;
+  border: 2px solid;
+  border-radius: 15px;
+  padding: 4px 10px;
   max-width: 342px;
   width: 100%;
-  color: #fff;
-  font-size: 12px;
-  background-color: var(--second-color);
+  color: #687c9a;
+  font-size: 14px;
   border-color: var(--fourth-color);
 }
 input[type=range] {
   outline: 0;
   margin: 0;
-  padding: 4px;
+  padding: 5px;
   max-width: 300px;
-  width: 81%;
-  border: 5px solid;
-  border-radius: 12px;
+  width: 80%;
+  border: 2px solid;
+  border-radius: 15px;
   -webkit-appearance: none;
   border-color: var(--fourth-color);
-  background-color: var(--second-color);
 }
 input[type=range]::-webkit-slider-runnable-track {
   border: 0;
@@ -304,7 +298,7 @@ input[type=range]::-webkit-slider-thumb {
   width: 10px;
   height: 10px;
   background: var(--fourth-color);
-  border: solid rgba(215, 255, 255, 0.4);
+  border: solid var(--second-color);
   border-width: 8px 6px 8px 6px;
   border-radius: 3px;
   cursor: pointer;
@@ -324,29 +318,29 @@ input[type=range]::-webkit-slider-thumb {
 
 .settings-my-lang-box img {
   cursor: pointer;
-  width: 34px;
-  min-height: 30px;
-  border: 5px solid;
+  width: 36px;
+  min-height: 28px;
+  border: 2px solid;
   border-color: var(--fourth-color);
-  border-radius: 9px;
+  border-radius: 8px;
   padding: 3px;
-  background: var(--second-color);
 }
 .settings-my-lang-box img:hover{
   border: 2px solid;
-  border-color: var(--fourth-color);
+  border-color: var(--main-color);
 }
 .lang_title_wrap > h5{ margin: 0;}
 .lang_title_wrap > img{
   position: absolute;
-  border: 4px solid;
+  border: 2px solid;
+  padding: 3px;
   border-color: var(--fourth-color);
-  border-radius: 8px;
-  background-color: var(--fourth-color);
-  width: 28px;
-  min-height: 22px;
-  top: -15px;
-  right: -12px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  width: 30px;
+  min-height: 30px;
+  top: 2px;
+  left: -30px;
 }
 
 /* settings color -----------------------------------------------*/
@@ -355,29 +349,28 @@ input[type=range]::-webkit-slider-thumb {
   width: 18%;
   min-height: 30px;
   margin: 0px;
-  border: 5px solid;
+  border: 4px solid;
   border-color: var(--fourth-color);
-  border-radius: 9px;
+  border-radius: 15px;
 }
 .settings-color-box p:hover { border: 3px solid var(--fourth-color) }
-.blue{ background-color: #687c9a }
-.green{ background-color: #356a3e }
-.red{ background-color: #82353f }
-.yellow{ background-color: #9d9743 }
-.grey{ background-color: #545454 }
+.blue{ background-color: #a4b2c7 }
+.green{ background-color: #7d9581 }
+.red{ background-color: #9e797e }
+.yellow{ background-color: #a4a180 }
+.grey{ background-color: #bdbdbd }
 
 /*settings interface ------------------------------------------*/
 .settings-interface-box > div {
   position: relative;
   margin: 0;
-  padding: 4px;
-  border: 5px solid;
-  border-radius: 12px;
-  width: 50%;
-  color: #fff;
+  padding: 6px;
+  border: 2px solid;
+  border-radius: 15px;
+  width: 49%;
+  color: #687c9a;
   font-size: 12px;
   font-weight: bold;
-  background-color: var(--second-color);
   border-color: var(--fourth-color);
 }
 .settings-interface-box > div:first-child { padding-right: 45px }
@@ -387,29 +380,29 @@ input[type=range]::-webkit-slider-thumb {
   cursor: pointer;
   position: absolute;
   border: 4px solid;
-  border-radius: 6px;
-  height: 17px;
+  border-radius: 15px;
+  height: 19px;
   width: 40px;
-  top: 3px;
+  top: 4px;
   background-color: transparent;
   color: var(--fourth-color);
 }
 .settings-interface-box .interface-check:first-child{ left: 5px }
 .settings-interface-box .interface-check:last-child{ right: 5px }
-.interface_checked { background-color: #fff!important }
-.interface_checked:hover{ border: 1px solid }
+.interface_checked { background-color: var(--main-color)!important }
 
 
 /* default settings message ---------------------------------------*/
 .settings_box_default{ flex-direction: column }
-.settings_box_default p{ margin: 6px }
+.settings_box_default p{ margin: 0px 6px }
 .settings_box_default b{ margin: 0px 6px; color:var(--main-color) }
 .settings_box_default p{ 
   min-width: 130px;
-  min-height: 20px;
+  min-height: 36px;
   color:var(--third-color); 
   display: flex;
   align-items: center;
+  word-break: break-all;
 }
 .settings_box_default b > i{ 
   cursor: pointer;
@@ -521,7 +514,8 @@ button[title='main btn']:hover {
 input[name="gender"] {
   cursor: pointer;
   margin: 0px;
-  height: 12px;
+  height: 20px;
+  width: 50px;
 }
 input[type="date"] {
   cursor: pointer;
@@ -529,7 +523,7 @@ input[type="date"] {
   color: var(--main-color);
   border: 1px solid var(--second-color);
   border-radius: 6px;
-  height: 20px;
+  height: 28px;
   width: 135px;
   font-size: 12px;
 }
@@ -543,10 +537,10 @@ input[type="email"] {
   padding: 0px 10px;
   color: var(--main-color);
   border: 1px solid var(--main-color);
-  border-radius: 6px;
-  height: 20px;
+  border-radius: 4px;
+  height: 30px;
   min-width: 100px;
-  width: 200px;
+  width: 260px;
   text-align: center;
   font-size: 12px;
 }

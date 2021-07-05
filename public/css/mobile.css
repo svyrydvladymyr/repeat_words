@@ -1,5 +1,9 @@
-input[type=range] { max-width: 76%; width: 76% }
-input[name="gender"] { width: 30px; height: 30px }
+input[type=range] { 
+    max-width: 73%; 
+    width: 73%; 
+    border-radius: 12px;
+    height: 38px;
+}
 
 .selectLanguage,
 button[title='main btn'] { 
@@ -10,21 +14,62 @@ button[title='main btn'] {
 .user_wrap { flex-direction: column }
 .user_wrap > p { text-align: center }
 .settings_box { padding: 15px 0px }
-.settings_box > h5 { width: 100%; margin: 4px 0px 4px 0px }
+.settings_box > h5 {     
+    width: 100%;
+    font-size: 16px;
+    background: #e8e8e8;
+    margin: 4px 0px 10px 0px; 
+}
 .settings_wrap { max-width: 100% }
-.settings_wrap > p { width: 24% }
-.settings_wrap > select { max-width: 100% }
+.settings_wrap > p { 
+    width: 24%;
+    border-radius: 12px;
+    height: 38px;
+    padding: 10px 2px;
+}
+.settings_wrap > select { 
+    max-width: 100%;
+    border-radius: 12px;
+    height: 38px;
+}
 .settings-my-lang-box { 
     max-width: 100%; 
     padding: 5px 0px 0px 0px; 
     margin: 0px 
 }
-.settings-my-lang-box img { width: 12% }
-.settings_box_default p { display: contents }
+.settings-my-lang-box img { 
+    width: 20%;
+    margin: 5px; 
+    padding: 5px;
+}
+.settings_box_default p { 
+    display: flex;
+    width: 100%;
+    border: 1px solid #e8e8e8;
+    flex-direction: column;
+    margin: 4px 0px;
+    padding-bottom: 7px;
+    border-radius: 9px;
+ }
+.settings_box_default span { height: 28px; }
+.settings_box_default b{ margin: 12px 6px 6px 6px }
+.settings_box_default b > i { font-size: 18px }
 .lang_title_wrap { width: 100% }
 .lang_title_wrap > img { 
-    width: 40px; 
-    top: -25px 
+    width: 42px;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0px auto;
+    border-radius: 10px;
+}
+.lang_title_wrap > h5 {
+    width: 100%;
+    font-size: 16px;
+    background: #e8e8e8;
+    border-radius: 12px;
+    padding: 10px 4px;
+    margin: 4px 0px 4px 0px;
 }
 .settings-interface-box,
 .settings-color-box { 
@@ -33,14 +78,22 @@ button[title='main btn'] {
     padding: 0px; 
     margin: 5px 0px 0px 0px; 
 }
-.settings-interface-box > div { padding: 35px 5px 8px 5px!important}
+.settings-color-box p {
+    min-height: 40px;
+    border-radius: 12px;
+}
+.settings-interface-box > div { 
+    padding: 45px 5px 8px 5px!important;
+    border-radius: 12px;
+}
 .interface-check {
-    width: 94%!important;
+    width: 84%!important;
     left: 0px!important;
     right: 0px!important;
     top: 5px!important;
     border: 2px solid!important;
-    height: 25px!important;
+    border-radius: 12px!important;
+    height: 36px!important;
     margin: auto;
 }
 

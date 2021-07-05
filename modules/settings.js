@@ -1,7 +1,9 @@
-const {log, getTableRecord, validEmail, langList, voiceList} = require('./service');
-const {autorisationCheck} = require('./autorisation');
 const con = require('../db/connectToDB').con;
 const moment = require('moment');
+
+const {log, getTableRecord, validEmail, langList, voiceList} = require('./service');
+const {autorisationCheck} = require('./service');
+
 
 const setSettings = (req, res) => {
     const type = req.body.type, value = req.body.value;
@@ -26,7 +28,12 @@ const setSettings = (req, res) => {
                         if (el === value) { access = true };
                     }); 
                     break;
-                case 'my_lang' || 'interface':
+                case 'my_lang':
+                    langList.forEach(el => { 
+                        if (el === value) { access = true };
+                    });
+                    break;
+                case 'interface':
                     langList.push('en-US', 'my');
                     langList.forEach(el => { 
                         if (el === value) { access = true };

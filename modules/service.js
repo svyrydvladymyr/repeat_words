@@ -1,4 +1,3 @@
-const transliteration = require('transliteration.cyr');
 const Cookies = require('cookies');
 const fs = require('fs');
 const con = require('../db/connectToDB').con;
@@ -38,14 +37,13 @@ const voiceList = [
 ];
 
 //transliteration
-const translit = word => {return transliteratedValue = transliteration.transliterate(word)};
+const translit = word => require('transliteration.cyr').transliterate(word);
 
 //client token
 const clienttoken = (req, res) => new Cookies(req, res, {"keys":['volodymyr']}).get('sessionisdd', {signed:true});
 
 //validation email
 const validEmail = text => (text.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) ? true : false;
-
 
 //add or clear Cookies
 const addCookies = (req, res, token, param) => {
@@ -129,6 +127,19 @@ const getTableRecord = (sql) => {
     });
 };
 
+//check the authenticity of the authorization
+const autorisationCheck = async (req, res) => {
+    return await getTableRecord(`SELECT userid FROM users WHERE token = '${clienttoken(req, res)}'`)
+    .then((user) => { 
+        return (user.err || user == '') ? false : user[0].userid; 
+    });
+};
+
+//logout
+const logOut = (req, res) => {
+    addCookies(req, res, '', '-1');
+    res.redirect('/'); 
+};
 
 module.exports = {
     pageNotFound,
@@ -144,5 +155,7 @@ module.exports = {
     checOnTrueVal,
     accessLog,
     getTableRecord,
-    validEmail
+    validEmail,
+    autorisationCheck,
+    logOut
 }
