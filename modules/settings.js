@@ -1,8 +1,8 @@
 const con = require('../db/connectToDB').con;
 const moment = require('moment');
 
-const {log, getTableRecord, validEmail, langList, voiceList} = require('./service');
-const {autorisationCheck} = require('./service');
+const {log, getTableRecord, validEmail, autorisationCheck} = require('./service');
+const {langList, voiceList} = require('./config');
 
 
 const setSettings = (req, res) => {

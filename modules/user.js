@@ -1,5 +1,6 @@
 const con = require('../db/connectToDB').con;
-const {log, clienttoken, getTableRecord, readyFullDate, langName, langList, voiceList} = require('./service');
+const {log, clienttoken, getTableRecord, readyFullDate} = require('./service');
+const {langName, langList, voiceList} = require('./config');
 const moment = require('moment');
 
 const DATA = {
@@ -130,12 +131,14 @@ const getUser = async (req, res, pageName) => {
                 log("settings-added", result ? result.affectedRows : err.code);        
             });  
         } else {
+            let myLanguage = 'none';
+            langList.forEach(el => { if (userssettings[0].my_lang === el) {myLanguage = userssettings[0].my_lang} });
             DATA.usersett.spead = userssettings[0].speed;
             DATA.usersett.pitch = userssettings[0].pitch;
             DATA.usersett.voice = userssettings[0].voice;
-            DATA.usersett.lang = userssettings[0].my_lang;
+            DATA.usersett.lang = myLanguage;
             DATA.usersett.color = userssettings[0].color;
-            DATA.usersett.interface = (userssettings[0].interface === 'my') ? userssettings[0].my_lang : 'en-US';
+            DATA.usersett.interface = (userssettings[0].interface === 'my' && myLanguage !== 'none') ? userssettings[0].my_lang : 'en-US';
             if (pageName === 'settings') {
                 DATA.langList = langList;
                 DATA.voiceList = voiceList;

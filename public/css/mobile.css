@@ -18,7 +18,7 @@ button[title='main btn'] {
 .logo_wrap, .user_wrap { width: 100%; justify-content: center }
 .user_wrap { flex-direction: column }
 .user_wrap > p { text-align: center }
-.settings_box { padding: 15px 0px }
+.settings_box { padding: 25px 0px }
 .settings_box > h5 {     
     width: 100%;
     font-size: 16px;
@@ -55,9 +55,10 @@ button[title='main btn'] {
     margin: 4px 0px;
     padding-bottom: 7px;
     border-radius: 9px;
+    justify-content: center;
  }
 .settings_box_default span { height: 28px; }
-.settings_box_default b{ margin: 12px 6px 6px 6px }
+.settings_box_default b{ margin: 12px 6px 6px 6px; text-align: center;}
 .settings_box_default b > i { font-size: 18px }
 .lang_title_wrap { width: 100% }
 .lang_title_wrap > img { 
@@ -88,17 +89,27 @@ button[title='main btn'] {
     border-radius: 12px;
 }
 .settings-interface-box > div { 
-    padding: 45px 5px 8px 5px!important;
+    padding: 80px 5px 8px 5px!important;
     border-radius: 12px;
+    background: var(--fourth-color);
 }
 .interface-check {
-    width: 84%!important;
+    width: 60%!important;
     left: 0px!important;
     right: 0px!important;
     top: 5px!important;
-    border: 2px solid!important;
-    border-radius: 12px!important;
-    height: 36px!important;
+    border: 9px solid!important;
+    border-radius: 25px!important;
+    height:65px!important;
     margin: auto;
 }
-
+.user_settings_list { 
+    position: relative;
+    border: 0;
+    background-color: transparent;
+    top: 10px;
+    right: 0px;
+}
+.user_settings_list::before { 
+    display: none;
+  }

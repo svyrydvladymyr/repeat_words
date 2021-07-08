@@ -10,12 +10,7 @@
                 <img src="<%=DATA.user.foto %>" alt="foto" id="user_foto">                
                 <div class="user_settings_list_wrap">
                     <i class='fas fa-cogs' onclick="showSettingsList()"></i> 
-                    <ul class="user_settings_list">
-                        <li><a href="/profile" id="profile-title"><%=DATA.langPack.profile %></a></li>
-                        <li><a href="/settings" id="settings-title"><%=DATA.langPack.settings %></a></li>
-                        <li><a href="/friends" id="friends-title"><%=DATA.langPack.friends %></a></li>
-                        <li><a onclick="exit()" id="exit-title"><%=DATA.langPack.exit %></a></li>
-                    </ul>
+
                 </div>
             </div>
             <script>
@@ -33,5 +28,11 @@
                 <a href="/linkedin"><img src="img/linkedin.png" alt="facebook"></a>
             </div>
         <% } %>
+        <ul class="user_settings_list">
+            <li><a href="/profile" id="profile-title"><%=DATA.langPack.profile %></a></li>
+            <li><a href="/settings" id="settings-title"><%=DATA.langPack.settings %></a></li>
+            <li><a href="/friends" id="friends-title"><%=DATA.langPack.friends %></a></li>
+            <li><a onclick="exit()" id="exit-title"><%=DATA.langPack.exit %></a></li>
+        </ul>
     </div>
 </div>

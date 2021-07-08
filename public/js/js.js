@@ -27,18 +27,20 @@ const makeCounter = function() {
 };
 const counter = makeCounter();    
 const menuAnimation = (change) => {
+    var windowWidth = window.innerWidth;
     let animation = setInterval(() => { 
         let border = change === 'decrement' ? 0 : 10;           
         if (change === 'decrement') { counter.decrement() };
         if (change === 'increment') { counter.increment() };          
         let count = counter.value();
-        dropdowns[0].style.minWidth = `${20 + count*10}px`;
+        if (windowWidth < 767) {dropdowns[0].style.width = `${count*10}%`};
+        dropdowns[0].style.maxWidth = windowWidth < 767 ? `${count*10}%` : `${20 + count*10}px`;        
         dropdowns[0].style.opacity = `${0 + count/10}`;
         dropdowns[0].style.fontSize = `${count + 3}px`;
         if (count === border) { clearInterval(animation) };
     }, 20); 
 };
-const showSettingsList = () => { 
+const showSettingsList = () => {
     dropdowns[0].classList.toggle('user_settings_list_show');
     dropdowns[0].classList.contains('user_settings_list_show') ? menuAnimation('increment') : menuAnimation('decrement');
 };    

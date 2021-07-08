@@ -91,6 +91,7 @@ button,
 /* in header -------------------------------------------------*/
 .logo_wrap,
 .user_wrap {
+  position: relative;
   width: 50%;
   min-width: 220px;
   min-height: 50px;
@@ -147,7 +148,7 @@ button,
 }
 
 /* user settings list -------------------------------------------------*/
-.user_settings_list_wrap {
+.user_settings_list_wrap{
   position: relative;
   display: block;
   width: 28px;
@@ -169,8 +170,8 @@ button,
 .user_settings_list { 
   position: absolute;
   display: none;
-  top: 35px;
-  right: 5px;
+  top: 80px;
+  right: 12px;
   min-width: 20px;
   max-width: 200px;
   opacity: 0;
@@ -182,6 +183,7 @@ button,
   border-color: var(--third-color);
   background: #fff;
   list-style: none;
+  z-index: 2;
 }
 .user_settings_list_show { display: block }
 .user_settings_list::before { 
@@ -384,7 +386,7 @@ input[type=range]::-webkit-slider-thumb {
   height: 19px;
   width: 40px;
   top: 4px;
-  background-color: transparent;
+  background-color: #fff;
   color: var(--fourth-color);
 }
 .settings-interface-box .interface-check:first-child{ left: 5px }
@@ -552,5 +554,22 @@ input[type="email"] {
 input[type="email"]:focus {
   border-color: 1px solid var(--main-color);
   box-shadow: 0px 0px 2px var(--main-color);
+}
+
+
+.show_menu_big {
+  display: flex;
+}
+.show_menu_small {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .show_menu_big {
+    display: none;
+  }
+  .show_menu_small {
+    display: flex;
+  }
 }
 
