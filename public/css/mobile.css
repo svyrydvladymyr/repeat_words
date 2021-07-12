@@ -110,6 +110,9 @@ button[title='main btn'] {
     top: 10px;
     right: 0px;
 }
+.user_settings_list > li {
+    padding: 12px 5px;
+}
 .user_settings_list::before { 
     display: none;
-  }
+}

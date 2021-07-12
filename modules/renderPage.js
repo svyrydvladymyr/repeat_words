@@ -7,7 +7,7 @@ module.exports = (req, res, pageName, err = '') => {
         res.status(500).render('main', { DATA });
     } else {
         require('./user').getUser(req, res, pageName)
-        .then(() => { console.log("DATA", DATA) })
+        // .then(() => { console.log("DATA", DATA) })
         .then(() => { res.render(pageName, { DATA }) });
     };
 };

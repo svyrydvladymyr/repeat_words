@@ -34,7 +34,7 @@ const menuAnimation = (change) => {
         if (change === 'increment') { counter.increment() };          
         let count = counter.value();
         if (windowWidth < 767) {dropdowns[0].style.width = `${count*10}%`};
-        dropdowns[0].style.maxWidth = windowWidth < 767 ? `${count*10}%` : `${20 + count*10}px`;        
+        dropdowns[0].style.maxWidth = windowWidth < 767 ? `${count*10}%` : `${20 + count*20}px`;        
         dropdowns[0].style.opacity = `${0 + count/10}`;
         dropdowns[0].style.fontSize = `${count + 3}px`;
         if (count === border) { clearInterval(animation) };

@@ -172,7 +172,7 @@ button,
   display: none;
   top: 80px;
   right: 12px;
-  min-width: 20px;
+  min-width: 120px;
   max-width: 200px;
   opacity: 0;
   font-size: 0px;
