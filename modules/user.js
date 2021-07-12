@@ -119,10 +119,11 @@ const getUser = async (req, res, pageName) => {
                     DATA.user.provider = user[0].provider;
                     DATA.user.date_registered = readyFullDate(user[0].date_registered, 'reverse');
                 }           
-                return user_data[1];
+                return user_data;
             };        
         })
-        .then((userssettings) => {
+        .then((user_data) => {
+            const userssettings = user_data[1];  
             if (userssettings.err) {
                 log("settings-request-error", userssettings.err);
             } else if (userssettings == '') {
