@@ -2,12 +2,13 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-const {users, userssettings} = require('./db/createDB');
+const {users, userssettings, words} = require('./db/createDB');
 const {log, accessLog, logOut} = require('./modules/service');
 
 const {setSettings} = require('./modules/settings');
 
 const renderPage = require('./modules/renderPage');
+const searchWord = require('./modules/search');
 
 //oaugh
 require('./modules/oaugh.js')(app);
@@ -28,9 +29,11 @@ app.use((req, res, next) => {accessLog(req, res, next)});
 
 //requests
 app.use('/setsettings', (req, res) => {setSettings(req, res)});
+app.use('/search-word', (req, res) => {searchWord(req, res)});
 
 //pages
 app.get('/repeat-words', (req, res) => {renderPage(req, res, 'repeat-words')});
+app.get('/add-words', (req, res) => {renderPage(req, res, 'add-words')});
 app.get('/profile', (req, res) => {renderPage(req, res, 'profile')});
 app.get('/settings', (req, res) => {renderPage(req, res, 'settings')});
 app.get('/friends', (req, res) => {renderPage(req, res, 'friends')});

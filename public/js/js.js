@@ -106,13 +106,13 @@ const readyMonth = function(fullDate){
 }; 
 
 //for send AJAX  
-const send = (obj, url, fun) => {
+const send = (obj, url, req = 'POST', fun) => {
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             fun(this.responseText);
         }};
-    xmlhttp.open("POST", url, true);
+    xmlhttp.open(req, url, true);
     xmlhttp.setRequestHeader("Content-type", "application/json");
     xmlhttp.send(JSON.stringify(obj));     
 };    

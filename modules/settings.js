@@ -54,7 +54,7 @@ const setSettings = (req, res) => {
                 case 'emailverified':
                     if (validEmail(value) || value === 'null') {  access = true };
                     break;
-            }
+            };
 
             console.log('birthday_valid', moment(value, 'YYYY-MM-DD', true).isValid());
             console.log('type', type);

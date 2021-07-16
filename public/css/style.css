@@ -556,6 +556,52 @@ input[type="email"]:focus {
   box-shadow: 0px 0px 2px var(--main-color);
 }
 
+/*search ---------------------------------------------------------*/
+.search{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 26px;
+  margin-bottom: 26px;
+}
+
+.search > input{
+  outline: 0;
+  border: 0;
+  text-align: center;
+  border-bottom: 1px solid;
+  width: 100%;
+  max-width: 300px;
+  height: 30px;
+  color: var(--second-color);
+}
+.search > input::placeholder {
+  color: var(--fourth-color)
+}
+.search > i{
+  font-size: 18px;
+  color: var(--second-color);
+  margin-left: 10px;
+}
+.search_list{
+  outline:1px solid red;
+  margin-bottom: 40px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .show_menu_big {
   display: flex;

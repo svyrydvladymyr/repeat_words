@@ -144,7 +144,7 @@ const getUser = async (req, res, pageName) => {
                     DATA.langList = langList;
                     DATA.voiceList = voiceList;
                 }
-                if (pageName === 'main') {
+                if ((pageName === 'main') || (pageName === 'add-words')) {
                     let param = true;
                     langList.forEach(el => { if (el === DATA.usersett.lang) {param = false} });
                     if (param) {

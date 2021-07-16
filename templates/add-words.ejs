@@ -2,37 +2,32 @@
 <html lang="en">
 <head>
     <%- include("./parts/head.ejs") %>
-    <script>
-       
-    </script>
 </head>
 <body>
     <%- include("./parts/header.ejs") %>  
     <div class="main_body">
+        <%- include("./parts/backtomain.ejs") %>
         <div class="part_wrap">
             <% if (DATA.permission.permAuthorised === 1) { %>        
                 <% if (DATA.usersett.lang !== 'none') { %>
-                    <button id='btnSpeak' title="main btn" onclick="redirect('/repeat-words')">Повторення слів &nbsp;<i class='fas fa-graduation-cap'></i></button>
-                    <button id='btnSpeak' title="main btn" onclick="redirect('/add-words')">Додати / Редагувати слова &nbsp;<i class='fas fa-plus'></i></button>
-                    <button id='btnSpeak' title="main btn" onclick="redirect('/word-lists')">Списки слів &nbsp;<i class='fa fa-th-list'></i></button>
-
-
-
-
-
-
+                    <div class="search">
+                        <input type="text" name="search" placeholder="Search...">
+                        <i class='fa fa-search'></i>
+                    </div>
                     
+                    <div class="search_list"></div>
+          
                 <% } %> 
             <% } %> 
             <% if (DATA.permission.permAuthorised === 0) { %>
-                <button id='btnSpeak' title="main btn" onclick="redirect('/repeat-words')">Повторення слів &nbsp;<i class='fas fa-graduation-cap'></i></button>
-                <button id='btnSpeak' title="main btn" onclick="redirect('/settings')">Інформація про налаштування &nbsp;<i class='fas fa-cogs'></i></button>
+                <p>Для додавання або редагування слів потрібно авторизуватися!</p>
             <% } %>             
         </div>
         <%- include("./parts/error.ejs") %>
     </div>
     <%- include("./parts/footer.ejs") %>
     <script src="./js/js.js"></script>
+    <script src="./js/search.js"></script>
     <script src='./js/icon.js'></script>
     <% if (DATA.usersett.lang === 'none' && DATA.permission.permAuthorised === 1) { %>
         <script>

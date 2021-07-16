@@ -53,9 +53,10 @@ const listssettings = () => {
 
 const words = () => {
     const sql = `CREATE TABLE words (id INT AUTO_INCREMENT PRIMARY KEY,
-        word_v1 VARCHAR(100),
-        word_v2 VARCHAR(100),
+        word VARCHAR(100) NOT NULL UNIQUE,
+        word_translation VARCHAR(100) NOT NULL,
         word_lang VARCHAR(10),
+        created_by VARCHAR(100),
         date_create DATETIME
         )`; 
     con.query(sql, function (err, result) {if (err) throw err; console.log("Table words created")});
