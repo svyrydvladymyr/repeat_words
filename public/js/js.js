@@ -106,7 +106,7 @@ const readyMonth = function(fullDate){
 }; 
 
 //for send AJAX  
-const send = (obj, url, req = 'POST', fun) => {
+const send = (obj, url, fun, req = 'POST') => {
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {

@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-const {users, userssettings, words} = require('./db/createDB');
+const {users, words} = require('./db/createDB');
 const {log, accessLog, logOut} = require('./modules/service');
 
 const {setSettings} = require('./modules/settings');
@@ -33,7 +33,7 @@ app.use('/search-word', (req, res) => {searchWord(req, res)});
 
 //pages
 app.get('/repeat-words', (req, res) => {renderPage(req, res, 'repeat-words')});
-app.get('/add-words', (req, res) => {renderPage(req, res, 'add-words')});
+app.get('/search-words', (req, res) => {renderPage(req, res, 'search-words')});
 app.get('/profile', (req, res) => {renderPage(req, res, 'profile')});
 app.get('/settings', (req, res) => {renderPage(req, res, 'settings')});
 app.get('/friends', (req, res) => {renderPage(req, res, 'friends')});

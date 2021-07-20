@@ -103,6 +103,15 @@ button[title='main btn'] {
     height:65px!important;
     margin: auto;
 }
+.user_settings_list_wrap {
+    width: 36px;
+    height: 36px;
+    margin-top: -24px;
+    margin-left: 36px;
+    font-size: 16px;
+    padding: 2px;
+}
+
 .user_settings_list { 
     position: relative;
     border: 0;

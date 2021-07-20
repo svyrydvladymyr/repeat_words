@@ -9,9 +9,15 @@ const users = () => {
         surname VARCHAR(80) NOT NULL,
         email VARCHAR(60) DEFAULT '',
         emailverified VARCHAR(60) DEFAULT '',
-        birthday DATE DEFAULT '',
+        birthday DATE,
         gender VARCHAR(11) DEFAULT '',
-        provider VARCHAR(40),                   
+        provider VARCHAR(40),
+        interface VARCHAR(20) DEFAULT 'en-US',    
+        my_lang VARCHAR(20) DEFAULT 'none',    
+        voice VARCHAR(60) DEFAULT 'Google UK English Female',                   
+        speed VARCHAR(40) DEFAULT '1', 
+        pitch VARCHAR(40) DEFAULT '1',            
+        color VARCHAR(20) DEFAULT 'blue',                    
         date_registered DATETIME
         )`; 
     con.query(sql, function (err, result) {if (err) throw err; console.log("Table users created")});

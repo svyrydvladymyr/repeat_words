@@ -566,13 +566,12 @@ input[type="email"]:focus {
   margin-top: 26px;
   margin-bottom: 26px;
 }
-
 .search > input{
   outline: 0;
   border: 0;
   text-align: center;
   border-bottom: 1px solid;
-  width: 100%;
+  width: 80%;
   max-width: 300px;
   height: 30px;
   color: var(--second-color);
@@ -586,13 +585,25 @@ input[type="email"]:focus {
   margin-left: 10px;
 }
 .search_list{
-  outline:1px solid red;
   margin-bottom: 40px;
 }
-
-
-
-
+.add-word-btn-wrap{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction:column;
+  justify-content: center;
+  width: 100%;
+  max-width: 300px; 
+  margin: 20px auto 10px auto;
+  text-align: center;
+  color: var(--second-color);
+  font-size: 16px;
+}
+.add-word-btn-wrap > button{
+  width: 36px;
+  margin: 20px auto 4px auto;
+  background-color: #fff;
+}
 
 
 

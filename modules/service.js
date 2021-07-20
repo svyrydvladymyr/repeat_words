@@ -95,9 +95,9 @@ const getTableRecord = (sql) => {
 
 //check the authenticity of the authorization
 const autorisationCheck = async (req, res) => {
-    return await getTableRecord(`SELECT userid FROM users WHERE token = '${clienttoken(req, res)}'`)
+    return await getTableRecord(`SELECT userid, interface, my_lang FROM users WHERE token = '${clienttoken(req, res)}'`)
     .then((user) => { 
-        return (user.err || user == '') ? false : user[0].userid; 
+        return (user.err || user == '') ? false : user[0]; 
     });
 };
 

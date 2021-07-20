@@ -93,67 +93,49 @@ const isUser = (profile) => {
 const getUser = async (req, res, pageName) => {
     await autorisationCheck(req, res)
     .then(async (userid) => {
-        if (userid === false) { throw new Error('error-autorisation') }; 
-        await Promise.all([
-            getTableRecord(`SELECT * FROM users WHERE userid = '${userid}'`), 
-            getTableRecord(`SELECT * FROM userssettings WHERE userid = '${userid}'`)
-        ])
-        .then((user_data) => {
-            const user = user_data[0];       
-            if (user.err) {
-                throw new Error(user.err);
-            } else if (user == '') { 
-                throw new Error('error-autorisation');
-            } else {
-                DATA.user.id = user[0].userid;
-                DATA.user.name = user[0].name;
-                DATA.user.surname = user[0].surname;
-                DATA.user.foto = user[0].ava;
-                DATA.permission.permAuthorised = 1;
-                if (pageName === 'profile') {
-                    const birthday = (user[0].birthday !== null && user[0].birthday !== '') ? moment(user[0].birthday).format('YYYY-MM-DD') : '';
-                    const email = (user[0].emailverified === 'null' || user[0].emailverified === '') ? user[0].email : user[0].emailverified;
-                    DATA.user.email = (email === 'null') ? '' : email;
-                    DATA.user.birthday = birthday;
-                    DATA.user.gender = user[0].gender;
-                    DATA.user.provider = user[0].provider;
-                    DATA.user.date_registered = readyFullDate(user[0].date_registered, 'reverse');
-                }           
-                return user_data;
-            };        
-        })
-        .then((user_data) => {
-            const userssettings = user_data[1];  
-            if (userssettings.err) {
-                log("settings-request-error", userssettings.err);
-            } else if (userssettings == '') {
-                log("not-found-settings-record", userssettings);
-                con.query(`INSERT INTO userssettings (userid) VALUES ('${DATA.user.id}')`, (err, result) => {
-                    log("settings-record-created", result ? result.affectedRows : err.code);        
-                });  
-            } else {
-                let myLanguage = 'none';
-                langList.forEach(el => { if (userssettings[0].my_lang === el) {myLanguage = userssettings[0].my_lang} });
-                DATA.usersett.spead = userssettings[0].speed;
-                DATA.usersett.pitch = userssettings[0].pitch;
-                DATA.usersett.voice = userssettings[0].voice;
-                DATA.usersett.lang = myLanguage;
-                DATA.usersett.color = userssettings[0].color;
-                DATA.usersett.interface = (userssettings[0].interface === 'my' && myLanguage !== 'none') ? userssettings[0].my_lang : 'en-US';
-                if (pageName === 'settings') {
+        if (userid === false) { throw new Error('error-autorisation') };
+        await getTableRecord(`SELECT * FROM users WHERE userid = '${userid.userid}'`)
+        .then((user) => {
+            if (user.err) { throw new Error(user.err) };
+
+            let myLanguage = 'none';
+            langList.forEach(el => { if (user[0].my_lang === el) {myLanguage = user[0].my_lang} });
+            //permission
+            DATA.permission.permAuthorised = 1;
+            //user
+            DATA.user.id = user[0].userid;
+            DATA.user.name = user[0].name;
+            DATA.user.surname = user[0].surname;
+            DATA.user.foto = user[0].ava;
+            //usersettings
+            DATA.usersett.spead = user[0].speed;
+            DATA.usersett.pitch = user[0].pitch;
+            DATA.usersett.voice = user[0].voice;
+            DATA.usersett.lang = myLanguage;
+            DATA.usersett.color = user[0].color;
+            DATA.usersett.interface = (user[0].interface === 'my' && myLanguage !== 'none') ? user[0].my_lang : 'en-US';
+            if (pageName === 'profile') {
+                const birthday = (user[0].birthday !== null && user[0].birthday !== '') ? moment(user[0].birthday).format('YYYY-MM-DD') : '';
+                const email = (user[0].emailverified === 'null' || user[0].emailverified === '') ? user[0].email : user[0].emailverified;
+                DATA.user.email = (email === 'null') ? '' : email;
+                DATA.user.birthday = birthday;
+                DATA.user.gender = user[0].gender;
+                DATA.user.provider = user[0].provider;
+                DATA.user.date_registered = readyFullDate(user[0].date_registered, 'reverse');
+            };
+            if (pageName === 'settings') {
+                DATA.langList = langList;
+                DATA.voiceList = voiceList;
+            };
+            if ((pageName === 'main') || (pageName === 'search-words')) {
+                let param = true;
+                langList.forEach(el => { if (el === DATA.usersett.lang) {param = false} });
+                if (param) {
+                    DATA.usersett.lang = 'none';
                     DATA.langList = langList;
-                    DATA.voiceList = voiceList;
-                }
-                if ((pageName === 'main') || (pageName === 'add-words')) {
-                    let param = true;
-                    langList.forEach(el => { if (el === DATA.usersett.lang) {param = false} });
-                    if (param) {
-                        DATA.usersett.lang = 'none';
-                        DATA.langList = langList;
-                        DATA.langName = langName;
-                    };
+                    DATA.langName = langName;
                 };
-            };   
+            };
             return DATA.usersett.interface;       
         })   
         .then((lang) => {

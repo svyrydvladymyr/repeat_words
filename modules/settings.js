@@ -12,78 +12,65 @@ const setSettings = (req, res) => {
     // console.log('value', req.body.value);
     // console.log('valueIS', !isNaN(req.body.value));
     autorisationCheck(req, res)
-    .then((userid) => {
-        if (userid === false) {
-            throw new Error('error-autorisation');
-        } else {
-            switch (type) {
-                case 'speed':
-                    if (value >= 0.5 && value <= 2) { access = true };
-                    break;
-                case 'pitch':
-                    if (value >= 0 && value <= 2) { access = true };
-                    break;
-                case 'voice':
-                    voiceList.forEach(el => { 
-                        if (el === value) { access = true };
-                    }); 
-                    break;
-                case 'my_lang':
-                    langList.forEach(el => { 
-                        if (el === value) { access = true };
-                    });
-                    break;
-                case 'interface':
-                    langList.push('en-US', 'my');
-                    langList.forEach(el => { 
-                        if (el === value) { access = true };
-                    });
-                    langList.splice(-2, 2);
-                    break;
-                case 'color':
-                    ['blue', 'red', 'green', 'yellow', 'grey'].forEach(el => { 
-                        if (el === value) { access = true };
-                    });
-                    break;
-                case 'gender':
-                    if ((value === 'venus' || value === 'mars')) { access = true };
-                    break;
-                case 'birthday':
-                    if (moment(value, 'YYYY-MM-DD', true).isValid()) { access = true };
-                    break;
-                case 'emailverified':
-                    if (validEmail(value) || value === 'null') {  access = true };
-                    break;
-            };
-
-            console.log('birthday_valid', moment(value, 'YYYY-MM-DD', true).isValid());
-            console.log('type', type);
-            console.log('value', value);
-            console.log('access', access);
-
-            return userid;
-        };
-    })
-    .then((userid) => {        
-        if (access) {
-            if (type === 'gender' || type === 'birthday'|| type === 'emailverified') {
-                con.query(`UPDATE users SET ${type} = '${value}' WHERE userid = '${userid}'`, (err, result) => {
-                    log(`updade-user-info-${type}`, result ? result.affectedRows : err)
+    .then((user) => {
+        if (user === false) {throw new Error('error-autorisation')};
+        switch (type) {
+            case 'speed':
+                if (value >= 0.5 && value <= 2) { access = true };
+                break;
+            case 'pitch':
+                if (value >= 0 && value <= 2) { access = true };
+                break;
+            case 'voice':
+                voiceList.forEach(el => { 
+                    if (el === value) { access = true };
                 }); 
-            } else {
-                con.query(`UPDATE userssettings SET ${type} = '${value}' WHERE userid = '${userid}'`, (err, result) => {
-                    log(`updade-user-settings-${type}`, result ? result.affectedRows : err)
-                }); 
-            };                   
-            return `SELECT interface, my_lang FROM userssettings WHERE userid = '${userid}'`; 
-        } else {
-            throw new Error('bad-request');        
+                break;
+            case 'my_lang':
+                langList.forEach(el => { 
+                    if (el === value) { access = true };
+                });
+                break;
+            case 'interface':
+                langList.push('en-US', 'my');
+                langList.forEach(el => { 
+                    if (el === value) { access = true };
+                });
+                langList.splice(-2, 2);
+                break;
+            case 'color':
+                ['blue', 'red', 'green', 'yellow', 'grey'].forEach(el => { 
+                    if (el === value) { access = true };
+                });
+                break;
+            case 'gender':
+                if ((value === 'venus' || value === 'mars')) { access = true };
+                break;
+            case 'birthday':
+                if (moment(value, 'YYYY-MM-DD', true).isValid()) { access = true };
+                break;
+            case 'emailverified':
+                if (validEmail(value) || value === 'null') {  access = true };
+                break;
         };
+
+        console.log('birthday_valid', moment(value, 'YYYY-MM-DD', true).isValid());
+        console.log('type', type);
+        console.log('value', value);
+        console.log('access', access);
+
+        return user;        
     })
-    .then(getTableRecord)
-    .then((val) => {
-        interfaceLang = (val.err || val == '') ? 'en-US' : val[0].my_lang;
-        interfaceParam = (val.err || val == '') ? 'en-US' : val[0].interface; 
+    .then((user) => {     
+        if (!access) {throw new Error('bad-request')};        
+        con.query(`UPDATE users SET ${type} = '${value}' WHERE userid = '${user.userid}'`, (err, result) => {
+            log(`updade-user-info-${type}`, result ? result.affectedRows : err)
+        });                  
+        return {my_lang: (type === 'my_lang') ? value : user.my_lang, interface: user.interface};
+    })
+    .then((lang) => {
+        interfaceLang = (lang.my_lang === '') ? 'en-US' : lang.my_lang;
+        interfaceParam = (lang.interface === '') ? 'en-US' : lang.interface; 
         if (type === 'gender') {
             const translitName = (interfaceParam === 'my') 
             ? require(`./lang/${interfaceLang}`)[`${value}`] 
@@ -102,8 +89,8 @@ const setSettings = (req, res) => {
         };
     })
     .catch((err) => {
-        log('error', err);
-        res.send({"error": err.message});
+        log('settings-error', err);
+        res.status(500).send('SERVER ERROR: 500 (Internal Server Error)');
     });    
 };
 

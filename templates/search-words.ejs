@@ -20,7 +20,9 @@
                 <% } %> 
             <% } %> 
             <% if (DATA.permission.permAuthorised === 0) { %>
-                <p>Для додавання або редагування слів потрібно авторизуватися!</p>
+                <div class="settings_box_default">
+                    <b>You need to log in to add or edit words!</b>
+                </div>
             <% } %>             
         </div>
         <%- include("./parts/error.ejs") %>

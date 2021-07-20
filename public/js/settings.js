@@ -106,7 +106,6 @@ langList.forEach(el => { myLangBox.innerHTML += `<img src="./img/lang/${el}.png"
 changeSettingsLists($_('.settings-my-lang-box')[0].children, "my_lang", (result, i) => {
     if (!result.res && !result.error) { setLanguage(result) };
     if (result.res && !result.error && !myLangSet) { location.reload() };
-    if (result.error) { alertMessage.innerHTML = result.error };
     if (myLangSet) {      
         myLangSet.setAttribute("title", i.title);
         myLangSet.setAttribute("src", `./img/lang/${i.title}.png`);
@@ -119,7 +118,6 @@ colorBox.innerHTML = '';
 colorList.forEach(el => { colorBox.innerHTML += `<p class="${el}" title="${el}"></p>` });
 //change site color
 changeSettingsLists($_('.settings-color-box')[0].children, "color", (result, i) => {
-    if (result.error) { alertMessage.innerHTML = result.error }
     if (result.res) { location.reload() };
 });
 
