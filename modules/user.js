@@ -1,6 +1,6 @@
 const con = require('../db/connectToDB').con;
-const {log, clienttoken, getTableRecord, autorisationCheck, readyFullDate} = require('./service');
-const {langName, langList, voiceList} = require('./config');
+const {log, getTableRecord, autorisationCheck, readyFullDate} = require('./service');
+const {langName, langList, voiceList, interfaceList} = require('./config');
 const moment = require('moment');
 
 const DATA = {
@@ -97,9 +97,12 @@ const getUser = async (req, res, pageName) => {
         await getTableRecord(`SELECT * FROM users WHERE userid = '${userid.userid}'`)
         .then((user) => {
             if (user.err) { throw new Error(user.err) };
+            // let myLanguage = 'none';
+            // langList.forEach(el => { if (user[0].my_lang === el) {myLanguage = user[0].my_lang} });
+            let myLanguage = langList.includes(user[0].my_lang) ? user[0].my_lang : 'none';
 
-            let myLanguage = 'none';
-            langList.forEach(el => { if (user[0].my_lang === el) {myLanguage = user[0].my_lang} });
+            console.log('myLanguage', myLanguage);
+
             //permission
             DATA.permission.permAuthorised = 1;
             //user
@@ -128,9 +131,10 @@ const getUser = async (req, res, pageName) => {
                 DATA.voiceList = voiceList;
             };
             if ((pageName === 'main') || (pageName === 'search-words')) {
-                let param = true;
-                langList.forEach(el => { if (el === DATA.usersett.lang) {param = false} });
-                if (param) {
+                // let param = true;
+                // langList.forEach(el => { if (el === DATA.usersett.lang) {param = false} });
+
+                if (langList.includes(DATA.usersett.lang) ? false : true) {
                     DATA.usersett.lang = 'none';
                     DATA.langList = langList;
                     DATA.langName = langName;
@@ -139,16 +143,19 @@ const getUser = async (req, res, pageName) => {
             return DATA.usersett.interface;       
         })   
         .then((lang) => {
-            let access = false, langPack;
-            langList.push('en-US');    
-            langList.forEach(e => { if (e === lang) {access = true} });
-            langList.pop();
+            let langPack;
+            const access = langList.concat(interfaceList).includes(lang) ? true : false; 
+
+            // let access = false; 
+            // langList.push('en-US');    
+            // langList.forEach(e => { if (e === lang) {access = true} });
+            // langList.pop();
+
             try {
                 langPack = require(`./lang/${lang}`);
             } catch(e) {
                 langPack = require(`./lang/en-US`);
                 DATA.usersett.interface = 'en-US';
-                log('Module is not found', 0); 
             }
             if (access) { DATA.langPack = langPack };
         });

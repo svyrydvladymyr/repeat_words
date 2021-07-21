@@ -149,4 +149,11 @@ const changeSettingsLists = (list, type, resFun) => {
     };
 }; 
 
+//shows language list with language names
+const showLangList = (langStringList, langStringName, place) => {
+    langStringList.split(",").forEach((el, index) => { 
+        place.innerHTML += `<button class="selectLanguage" title="${el}" >${langStringName.split(",")[index]}<img src="../img/lang/${el}.png"></button>`; 
+    });   
+};
+
 

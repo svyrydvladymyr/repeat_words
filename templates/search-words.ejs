@@ -33,14 +33,9 @@
     <script src='./js/icon.js'></script>
     <% if (DATA.usersett.lang === 'none' && DATA.permission.permAuthorised === 1) { %>
         <script>
-            const langStringList = '<%=DATA.langList %>', langList = langStringList.split(",");
-            const langStringName = '<%=DATA.langName %>', langName = langStringName.split(","); 
             const selectLanguageBox = $_('.main_body > .part_wrap')[0];
-            langList.forEach((el, index) => { 
-                selectLanguageBox.innerHTML += `<button class="selectLanguage" title="${el}" >${langName[index]}<img src="../img/lang/${el}.png"></button>`; 
-            });            
+            showLangList('<%=DATA.langList %>', '<%=DATA.langName %>', selectLanguageBox);
             changeSettingsLists(selectLanguageBox.children, "my_lang", (result, i) => {
-                if (result.error) { alertMessage.innerHTML = result.error }
                 if (result.res) { location.reload() };
             });
         </script>

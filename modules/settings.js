@@ -1,60 +1,30 @@
 const con = require('../db/connectToDB').con;
 const moment = require('moment');
 
-const {log, getTableRecord, validEmail, autorisationCheck} = require('./service');
-const {langList, voiceList} = require('./config');
+const {log, validEmail, autorisationCheck} = require('./service');
+const {langList, voiceList, colorList, interfaceList} = require('./config');
 
 
 const setSettings = (req, res) => {
     const type = req.body.type, value = req.body.value;
-          let access = false, interfaceLang, interfaceParam;
-    // console.log('type', req.body.type);
-    // console.log('value', req.body.value);
-    // console.log('valueIS', !isNaN(req.body.value));
+    let access = false, interfaceLang, interfaceParam;
     autorisationCheck(req, res)
     .then((user) => {
         if (user === false) {throw new Error('error-autorisation')};
-        switch (type) {
-            case 'speed':
-                if (value >= 0.5 && value <= 2) { access = true };
-                break;
-            case 'pitch':
-                if (value >= 0 && value <= 2) { access = true };
-                break;
-            case 'voice':
-                voiceList.forEach(el => { 
-                    if (el === value) { access = true };
-                }); 
-                break;
-            case 'my_lang':
-                langList.forEach(el => { 
-                    if (el === value) { access = true };
-                });
-                break;
-            case 'interface':
-                langList.push('en-US', 'my');
-                langList.forEach(el => { 
-                    if (el === value) { access = true };
-                });
-                langList.splice(-2, 2);
-                break;
-            case 'color':
-                ['blue', 'red', 'green', 'yellow', 'grey'].forEach(el => { 
-                    if (el === value) { access = true };
-                });
-                break;
-            case 'gender':
-                if ((value === 'venus' || value === 'mars')) { access = true };
-                break;
-            case 'birthday':
-                if (moment(value, 'YYYY-MM-DD', true).isValid()) { access = true };
-                break;
-            case 'emailverified':
-                if (validEmail(value) || value === 'null') {  access = true };
-                break;
-        };
+        class Verification {
+            constructor(value){ this.value = value }            
+            speed() { return this.value >= 0.5 && this.value <= 2 ? true : false }
+            pitch() { return this.value >= 0 && this.value <= 2 ? true : false }
+            voice() { return voiceList.includes(value) }
+            my_lang() { return langList.includes(value) }
+            interface() { return langList.concat(interfaceList).includes(value) }
+            color() { return colorList.includes(value) }
+            gender() { return value === 'venus' || value === 'mars' ? true : false }
+            birthday() { return moment(value, 'YYYY-MM-DD', true).isValid() ? true : false }
+            emailverified() { return validEmail(value) || value === 'null' ? true : false }
+        }
+        access = new Verification(value)[type]();
 
-        console.log('birthday_valid', moment(value, 'YYYY-MM-DD', true).isValid());
         console.log('type', type);
         console.log('value', value);
         console.log('access', access);
@@ -73,17 +43,17 @@ const setSettings = (req, res) => {
         interfaceParam = (lang.interface === '') ? 'en-US' : lang.interface; 
         if (type === 'gender') {
             const translitName = (interfaceParam === 'my') 
-            ? require(`./lang/${interfaceLang}`)[`${value}`] 
-            : require(`./lang/en-US`)[`${value}`];
+                ? require(`./lang/${interfaceLang}`)[`${value}`] 
+                : require(`./lang/en-US`)[`${value}`];
             res.send({"res": `${translitName} <i class='fa fa-${value}'></i>`});
         } else if (type === 'interface') {
             (value === 'en-US') 
-            ? res.send(require(`./lang/${value}`)) 
-            : res.send(require(`./lang/${interfaceLang}`));
+                ? res.send(require(`./lang/${value}`)) 
+                : res.send(require(`./lang/${interfaceLang}`));
         } else if (type === 'my_lang') {    
             (interfaceParam === 'en-US') 
-            ? res.send({"res": value}) 
-            : res.send(require(`./lang/${interfaceLang}`));    
+                ? res.send({"res": value}) 
+                : res.send(require(`./lang/${interfaceLang}`));    
         } else {
             res.send({"res": (value == 'null') ? '' : value});
         };

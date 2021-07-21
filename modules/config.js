@@ -9,6 +9,13 @@ const langList = [
     'pl-PL', 
     'ru-RU'
 ];
+
+//interface list
+const interfaceList = [
+    'en-US', 
+    'my'
+];
+
 //languages name list
 const langName = [
     'УКРАЇНСЬКА', 
@@ -20,6 +27,7 @@ const langName = [
     'POLSKIE',
     'РОССИЙСКАЯ'
 ];
+
 //voice list
 const voiceList = [
     "Microsoft Zira Desktop - English (United States)",
@@ -29,9 +37,19 @@ const voiceList = [
     "Google UK English Male"
 ];
 
+//color list
+const colorList = [
+    'blue', 
+    'red', 
+    'green', 
+    'yellow', 
+    'grey'
+];
 
 module.exports = {
     voiceList,
     langName,
-    langList
+    langList,
+    colorList,
+    interfaceList
 }

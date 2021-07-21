@@ -614,19 +614,4 @@ input[type="email"]:focus {
 
 
 
-.show_menu_big {
-  display: flex;
-}
-.show_menu_small {
-  display: none;
-}
-
-@media screen and (max-width: 767px) {
-  .show_menu_big {
-    display: none;
-  }
-  .show_menu_small {
-    display: flex;
-  }
-}
 
