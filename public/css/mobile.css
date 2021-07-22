@@ -125,3 +125,14 @@ button[title='main btn'] {
 .user_settings_list::before { 
     display: none;
 }
+
+.modal_place{
+    width: 97%;
+    height: 97%;
+    padding: 30px 10px 10px 10px;
+}
+.modal_close{
+    color: var(--second-color);
+    right: 2%;
+    top: 2%;
+  }

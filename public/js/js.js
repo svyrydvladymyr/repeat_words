@@ -11,6 +11,7 @@ const validEmail = text => (text.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-
 const exit = () => { send({}, '/exit', (res) => { location.reload() }) };
 
 const alertMessage = $_('#alert-message')[0],
+      modal = $_('.modal_wrap')[0],
       voiceStorage = localStorage.getItem("SpeakVoice");
 let oldVersion, plase, forRemote = [];
 

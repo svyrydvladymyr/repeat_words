@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
 
         if (word.err) { throw new Error(word.err) }; 
         if (word == '') { 
-            res.send({"NO":"<div class='add-word-btn-wrap'><b>Такого слова в нашому переліку немає! Ви можете його добавити!</b><button><i class='fas fa-plus'></i></button></div>"}); 
+            res.send({"NO":`<div class='add-word-btn-wrap'><b>Такого слова в нашому переліку немає! Ви можете його добавити!</b><button id='add' onclick="showModal('add')"><i class='fas fa-plus'></i></button></div>`}); 
         }; 
         if (word != '') {
             res.send({"words": word}); 

@@ -39,3 +39,28 @@ settingsTemplate = {
     emailverified : 
         `<input type="email" class="forRemoteemailverified" onInput="this.parentNode.dataset.value = this.value" maxLength = "60" value="" title="">`
 };   
+
+
+modalTemplate = {
+    add:
+    `<div class="modal_body" onclick="closeModal(event)">
+        <div class="modal_close">
+            <i class='fa fa-times'></i>
+        </div>
+        <div class="modal_place">
+            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
+            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
+            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
+            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
+            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
+            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
+            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
+            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
+            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
+            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfgsdgsdfg sdf g</p>
+            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfgsdgsdfg sdf g</p>
+            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfgsdgsdfg sdf g</p>
+            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfgsdgsdfg sdf g</p>
+        </div>        
+    </div>`
+}
