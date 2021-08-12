@@ -57,7 +57,7 @@ window.onclick = function(event) {
         };
     };
 
-    console.log(forRemote);
+    // console.log(forRemote);
 
     ['gender', 'birthday', 'emailverified'].forEach(element => {
         if (!event.target.matches(`#${element}>b>.fa-edit`) &&
@@ -93,23 +93,19 @@ window.onclick = function(event) {
 //date format day
 const readyDay = function(fullDate){
     const createDate = new Date(fullDate);
-    return finDay = ((createDate.getDate() >= 1) && (createDate.getDate() <= 9)) ? "0" + createDate.getDate() : createDate.getDate();
+    return ((createDate.getDate() >= 1) && (createDate.getDate() <= 9)) ? "0" + createDate.getDate() : createDate.getDate();
 };  
 
 //date format month
 const readyMonth = function(fullDate){    
     const createDate = new Date(fullDate);
-    return finMonth = ((createDate.getMonth() >= 0) && (createDate.getMonth() <= 8)) 
-        ? "0" + (createDate.getMonth()+1) 
-        : (createDate.getMonth() == 9) ? 10 
-        : (createDate.getMonth() == 10) ? 11
-        : (createDate.getMonth() == 11) ? 12 : null;          
+    return ((createDate.getMonth() >= 0) && (createDate.getMonth() <= 8)) ? "0" + (createDate.getMonth() + 1) : createDate.getMonth() + 1;          
 }; 
 
 //for send AJAX  
 const send = (obj, url, fun, req = 'POST') => {
     xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onload = function() {
         if (this.readyState == 4 && this.status == 200) {
             fun(this.responseText);
         }};
@@ -128,21 +124,17 @@ const getVoicesIndex = (voices, defaultVoice) => {
     return indexFin;
 };
 
-//change settings lists (interface, language, color)
+//change settings lists (interface, language, colo, birthday, emailverified)
 const changeSettingsLists = (list, type, resFun) => {
     for (const i of list) {
-        // const obj = {"type": type, "value": i.title};
-        // let event = 'click';
-        // (type === 'birthday') ? event = "change" : null;
-        // (type === 'emailverified') ? event = "change" : null;
-        i.addEventListener((type === 'birthday' || type === 'emailverified') ? 'change' : 'click', () => { 
-            // const value = (type === 'birthday') ? $_(`.forRemote${type}`)[0].value : i.title;
-            // const value = i.title;
+        const types = {
+            birthday : 'change',
+            emailverified : 'change'
+        };
+        i.addEventListener(types[type] || 'click', () => { 
             if (i.title !== '') {
                 send({"type": type, "value": i.title} , '/setsettings', (result) => {
-                    // const res = JSON.parse(result);
                     alertMessage.innerHTML = '';
-                    // console.log('res', JSON.parse(result));
                     resFun(JSON.parse(result), i);
                 });
             };

@@ -1,6 +1,6 @@
 const con = require('../db/connectToDB').con;
 const {log, getTableRecord, autorisationCheck, readyFullDate} = require('./service');
-const {langName, langList, voiceList, interfaceList} = require('./config');
+const {langName, langList, voiceList} = require('../config/config_variables');
 const moment = require('moment');
 
 const DATA = {
@@ -64,15 +64,16 @@ const clearDATA = () => {
 };
 
 const addUser = (profile, done) => {
+    const {id, name: {givenName = '', familyName = ''}, emails: [{value: email = ''}], photos: [{value: photo = ''}], provider} = profile;
     const date = new Date();        
     const sql = `INSERT INTO users (userid, name, surname, email, date_registered, ava, provider) 
-               VALUES ('${profile.id}', 
-               '${profile.name.givenName === undefined ? "" : profile.name.givenName}', 
-               '${profile.name.familyName === undefined ? "" : profile.name.familyName}', 
-               '${profile.emails === undefined ? "" : profile.emails[0].value}', 
+               VALUES ('${id}', 
+               '${givenName}', 
+               '${familyName}', 
+               '${email}', 
                '${date.toISOString().slice(0,10)} ${date.getHours()}:${date.getMinutes()}', 
-               '${profile.photos === undefined ? "" : profile.photos[0].value}', 
-               '${profile.provider === undefined ? "" : profile.provider}')`;     
+               '${photo}', 
+               '${provider}')`;     
     con.query(sql, (error, result) => {
         error 
             ? done(`Error creating user record: ${error}`, null) 
@@ -80,12 +81,12 @@ const addUser = (profile, done) => {
     });
 };
 
-const isUser = (profile) => {
+const isUser = ({id, name: {familyName = '', givenName = ''}, photos: [{value: photo = ''}]}) => {
     con.query(`UPDATE users SET 
-        name = '${profile.name.givenName === undefined ? "" : profile.name.givenName}', 
-        surname = '${profile.name.givenName === undefined ? "" : profile.name.givenName}', 
-        ava = '${profile.photos === undefined ? "" : profile.photos[0].value}' 
-    WHERE userid = '${profile.id}'`, (err, result) => { 
+        name = '${givenName}', 
+        surname = '${familyName}', 
+        ava = '${photo}'
+    WHERE userid = '${id}'`, (err, result) => { 
         if (err) { log("error-update-user", err.code) };
     });
 };
@@ -97,43 +98,41 @@ const getUser = async (req, res, pageName) => {
         await getTableRecord(`SELECT * FROM users WHERE userid = '${userid.userid}'`)
         .then((user) => {
             if (user.err) { throw new Error(user.err) };
-            // let myLanguage = 'none';
-            // langList.forEach(el => { if (user[0].my_lang === el) {myLanguage = user[0].my_lang} });
-            let myLanguage = langList.includes(user[0].my_lang) ? user[0].my_lang : 'none';
-
+            const {userid, name, surname, ava, birthday, gender,
+                   speed, pitch, voice, color, interface, my_lang,  
+                   emailverified, email, provider, date_registered} = user[0];
+            let myLanguage = langList.includes(my_lang) ? my_lang : 'none';
+            
             console.log('myLanguage', myLanguage);
 
             //permission
             DATA.permission.permAuthorised = 1;
             //user
-            DATA.user.id = user[0].userid;
-            DATA.user.name = user[0].name;
-            DATA.user.surname = user[0].surname;
-            DATA.user.foto = user[0].ava;
+            DATA.user.id = userid;
+            DATA.user.name = name;
+            DATA.user.surname = surname;
+            DATA.user.foto = ava;
             //usersettings
-            DATA.usersett.spead = user[0].speed;
-            DATA.usersett.pitch = user[0].pitch;
-            DATA.usersett.voice = user[0].voice;
+            DATA.usersett.spead = speed;
+            DATA.usersett.pitch = pitch;
+            DATA.usersett.voice = voice;
             DATA.usersett.lang = myLanguage;
-            DATA.usersett.color = user[0].color;
-            DATA.usersett.interface = (user[0].interface === 'my' && myLanguage !== 'none') ? user[0].my_lang : 'en-US';
+            DATA.usersett.color = color;
+            DATA.usersett.interface = (interface === 'my' && myLanguage !== 'none') ? my_lang : 'en-US';
             if (pageName === 'profile') {
-                const birthday = (user[0].birthday !== null && user[0].birthday !== '') ? moment(user[0].birthday).format('YYYY-MM-DD') : '';
-                const email = (user[0].emailverified === 'null' || user[0].emailverified === '') ? user[0].email : user[0].emailverified;
-                DATA.user.email = (email === 'null') ? '' : email;
-                DATA.user.birthday = birthday;
-                DATA.user.gender = user[0].gender;
-                DATA.user.provider = user[0].provider;
-                DATA.user.date_registered = readyFullDate(user[0].date_registered, 'reverse');
+                const birthdayVer = (birthday !== null && birthday !== '') ? moment(birthday).format('YYYY-MM-DD') : '';
+                const emailVer = (emailverified === 'null' || emailverified === '') ? email : emailverified;
+                DATA.user.email = (emailVer === 'null') ? '' : emailVer;
+                DATA.user.birthday = birthdayVer;
+                DATA.user.gender = gender;
+                DATA.user.provider = provider;
+                DATA.user.date_registered = readyFullDate(date_registered, 'reverse');
             };
             if (pageName === 'settings') {
                 DATA.langList = langList;
                 DATA.voiceList = voiceList;
             };
             if ((pageName === 'main') || (pageName === 'search-words')) {
-                // let param = true;
-                // langList.forEach(el => { if (el === DATA.usersett.lang) {param = false} });
-
                 if (langList.includes(DATA.usersett.lang) ? false : true) {
                     DATA.usersett.lang = 'none';
                     DATA.langList = langList;
@@ -144,13 +143,7 @@ const getUser = async (req, res, pageName) => {
         })   
         .then((lang) => {
             let langPack;
-            const access = langList.concat(interfaceList).includes(lang) ? true : false; 
-
-            // let access = false; 
-            // langList.push('en-US');    
-            // langList.forEach(e => { if (e === lang) {access = true} });
-            // langList.pop();
-
+            const access = [...langList, 'en-US', 'my'].includes(lang) ? true : false; 
             try {
                 langPack = require(`./lang/${lang}`);
             } catch(e) {

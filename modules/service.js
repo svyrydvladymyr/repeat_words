@@ -40,31 +40,27 @@ const readyMin = function(fullDate){
 //date format day
 const readyDay = function(fullDate){
     const createDate = new Date(fullDate);
-    return finDay = ((createDate.getDate() >= 1) && (createDate.getDate() <= 9)) ? "0" + createDate.getDate() : createDate.getDate();
+    return ((createDate.getDate() >= 1) && (createDate.getDate() <= 9)) ? "0" + createDate.getDate() : createDate.getDate();
 };  
 
 //date format month
 const readyMonth = function(fullDate){    
     const createDate = new Date(fullDate);
-    return finMonth = ((createDate.getMonth() >= 0) && (createDate.getMonth() <= 8)) 
-        ? "0" + (createDate.getMonth()+1) 
-        : (createDate.getMonth() == 9) ? 10 
-        : (createDate.getMonth() == 10) ? 11
-        : (createDate.getMonth() == 11) ? 12 : null;          
+    return ((createDate.getMonth() >= 0) && (createDate.getMonth() <= 8)) ? "0" + (createDate.getMonth() + 1) : createDate.getMonth() + 1;          
 }; 
 
 //ready full date
 const readyFullDate = (fullDate, reverse) => {
-    const dateRegFull = new Date(fullDate);
-    const dateRegFullEmpty = new Date();
+    const dateFull = new Date(fullDate);
+    const DATE = new Date();
     if (reverse === 'reverse'){
-        return dateReg = ((fullDate === '') || (fullDate === undefined)) 
-            ? dateRegFullEmpty.getHours() + ":" + readyMin(dateRegFullEmpty) + " " + readyDay(dateRegFullEmpty) + "-" + readyMonth(dateRegFullEmpty) + "-" + dateRegFullEmpty.getFullYear() 
-            : dateRegFull.getHours() + ":" + readyMin(dateRegFull) + " " + readyDay(dateRegFull) + "-" + readyMonth(dateRegFull) + "-" + dateRegFull.getFullYear();
+        return ((fullDate === '') || (fullDate === undefined)) 
+            ? DATE.getHours() + ":" + readyMin(DATE) + " " + readyDay(DATE) + "-" + readyMonth(DATE) + "-" + DATE.getFullYear() 
+            : dateFull.getHours() + ":" + readyMin(dateFull) + " " + readyDay(dateFull) + "-" + readyMonth(dateFull) + "-" + dateFull.getFullYear();
     } else {
-        return dateReg = ((fullDate === '') || (fullDate === undefined))
-            ? dateRegFullEmpty.getHours() + ":" + readyMin(dateRegFullEmpty) + " " + dateRegFullEmpty.getFullYear() + "-" + readyMonth(dateRegFullEmpty) + "-" + readyDay(dateRegFullEmpty)
-            : dateRegFull.getHours() + ":" + readyMin(dateRegFull) + " " + dateRegFull.getFullYear() + "-" + readyMonth(dateRegFull) + "-" + readyDay(dateRegFull);
+        return ((fullDate === '') || (fullDate === undefined))
+            ? DATE.getHours() + ":" + readyMin(DATE) + " " + DATE.getFullYear() + "-" + readyMonth(DATE) + "-" + readyDay(DATE)
+            : dateFull.getHours() + ":" + readyMin(dateFull) + " " + dateFull.getFullYear() + "-" + readyMonth(dateFull) + "-" + readyDay(dateFull);
     };
 };
 

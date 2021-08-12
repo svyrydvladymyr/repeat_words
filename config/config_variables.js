@@ -11,10 +11,10 @@ const langList = [
 ];
 
 //interface list
-const interfaceList = [
-    'en-US', 
-    'my'
-];
+// const interfaceList = [
+//     'en-US', 
+//     'my'
+// ];
 
 //languages name list
 const langName = [
@@ -50,6 +50,5 @@ module.exports = {
     voiceList,
     langName,
     langList,
-    colorList,
-    interfaceList
+    colorList
 }

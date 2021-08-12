@@ -48,19 +48,39 @@ modalTemplate = {
             <i class='fa fa-times'></i>
         </div>
         <div class="modal_place">
-            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
-            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
-            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
-            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
-            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
-            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
-            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
-            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
-            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfg cvbncvbn cvbncvb nvbn  cvbcvbn cv ncv nvbsdgsdfg sdf g</p>
-            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfgsdgsdfg sdf g</p>
-            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfgsdgsdfg sdf g</p>
-            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfgsdgsdfg sdf g</p>
-            <p>sdfvsdfsd fsdg sdfg sdfgsdfgsd gsdfgsd fgsdfgsdf gsdfgsdgsdfg sdf g</p>
+            <div class="add">
+                <input type="text" name="word" placeholder="Search...">
+                <div class="icon_box">
+                    <i class='fa fa-file-word'></i>
+                </div>                
+            </div>  
+            <div class="add_translate">
+                <div class="add">                
+                    <input type="text" name="translate" placeholder="Search...">
+                    <div class="icon_box">
+                        <i class='fa fa-language'></i>
+                        <i class='fas fa-plus' onclick="plusTranslate(this, 'plus')"></i>
+                    </div>
+                </div>  
+            </div>
+            <div class="add">
+                <input type="text" name="description" placeholder="Search...">                
+                <div class="icon_box">
+                    <i class='fa fa-pen-alt'></i>
+                </div>
+            </div>  
+            <div class="add">
+                <p class="add_difficulty_label">Тільки для вас!</p>
+                <input type="range" name="difficulty" min="0" max="2" value="1" step="1" onchange="difficultyRangeColor(this)">                
+                <div class="icon_box">
+                    <i class='fa fa-brain'></i>
+                </div>
+                <div class="add_difficulty">
+                    <i class='fas fa-battery-full'></i>
+                    <i class='fas fa-battery-half'></i>
+                    <i class='fas fa-battery-quarter'></i>
+                </div>
+            </div>  
         </div>        
     </div>`
 }

@@ -557,7 +557,8 @@ input[type="email"]:focus {
 }
 
 /*search ---------------------------------------------------------*/
-.search{
+.search, .add{
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -566,7 +567,7 @@ input[type="email"]:focus {
   margin-top: 26px;
   margin-bottom: 26px;
 }
-.search > input{
+.search > input, .add > input{
   outline: 0;
   border: 0;
   text-align: center;
@@ -579,7 +580,7 @@ input[type="email"]:focus {
 .search > input::placeholder {
   color: var(--fourth-color)
 }
-.search > i{
+.search > i, .add i{
   font-size: 18px;
   color: var(--second-color);
   margin-left: 10px;
@@ -604,8 +605,55 @@ input[type="email"]:focus {
   margin: 20px auto 4px auto;
   background-color: #fff;
 }
+.icon_box{
+  width:17%
+}
+.icon_box .fa-minus, .icon_box .fa-plus{
+  cursor: pointer;
+}
 
+/*add word ---------------------------------------------------------*/
+.add > input[type='range']{
+  height: 0px;
+  padding: 0;
+  border-radius: 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  max-width: 300px;
+  width: 64%;
+}
+.add input{
+  width: 64%;
+  margin-left: 10%;
+}
+.add_difficulty{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: absolute;
+  width: 64%;
+  max-width: 300px;
+  margin-left: -7%;
+  bottom: 3px;
+}
+.add_difficulty_label{
+  position: absolute;
+  width: 64%;
+  max-width: 300px;
+  margin-left: -7%;
+  top: -7px;
+  text-align: center;
+  color: grey;
+  font-size: 12px;
+}
 
+.add > .add_difficulty > i{
+  font-size: 13px;
+  margin: 0;
+  color: #eae9e9;
+}
+
+/*modal ---------------------------------------------------------*/
 .modal_wrap{
   outline: 2px solid red;
   position: absolute;
@@ -629,7 +677,7 @@ input[type="email"]:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #3e3e3eb3;
+  background: #3b3b3bf0;
   z-index: 9;
   display: flex;
   flex-wrap: wrap;
@@ -637,16 +685,16 @@ input[type="email"]:focus {
   align-items: center;
 }
 .modal_place{
-  border: 2px solid var(--second-color);
+  border: 1px solid var(--second-color);
   border-radius:9px;
   width: fit-content;
   height: fit-content;
   max-width: 900px;
   max-height: 100%;  
-  min-width: 150px;
-  min-height: 150px;
-  background: var(--fourth-color);
-  box-shadow: 0px 0px 10px var(--fourth-color);
+  min-width: 400px;
+  min-height: 200px;
+  background: #fff;
+  box-shadow: 0px 0px 3px var(--fourth-color);
   padding: 10px;
 }
 

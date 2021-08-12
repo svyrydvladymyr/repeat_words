@@ -30,3 +30,38 @@ if (searchInput) {
         }, 900);
     });
 };
+
+const plusTranslate = (element, type) => {
+    const translateBody = $_('.add_translate')[0];
+    const translateBodyChild = translateBody.children;
+    const childPlaceholder = translateBodyChild[0].children[0].placeholder;
+    const plusTransBody = document.createElement("div");
+    plusTransBody.setAttribute('class', 'add');
+    plusTransBody.innerHTML = `<input type="text" name="translate" placeholder="${childPlaceholder}">
+                               <div class="icon_box">
+                                   <i class='fa fa-language'></i>
+                                   <i class='fas fa-plus' onclick="plusTranslate(this, 'plus')"></i>
+                               </div>`;
+    class classLists { constructor(){}
+        style(element, first, second){
+            element.classList.replace(`fa-${first}`, `fa-${second}`);
+            element.setAttribute('onclick', `plusTranslate(this, '${second}')`);
+        };
+    };
+    const classStyle = new classLists();    
+    if (type === 'plus') {
+        classStyle.style(element, 'plus', 'minus');
+        if (translateBodyChild.length < 3) { translateBody.appendChild(plusTransBody) };
+        if (translateBodyChild.length === 3) { classStyle.style(translateBodyChild[translateBodyChild.length - 1].children[1].children[1], 'plus', 'minus') };
+    };
+    if (type === 'minus') {
+        element.parentNode.parentNode.remove();
+        if (translateBodyChild.length < 3) { classStyle.style(translateBodyChild[translateBodyChild.length - 1].children[1].children[1], 'minus', 'plus') };
+    };
+};
+
+const difficultyRangeColor = (range) => {
+    const difficultyWrap = [...$_('.add_difficulty')[0].children];
+    difficultyWrap.forEach(el => { el.style.color = '#eae9e9' });
+    difficultyWrap[range.value].style.color = 'var(--second-color)';
+};

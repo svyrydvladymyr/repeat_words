@@ -6,6 +6,7 @@ const closeModal = (el) => {
     if (valClose) { modal.innerHTML = '' }; 
 }; 
 
+
 const showModal = function(type){
 
     console.log('type', type);

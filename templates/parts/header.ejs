@@ -7,7 +7,7 @@
         <% if (DATA.permission.permAuthorised === 1) { %>
             <p id="user_name"><%=DATA.user.surname %> <%=DATA.user.name %></p>
             <div class="user_foto">
-                <img src="<%=DATA.user.foto %>" alt="foto" id="user_foto">                
+                <img src="<%=DATA.user.foto %>" alt="foto" id="user_foto" onerror="this.onerror=null; this.src='img/no_user.png';" />                
                 <div class="user_settings_list_wrap">
                     <i class='fas fa-cogs' onclick="showSettingsList()"></i> 
 

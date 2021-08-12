@@ -2,7 +2,7 @@ const con = require('../db/connectToDB').con;
 const moment = require('moment');
 
 const {log, validEmail, autorisationCheck} = require('./service');
-const {langList, voiceList, colorList, interfaceList} = require('./config');
+const {langList, voiceList, colorList} = require('../config/config_variables');
 
 
 const setSettings = (req, res) => {
@@ -17,7 +17,7 @@ const setSettings = (req, res) => {
             pitch() { return this.value >= 0 && this.value <= 2 ? true : false }
             voice() { return voiceList.includes(value) }
             my_lang() { return langList.includes(value) }
-            interface() { return langList.concat(interfaceList).includes(value) }
+            interface() { return [...langList, 'en-US', 'my'].includes(value) }
             color() { return colorList.includes(value) }
             gender() { return value === 'venus' || value === 'mars' ? true : false }
             birthday() { return moment(value, 'YYYY-MM-DD', true).isValid() ? true : false }
