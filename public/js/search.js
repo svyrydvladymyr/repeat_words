@@ -63,5 +63,7 @@ const plusTranslate = (element, type) => {
 const difficultyRangeColor = (range) => {
     const difficultyWrap = [...$_('.add_difficulty')[0].children];
     difficultyWrap.forEach(el => { el.style.color = '#eae9e9' });
-    difficultyWrap[range.value].style.color = 'var(--second-color)';
+    difficultyWrap[range.value].style.color = 'var(--second-color)';    
 };
+
+const showLists = () => { $_('.add_lists_list')[0].classList.toggle('add_lists_show') };

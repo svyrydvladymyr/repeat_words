@@ -567,7 +567,7 @@ input[type="email"]:focus {
   margin-top: 26px;
   margin-bottom: 26px;
 }
-.search > input, .add > input{
+.search > input, .add > input, .search-wrap > input{
   outline: 0;
   border: 0;
   text-align: center;
@@ -608,7 +608,7 @@ input[type="email"]:focus {
 .icon_box{
   width:17%
 }
-.icon_box .fa-minus, .icon_box .fa-plus{
+.icon_box .fa-minus, .icon_box .fa-plus, .icon_box .fa-chevron-down{
   cursor: pointer;
 }
 
@@ -626,7 +626,7 @@ input[type="email"]:focus {
   width: 64%;
   margin-left: 10%;
 }
-.add_difficulty{
+.add_difficulty, .add_lists{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -652,6 +652,72 @@ input[type="email"]:focus {
   margin: 0;
   color: #eae9e9;
 }
+.add_lists{
+  position: relative;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 2px 0px -3px 10%;
+  padding: 5px;
+  color: grey;
+  font-size: 12px;
+}
+.add_lists > input{
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  margin-right: 10px;
+}
+.add_lists > label{
+  width: 88%;
+  word-break: break-word;
+}
+.add_lists_list{
+  display: none;
+  margin: 24px auto;
+  padding: 5px 10px;
+  max-width: 330px;
+  width: 100%;
+  max-height: 220px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border: 8px solid #fff;
+  box-shadow: 0px 0px 2px #a0a0a0;
+  border-radius: 9px;
+}
+.add_lists_show{ display: block }
+
+.add_lists_list::-webkit-scrollbar {
+  width: 12px;
+}
+.add_lists_list::-webkit-scrollbar-thumb {
+  background: var(--fourth-color);
+  border-radius: 9px;
+}
+.add_lists_list > .add_lists{
+  margin: 0;
+  width: 100%;
+}
+.add_lists_list > .search-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  background: #fff;
+  position: sticky;
+  top: -5px;
+  z-index: 1;
+}
+.search-wrap > input {
+  width: 70%;
+  margin-left: 0%;
+  margin-bottom: 6px;
+}
+button[title='Add word'] {
+  width: 130px;
+  margin-top: 20px;
+}
+
 
 /*modal ---------------------------------------------------------*/
 .modal_wrap{
@@ -691,11 +757,19 @@ input[type="email"]:focus {
   height: fit-content;
   max-width: 900px;
   max-height: 100%;  
-  min-width: 400px;
+  min-width: 500px;
   min-height: 200px;
+  overflow-x: auto;
   background: #fff;
   box-shadow: 0px 0px 3px var(--fourth-color);
   padding: 10px;
+}
+.modal_place::-webkit-scrollbar {
+  width: 12px;
+}
+.modal_place::-webkit-scrollbar-thumb {
+  background: var(--fourth-color);
+  border-radius: 9px;
 }
 
 

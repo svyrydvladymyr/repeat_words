@@ -136,4 +136,7 @@ button[title='main btn'] {
     color: var(--second-color);
     right: 2%;
     top: 2%;
-  }
+}
+.add_lists > label{
+    width: 75%;
+}

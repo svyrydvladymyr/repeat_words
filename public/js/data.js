@@ -77,10 +77,57 @@ modalTemplate = {
                 </div>
                 <div class="add_difficulty">
                     <i class='fas fa-battery-full'></i>
-                    <i class='fas fa-battery-half'></i>
+                    <i class='fas fa-battery-half' style="color:var(--second-color)"></i>
                     <i class='fas fa-battery-quarter'></i>
                 </div>
             </div>  
+            <div class="add">
+                <div class="add_lists">
+                    <input type="checkbox" name="lists" id="lists" checked onclick="return false"/>      
+                    <label for="lists">Додається до головного списку слів!</label>
+                </div>
+                <div class="icon_box">
+                    <i class='fa fa-list-alt'></i>
+                    <i class='fa fa-chevron-down' onclick="showLists()"></i>
+                </div>
+            </div>  
+            <div class="add add_lists_list">
+                <div class="search-wrap">
+                    <input type="text" name="search_list" placeholder="Search list...">
+                </div>                
+                <div class="add_lists">
+                    <input type="checkbox" value="0001">      
+                    <label>Додається до головного sdfsdf sdfs df sdf  wxd fsdfgsdf sdfg gh списку слів!</label>
+                </div>
+                <div class="add_lists">
+                    <input type="checkbox" value="0001">     
+                    <label>Додається до головного сcvbcvbcvb cvbcvbcvbcvbcvbdfbdfbxcvbcbcbcbdbdbdfbdfdbdfbdfbdfbdbcvbedfbdfbпиfgh dfghску слів!</label>
+                </div>
+                <div class="add_lists">
+                    <input type="checkbox" value="0001">     
+                    <label>Додається до головногоdfghdsf hgdfg списку слів!</label>
+                </div>
+                <div class="add_lists">
+                    <input type="checkbox" value="0001">     
+                    <label>Додається до головногоdf ghdf списку слів!</label>
+                </div>
+                <div class="add_lists">
+                    <input type="checkbox" value="0001">     
+                    <label>Додається до головного списку слів!</label>
+                </div>
+                <div class="add_lists">
+                    <input type="checkbox" value="0001">     
+                    <label>Додається до головного hdfgdf hdfgh dfghdf ghdfghdf gh списку слів!</label>
+                </div>
+                <div class="add_lists">
+                    <input type="checkbox" value="0001">     
+                    <label>Додається до головного списку слів!</label>
+                </div>
+            </div>
+            <div class="add">
+                <button id='btnSpeak' title="Add word">Clear <i class='fa fa-times'></i></button>
+                <button id='btnSpeak' title="Add word">Save <i class='far fa-paper-plane'></i></button>
+            </div>
         </div>        
     </div>`
 }
